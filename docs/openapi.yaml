@@ -1,0 +1,227 @@
+openapi: 3.0.0
+info:
+  title: Harmonic Reasoning API
+  description: Deterministic reasoning with Zürich + Trinity debate + ASI fusion + SaaS auth
+  version: 1.0.0
+  contact:
+    name: Harmonic Team
+    url: https://github.com/LedjanAhmati/harmonic
+
+servers:
+  - url: http://localhost:5000
+    description: Local development
+  - url: https://harmonic-ledjanahmati.vercel.app
+    description: Production (Vercel)
+
+tags:
+  - name: Reasoning
+    description: Core reasoning endpoints
+  - name: Auth
+    description: Authentication and user management
+  - name: System
+    description: System info and health
+
+paths:
+  /v1/zurich:
+    post:
+      tags:
+        - Reasoning
+      summary: Zürich Deterministic Reasoning
+      description: Pure logic-based reasoning without AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  example: "Cfare do te bejme sot?"
+              required:
+                - prompt
+      responses:
+        '200':
+          description: Successful reasoning response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  prompt:
+                    type: string
+                  final:
+                    type: string
+                  cycle:
+                    type: string
+                  debug:
+                    type: object
+        '400':
+          description: Missing prompt
+
+  /v1/debate:
+    post:
+      tags:
+        - Reasoning
+      summary: Trinity Multi-Persona Debate
+      description: Get perspectives from 5 personas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                personas:
+                  type: array
+                  items:
+                    type: string
+                  default: ["alba", "albi", "jona", "blerina", "asi"]
+      responses:
+        '200':
+          description: Debate responses from all personas
+
+  /v1/asi-fusion:
+    post:
+      tags:
+        - Reasoning
+      summary: ASI Fusion (Combined Reasoning)
+      description: Combines Zürich + Trinity + Brain memory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                options:
+                  type: object
+                  properties:
+                    includeZurich:
+                      type: boolean
+                      default: true
+                    includeDebate:
+                      type: boolean
+                      default: true
+                    includeBrain:
+                      type: boolean
+                      default: false
+      responses:
+        '200':
+          description: Combined reasoning result
+
+  /v1/auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Create Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              required:
+                - email
+                - password
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  userId:
+                    type: string
+                  token:
+                    type: string
+        '409':
+          description: User already exists
+
+  /v1/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Login successful
+
+  /v1/user/me:
+    get:
+      tags:
+        - Auth
+      summary: Get Current User
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User info
+        '401':
+          description: Unauthorized
+
+  /v1/usage:
+    get:
+      tags:
+        - Auth
+      summary: Get Usage Statistics
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Usage stats
+
+  /v1/info:
+    get:
+      tags:
+        - System
+      summary: API Information
+      responses:
+        '200':
+          description: API endpoints and info
+
+  /health:
+    get:
+      tags:
+        - System
+      summary: Health Check
+      responses:
+        '200':
+          description: Server is running
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token from login
