@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "Harmonic Reasoning API",
+    "description": "Complete API: Zürich + Trinity + ASI + SaaS Auth",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Zürich Deterministic Reasoning",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Cfare do te bejme sot?\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/v1/zurich",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "v1",
+            "zurich"
+          ]
+        },
+        "description": "Deterministic reasoning without AI - pure logic-based analysis"
+      },
+      "response": []
+    },
+    {
+      "name": "Trinity Debate",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"A ia vlen te ndertoj nje startup AI ne 2025?\",\n  \"personas\": [\"alba\", \"albi\", \"jona\", \"blerina\", \"asi\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/v1/debate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "v1",
+            "debate"
+          ]
+        },
+        "description": "Multi-persona debate with Trinity system (5 personas)"
+      },
+      "response": []
+    },
+    {
+      "name": "ASI Fusion (Combined)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Jam i lodhur dhe kam frike qe nuk do arrij dot sukses financiar.\",\n  \"options\": {\n    \"includeZurich\": true,\n    \"includeDebate\": true,\n    \"includeBrain\": false\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/v1/asi-fusion",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "v1",
+            "asi-fusion"
+          ]
+        },
+        "description": "Combined reasoning: Zürich + Trinity + optional Brain memory"
+      },
+      "response": []
+    },
+    {
+      "name": "Full Cycle Run",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Si mund ta shes produktin tim te ri AI?\",\n  \"mode\": \"full\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/v1/cycle/run",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "v1",
+            "cycle",\n            \"run\"\n          ]\n        },\n        \"description\": \"Full Zürich cycle with all stages: intake, preprocess, tags, interpret, reason, strategy, draft, final\"\n      },\n      \"response\": []\n    },\n    {\n      \"name\": \"API Info\",\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"http://localhost:5000/v1/info\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"localhost\"\n          ],\n          \"port\": \"5000\",\n          \"path\": [\n            \"v1\",\n            \"info\"\n          ]\n        },\n        \"description\": \"Get API information and available endpoints\"\n      },\n      \"response\": []\n    },\n    {\n      \"name\": \"Health Check\",\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"http://localhost:5000/health\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"localhost\"\n          ],\n          \"port\": \"5000\",\n          \"path\": [\n            \"health\"\n          ]\n        },\n        \"description\": \"Server health check\"\n      },\n      \"response\": []\n    }\n  ]\n}

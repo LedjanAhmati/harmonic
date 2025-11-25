@@ -5,6 +5,7 @@ import { MemoryBank } from './src/memory-bank.js';
 import { initializeDatabase, getDatabase } from './src/database.js';
 import zurichRoutes from './src/zurich-routes.js';
 import brainSearchRoutes from './routes/brain-search.js';
+import reasoningRoutes from './routes/reasoning.js';
 import { initializeIndex } from './src/indexer.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -66,6 +67,11 @@ app.use('/api/zurich', zurichRoutes);
  * Register Brain Search Routes
  */
 app.use(brainSearchRoutes);
+
+/**
+ * Register Reasoning Routes (v1 API)
+ */
+app.use(reasoningRoutes);
 
 /**
  * POST /debate - Main debate endpoint
