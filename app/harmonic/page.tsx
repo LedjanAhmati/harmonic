@@ -32,10 +32,10 @@ interface APIResponse {
   };
 }
 
-// Call local SAAS API for debate
+// Call Next.js API for debate
 async function callSaasDebate(topic: string): Promise<any> {
   try {
-    const response = await fetch("http://localhost:5000/debate", {
+    const response = await fetch("/api/v1/debate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ topic })
@@ -51,7 +51,7 @@ async function callSaasDebate(topic: string): Promise<any> {
     console.error("SAAS API error:", errorMsg);
     return {
       error: true,
-      message: `⚠️ SAAS API unavailable: ${errorMsg}`
+      message: `⚠️ API unavailable: ${errorMsg}`
     };
   }
 }
@@ -107,7 +107,7 @@ export default function HarmonicPage() {
       console.error("Debate error:", errorMsg);
       const fallbackMsg: Message = {
         type: 'ai',
-        text: `⚠️ Error: ${errorMsg}. Make sure SAAS API is running on port 5000.`,
+        text: `⚠️ Error: ${errorMsg}. Make sure the Next.js API is running.`,
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, fallbackMsg]);
