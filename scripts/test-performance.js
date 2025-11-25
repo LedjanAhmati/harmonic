@@ -163,8 +163,7 @@ async function runTests() {
   console.log("\n✅ Performance test complete!\n");
 
   console.log("📊 Summary:");
-  console.log(`  - Zurich Fast: ${avgZurich}ms average (${zurichTimes.join(", ")}ms)`);
-  console.log(`  - Cache working: ${stats?.hitRate || 0}% hit rate`);
+    console.log(`  - Zurich Fast: ${avgZurich}ms average (${zurichTimes.join(", ")}ms)`);
   console.log(`  - Status: ${zurichTimes.every((t) => t < 20) ? "✅ EXCELLENT" : "⚠️  NEEDS TUNING"}`);
 
   console.log("\n💡 Next steps:");
