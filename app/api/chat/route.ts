@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { orchestrate } from "@/lib/trinity/orchestrator";
 
 export async function POST(req: Request) {
   try {
@@ -6,18 +7,20 @@ export async function POST(req: Request) {
     const prompt = body.prompt || "untitled";
     const sessionId = body.sessionId || "default";
 
-    // Return instruction to frontend to call Puter.ai directly
+    // Call Trinity orchestrator for real AI response
+    const response = await orchestrate(prompt);
+
     return NextResponse.json({
       success: true,
       sessionId,
       prompt,
-      instruction: "call_puter_ai",
-      summary: `🎼 Trinity Real AI Debate on "${prompt}"`,
+      system: "Harmonic Trinity",
+      response: response,
     });
   } catch (e) {
     console.error("[API:CHAT] Error:", e);
     return NextResponse.json(
-      { success: false, error: "server_error" },
+      { success: false, error: "server_error", details: String(e) },
       { status: 500 }
     );
   }
