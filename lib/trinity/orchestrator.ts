@@ -15,6 +15,13 @@
  */
 
 import { cache, generatePromptCacheKey } from "@/lib/cache/cache-manager";
+import {
+  harmonicCoreSystemPrompt,
+  harmonicMemory,
+  buildHarmonicPrompt,
+  recordHarmonicInteraction,
+  wrapHarmonicResponse,
+} from "@/lib/harmonic/identity";
 
 interface PuterAI {
   chat(
@@ -78,23 +85,24 @@ export async function orchestrate(prompt: string, ttl?: number) {
   const cached = cache.get(cacheKey);
   if (cached) {
     console.log("✓ Trinity cache HIT");
-    return { ...cached, cached: true };
+    return wrapHarmonicResponse(
+      { ...cached, cached: true },
+      ["alba", "albi", "jona", "blerina", "asi"]
+    );
   }
 
-  // Not in cache, run orchestration
+  // Not in cache, run orchestration with Harmonic identity
   try {
-    const systemPrompt = `You are a multi-persona AI called Harmonic Trinity.
+    // Build complete prompt with identity + memory
+    const messages = buildHarmonicPrompt(prompt, true, true);
 
+    // Add explicit Trinity JSON requirement
+    const trinitySystemPrompt = `${harmonicCoreSystemPrompt}
+
+RESPONSE FORMAT (CRITICAL):
 You MUST respond ONLY with valid JSON, no explanation, no markdown, no code blocks.
 
-Personas and their perspectives:
-- alba: Creative, emotional, expressive. Use imaginative language, feelings, metaphors.
-- albi: Analytical, logical, structured. Break down into frameworks, logic, cause-effect.
-- jona: Intuitive, fast, sharp. Give instinct-based insights and quick conclusions.
-- blerina: Wise, balanced, practical. Give grounded guidance and life wisdom.
-- asi: Meta-philosophical, abstract, systems thinker. Discuss patterns and higher-order meaning.
-
-Respond ONLY with this exact JSON format (no markdown, no extra text):
+Respond in this exact format:
 {
   "alba": "string (creative perspective)",
   "albi": "string (analytical perspective)",
@@ -103,27 +111,24 @@ Respond ONLY with this exact JSON format (no markdown, no extra text):
   "asi": "string (systems perspective)"
 }`;
 
-    const userPrompt = `User prompt: """${prompt}"""`;
+    // Replace first system prompt with enhanced one
+    messages[0].content = trinitySystemPrompt;
 
     // ⚡ SINGLE CALL instead of 5 separate calls
-    const raw = await puter.ai.chat(
-      [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      {
-        model: "gpt-5-nano",
-        max_tokens: 450, // Reduced from ~250 each = 1250 total → 450 total
-        temperature: 0.5,
-      }
-    );
+    const raw = await puter.ai.chat(messages, {
+      model: "gpt-5-nano",
+      max_tokens: 450,
+      temperature: 0.5,
+    });
 
     const text = String(raw);
     const parsed = extractJSON(text);
 
     if (!parsed) {
       console.warn("Failed to parse Trinity response:", text.substring(0, 200));
-      return fallbackResponse(text);
+      const fallback = fallbackResponse(text);
+      recordHarmonicInteraction(prompt, fallback, ["alba", "albi", "jona", "blerina", "asi"]);
+      return wrapHarmonicResponse(fallback, ["alba", "albi", "jona", "blerina", "asi"]);
     }
 
     // Ensure all keys exist
@@ -139,10 +144,16 @@ Respond ONLY with this exact JSON format (no markdown, no extra text):
     cache.set(cacheKey, result, ttl);
     console.log("✓ Trinity cached (TTL:", ttl || "10min", ")");
 
-    return { ...result, cached: false };
+    // Record to Harmonic memory
+    recordHarmonicInteraction(prompt, result, ["alba", "albi", "jona", "blerina", "asi"]);
+
+    return wrapHarmonicResponse(
+      { ...result, cached: false },
+      ["alba", "albi", "jona", "blerina", "asi"]
+    );
   } catch (err) {
     console.error("Trinity orchestration error:", err);
-    return {
+    const errorResponse = {
       alba: "Error generating response.",
       albi: "",
       jona: "",
@@ -150,6 +161,8 @@ Respond ONLY with this exact JSON format (no markdown, no extra text):
       asi: "",
       cached: false,
     };
+    recordHarmonicInteraction(prompt, errorResponse, ["alba", "albi", "jona", "blerina", "asi"]);
+    return wrapHarmonicResponse(errorResponse, ["alba", "albi", "jona", "blerina", "asi"]);
   }
 }
 
