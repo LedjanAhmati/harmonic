@@ -1,0 +1,29 @@
+[
+  {
+    "id": "doc_trinity_001",
+    "title": "Trinity System Architecture",
+    "summary": "Multi-persona debate system with Alba, Albi, Jona, Blerina, and ASI",
+    "body": "Trinity is a five-persona system designed to provide comprehensive perspectives on any topic. Alba brings creative thinking, Albi offers analytical rigor, Jona provides intuitive insights, Blerina shares wisdom from experience, and ASI synthesizes all perspectives into meta-reasoning.",
+    "category": "architecture",
+    "keywords": ["trinity", "personas", "debate", "ai", "perspectives"],
+    "content": "The Trinity system enables multi-layered reasoning by combining different thinking styles"
+  },
+  {
+    "id": "doc_zurich_001",
+    "title": "Zürich Deterministic Engine",
+    "summary": "9-module logical reasoning system with zero AI dependency",
+    "body": "Zürich processes information through intake, preprocessing, tagging, interpretation, reasoning, strategy, drafting, finalization, and cycle completion. Each module is deterministic and reproducible.",
+    "category": "logic",
+    "keywords": ["zurich", "logic", "deterministic", "reasoning", "modules"],
+    "content": "The Zürich engine provides pure logical analysis independent of AI systems"
+  },
+  {
+    "id": "doc_brain_001",
+    "title": "Brain 8TB Memory System",
+    "summary": "External disk storage for persistent knowledge with indexed search",
+    "body": "The Brain system stores up to 8TB of knowledge in CBOR format across three categories: APIs, documentation, and concepts. An in-memory indexer enables instant keyword search without loading full chunks.",
+    "category": "storage",
+    "keywords": ["brain", "memory", "8tb", "cbor", "indexed", "search"],
+    "content": "Brain memory provides scalable knowledge storage with fast retrieval"
+  }
+]

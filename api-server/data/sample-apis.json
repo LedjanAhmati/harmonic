@@ -1,0 +1,58 @@
+[
+  {
+    "id": "api_harmonic_001",
+    "name": "Harmonic Debate API",
+    "endpoint": "/api/debate",
+    "method": "POST",
+    "description": "Main API for multi-persona debate on any topic with Trinity system",
+    "path": "/api/debate",
+    "group": "core",
+    "tags": ["debate", "trinity", "persona", "ai"],
+    "parameters": {
+      "topic": "string (required) - The topic for debate"
+    },
+    "response": {
+      "debateId": "uuid",
+      "topic": "string",
+      "personas": ["alba", "albi", "jona", "blerina", "asi"]
+    }
+  },
+  {
+    "id": "api_zurich_001",
+    "name": "Zürich Logic Processing",
+    "endpoint": "/api/zurich/process",
+    "method": "POST",
+    "description": "Deterministic reasoning engine with 9-module cycle",
+    "path": "/api/zurich/process",
+    "group": "reasoning",
+    "tags": ["zurich", "logic", "deterministic", "reasoning"],
+    "parameters": {
+      "input": "string (required) - Input query for logical analysis"
+    }
+  },
+  {
+    "id": "api_brain_001",
+    "name": "Brain Memory Search",
+    "endpoint": "/api/brain/search",
+    "method": "POST",
+    "description": "Search 8TB external memory with indexed keyword lookup",
+    "path": "/api/brain/search",
+    "group": "knowledge",
+    "tags": ["brain", "search", "memory", "knowledge", "index"],
+    "parameters": {
+      "query": "string (required) - Search query",
+      "limits": "object - Results per category {apis: 20, docs: 20, concepts: 20}",
+      "use_index": "boolean - Use indexed search (default: true)"
+    }
+  },
+  {
+    "id": "api_asi_001",
+    "name": "ASI Fusion Engine",
+    "endpoint": "/api/asi/fusion",
+    "method": "POST",
+    "description": "Meta-layer combining Trinity AI, Zürich logic, and Brain knowledge",
+    "path": "/api/asi/fusion",
+    "group": "fusion",
+    "tags": ["asi", "fusion", "meta", "reasoning", "knowledge"]
+  }
+]

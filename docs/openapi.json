@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Harmonic Trinity SAAS API",
+    "description": "Multi-persona AI debate engine with memory bank",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Harmonic Trinity",
+      "url": "http://localhost:3000/harmonic"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local SAAS API Server"
+    }
+  ],
+  "paths": {
+    "/debate": {
+      "post": {
+        "summary": "Run full 5-persona debate",
+        "description": "Triggers all 5 personas to debate a topic with automatic caching",
+        "tags": [
+          "Debates"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "topic": {
+                    "type": "string",
+                    "description": "The debate topic/question",
+                    "example": "What is innovation?"
+                  }
+                },
+                "required": [
+                  "topic"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful debate completion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "debateId": {
+                      "type": "string"
+                    },
+                    "topic": {
+                      "type": "string"
+                    },
+                    "responses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "persona": {
+                            "type": "string"
+                          },
+                          "emoji": {
+                            "type": "string"
+                          },
+                          "response": {
+                            "type": "string"
+                          },
+                          "latency": {
+                            "type": "number"
+                          },
+                          "fromCache": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "stats": {
+                      "type": "object",
+                      "properties": {
+                        "totalLatencyMs": {
+                          "type": "number"
+                        },
+                        "cacheHitRate": {
+                          "type": "string"
+                        },
+                        "personasQueried": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/persona": {
+      "post": {
+        "summary": "Call single persona",
+        "tags": [
+          "Personas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "systemPrompt": {
+                    "type": "string"
+                  },
+                  "userPrompt": {
+                    "type": "string"
+                  },
+                  "persona": {
+                    "type": "string",
+                    "enum": [
+                      "alba",
+                      "albi",
+                      "jona",
+                      "blerina",
+                      "asi"
+                    ]
+                  }
+                },
+                "required": [
+                  "systemPrompt",
+                  "userPrompt",
+                  "persona"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Persona response"
+          }
+        }
+      }
+    },
+    "/stats": {
+      "get": {
+        "summary": "Get memory bank statistics",
+        "tags": [
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "description": "Cache and debate statistics"
+          }
+        }
+      }
+    },
+    "/cache": {
+      "get": {
+        "summary": "View cached responses",
+        "tags": [
+          "Cache"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of cached responses"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "tags": [
+          "System"
+        ],
+        "responses": {
+          "200": {
+            "description": "Server is running"
+          }
+        }
+      }
+    }
+  }
+}

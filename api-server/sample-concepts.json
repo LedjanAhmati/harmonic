@@ -1,0 +1,35 @@
+[
+  {
+    "id": "concept_harmony_001",
+    "name": "Harmonic Reasoning",
+    "definition": "Multi-layer approach combining AI perspectives, logical analysis, and knowledge search",
+    "domain": "ai",
+    "examples": [
+      "Trinity debate + Zürich logic + Brain search for comprehensive analysis",
+      "ASI fusion layer synthesizing all three systems"
+    ],
+    "description": "Harmonic reasoning represents a balanced approach to problem-solving that leverages artificial intelligence, pure logic, and accumulated knowledge"
+  },
+  {
+    "id": "concept_fusion_001",
+    "name": "ASI Meta-Fusion",
+    "definition": "Layer that combines Trinity (perspectives), Zürich (logic), and Brain (knowledge)",
+    "domain": "architecture",
+    "examples": [
+      "User query → Trinity debate (5 perspectives) → Zürich reasoning (logic) → Brain search (knowledge) → ASI synthesis"
+    ],
+    "description": "ASI fusion enables meta-level reasoning by orchestrating all three reasoning systems in parallel"
+  },
+  {
+    "id": "concept_indexing_001",
+    "name": "Keyword Indexing",
+    "definition": "RAM-based index of brain files for instant search without loading full CBOR chunks",
+    "domain": "performance",
+    "examples": [
+      "Index maps keywords to file references",
+      "Multi-keyword search returns intersection of matching files",
+      "Auto-refresh on new files"
+    ],
+    "description": "Indexing enables O(1) keyword lookup across the 8TB brain memory"
+  }
+]
