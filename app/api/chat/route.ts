@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { orchestrate } from "@/lib/trinity/orchestrator";
+import { orchestrateServer } from "@/lib/trinity/orchestrator-server";
 
 export async function POST(req: Request) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const sessionId = body.sessionId || "default";
 
     // Call Trinity orchestrator for real AI response
-    const response = await orchestrate(prompt);
+    const response = await orchestrateServer(prompt);
 
     return NextResponse.json({
       success: true,
