@@ -229,7 +229,7 @@ app.post("/v1/auth/signup", (req, res) => {
 
   // Create new user
   const userId = `usr_${Date.now()}`;
-  const token = `token_${Math.random().toString(36).substring(7)}`;
+  const token = `token_${Date.now().toString(36)}_${Buffer.from(email).toString('base64').substring(0, 8)}`;
 
   const user = {
     id: userId,
@@ -275,7 +275,7 @@ app.post("/v1/auth/login", (req, res) => {
   }
 
   // Generate token
-  const token = `token_${Math.random().toString(36).substring(7)}`;
+  const token = `token_${Date.now().toString(36)}_${Buffer.from(email).toString('base64').substring(0, 8)}`;
   tokens.set(token, user.id);
 
   return res.json({
@@ -356,11 +356,12 @@ app.get("/v1/usage", (req, res) => {
   return res.json({
     ok: true,
     usage: {
-      requestsThisMonth: Math.floor(Math.random() * 500),
-      zurichCalls: Math.floor(Math.random() * 100),
-      debateCalls: Math.floor(Math.random() * 50),
-      asiFusionCalls: Math.floor(Math.random() * 20),
-      limit: 10000
+      requestsThisMonth: 0,
+      zurichCalls: 0,
+      debateCalls: 0,
+      asiFusionCalls: 0,
+      limit: 10000,
+      note: "Real usage data requires database connection"
     }
   });
 });

@@ -10,7 +10,7 @@ export async function POST(request) {
       );
     }
 
-    const token = `tok_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const token = `tok_${Date.now()}_${Buffer.from(email).toString('base64').substring(0, 8)}`;
 
     return Response.json({
       ok: true,

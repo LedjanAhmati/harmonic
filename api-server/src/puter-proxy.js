@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { MemoryBank } from './memory-bank.js';
 
 export class PuterAIProxy {
@@ -12,8 +11,6 @@ export class PuterAIProxy {
    * This proxies browser-side Puter.ai calls to avoid CORS issues
    */
   async callPuterAI(systemPrompt, userPrompt, persona) {
-    const cacheKey = `${userPrompt.slice(0, 50)}-${persona}`;
-    
     try {
       // Check memory bank first
       const cached = await MemoryBank.getCachedResponse(userPrompt, persona, systemPrompt);
@@ -69,8 +66,8 @@ export class PuterAIProxy {
       asi: `🤖 As ASI, "${userPrompt}" is a systems pattern. Meta-level: It's not the question itself but the framework we use to ask it that matters.`
     };
 
-    // Simulate latency
-    await new Promise(r => setTimeout(r, Math.random() * 2000 + 500));
+    // Simulate deterministic latency (100ms fixed)
+    await new Promise(r => setTimeout(r, 100));
     
     return responses[persona] || `Response from ${persona} on "${userPrompt}"`;
   }

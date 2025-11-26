@@ -22,7 +22,7 @@ export async function POST(request) {
     }
 
     const userId = `usr_${Date.now()}`;
-    const token = `token_${Math.random().toString(36).substring(7)}`;
+    const token = `token_${Date.now().toString(36)}_${Buffer.from(email).toString('base64').substring(0, 8)}`;
 
     users.set(email, {
       id: userId,

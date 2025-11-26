@@ -66,7 +66,7 @@ export function generatePersonaThought(
     persona,
     style,
     content,
-    confidence: 0.7 + Math.random() * 0.3,
+    confidence: 0.85,
     reasoning,
     emotionalWeight: style === 'emotional' ? 0.8 : style === 'wise' ? 0.6 : 0.4,
   };

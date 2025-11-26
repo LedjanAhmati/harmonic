@@ -60,7 +60,7 @@ export class MemoryBank {
         db.run(
           `INSERT INTO debates (id, topic, user_query, responses, summary, quality_score)
            VALUES (?, ?, ?, ?, ?, ?)`,
-          [debateId, topic, userQuery, JSON.stringify(responses), summary, Math.random() * 100],
+          [debateId, topic, userQuery, JSON.stringify(responses), summary, 0],
           (err) => {
             db.close();
             if (err) reject(err);
