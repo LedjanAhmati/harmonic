@@ -12,9 +12,6 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   compress: false,
   poweredByHeader: false,
-  experimental: {
-    forceSwcTransforms: true,
-  }
 };
 
 export default nextConfig;
