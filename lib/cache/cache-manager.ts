@@ -10,8 +10,8 @@
  * - Per-endpoint caching
  */
 
-interface CacheEntry {
-  value: any;
+interface CacheEntry<T = unknown> {
+  value: T;
   timestamp: number;
   ttl: number;
   hits: number;
@@ -28,147 +28,126 @@ interface CacheStats {
 }
 
 class CacheManager {
-  private store: Map<string, CacheEntry> = new Map();
+  private cache = new Map<string, { data: unknown; expiry: number; key: string; hits: number }>();
   private stats = {
     totalRequests: 0,
     cacheHits: 0,
     cacheMisses: 0,
   };
-  private defaultTTL: number = 1000 * 60 * 10; // 10 minutes
+  private defaultTTL = 1000 * 60 * 10; // 10 minutes
 
-  /**
-   * Get value from cache
-   * Returns null if not found or expired
-   */
-  get(key: string): any {
+  // The set method uses a generic type <T>
+  set<T>(key: string, value: T, ttl?: number): void {
+    const actualTTL = ttl || this.defaultTTL;
+    const expiry = Date.now() + actualTTL;
+    this.cache.set(key, { data: value, expiry, key, hits: 0 });
+  }
+
+  // The get method also uses a generic type <T>
+  get<T>(key: string): T | undefined {
     this.stats.totalRequests++;
+    const item = this.cache.get(key);
 
-    const entry = this.store.get(key);
-    if (!entry) {
+    if (!item) {
       this.stats.cacheMisses++;
-      return null;
+      return undefined;
     }
 
-    // Check if expired
-    const age = Date.now() - entry.timestamp;
-    if (age > entry.ttl) {
-      this.store.delete(key);
+    // Check for expiry
+    if (Date.now() > item.expiry) {
+      this.cache.delete(key);
       this.stats.cacheMisses++;
-      return null;
+      return undefined;
     }
 
     // Cache hit
-    entry.hits++;
     this.stats.cacheHits++;
-    return entry.value;
+    item.hits++;
+    return item.data as T;
   }
 
-  /**
-   * Set value in cache with optional TTL
-   */
-  set(key: string, value: any, ttl?: number): void {
-    this.store.set(key, {
-      value,
-      timestamp: Date.now(),
-      ttl: ttl || this.defaultTTL,
-      hits: 0,
-      key,
-    });
-  }
-
-  /**
-   * Clear specific key
-   */
-  delete(key: string): boolean {
-    return this.store.delete(key);
-  }
-
-  /**
-   * Clear all cache
-   */
-  clear(): void {
-    this.store.clear();
-    this.stats = { totalRequests: 0, cacheHits: 0, cacheMisses: 0 };
-  }
-
-  /**
-   * Get cache statistics
-   */
+  // Get cache statistics
   getStats(): CacheStats {
-    let totalSize = 0;
-    for (const entry of this.store.values()) {
-      totalSize += JSON.stringify(entry.value).length;
-    }
-
-    const hitRate =
-      this.stats.totalRequests > 0
-        ? (this.stats.cacheHits / this.stats.totalRequests) * 100
-        : 0;
+    const totalRequests = this.stats.totalRequests || 1;
+    const hitRate = (this.stats.cacheHits / totalRequests) * 100;
 
     return {
       totalRequests: this.stats.totalRequests,
       cacheHits: this.stats.cacheHits,
       cacheMisses: this.stats.cacheMisses,
       hitRate: Math.round(hitRate * 100) / 100,
-      entriesStored: this.store.size,
-      totalSize,
+      entriesStored: this.cache.size,
+      totalSize: this.getSize(),
     };
   }
 
-  /**
-   * Get cache size in bytes (approximate)
-   */
+  // Get total cache size in bytes
   getSize(): number {
-    let size = 0;
-    for (const entry of this.store.values()) {
-      size += JSON.stringify(entry.value).length;
+    let totalSize = 0;
+    for (const entry of this.cache.values()) {
+      totalSize += entry.key.length;
+      try {
+        totalSize += JSON.stringify(entry.data).length;
+      } catch {
+        totalSize += String(entry.data).length;
+      }
     }
-    return size;
+    return totalSize;
   }
 
-  /**
-   * List all cache entries (for debugging)
-   */
-  listEntries(): Array<{
-    key: string;
-    age_ms: number;
-    ttl_ms: number;
-    hits: number;
-    value_preview: string;
-  }> {
-    const entries = [];
-    for (const [key, entry] of this.store.entries()) {
+  // List all cache entries
+  listEntries(): Array<{ key: string; hits: number; age_ms: number; ttl_remaining_ms: number; size_bytes: number }> {
+    const now = Date.now();
+    const entries: Array<{ key: string; hits: number; age_ms: number; ttl_remaining_ms: number; size_bytes: number }> = [];
+
+    for (const entry of this.cache.values()) {
+      const ttlRemaining = entry.expiry - now;
+      if (ttlRemaining < 0) continue;
+
+      let size = entry.key.length;
+      try {
+        size += JSON.stringify(entry.data).length;
+      } catch {
+        size += String(entry.data).length;
+      }
+
       entries.push({
-        key,
-        age_ms: Date.now() - entry.timestamp,
-        ttl_ms: entry.ttl,
+        key: entry.key,
         hits: entry.hits,
-        value_preview: JSON.stringify(entry.value).substring(0, 100),
+        age_ms: now - (entry.expiry - this.defaultTTL),
+        ttl_remaining_ms: ttlRemaining,
+        size_bytes: size,
       });
     }
+
     return entries;
   }
 
-  /**
-   * Cleanup expired entries
-   */
+  // Remove expired entries
   cleanup(): number {
+    const now = Date.now();
     let removed = 0;
-    for (const [key, entry] of this.store.entries()) {
-      const age = Date.now() - entry.timestamp;
-      if (age > entry.ttl) {
-        this.store.delete(key);
+
+    for (const [key, entry] of this.cache.entries()) {
+      if (now > entry.expiry) {
+        this.cache.delete(key);
         removed++;
       }
     }
+
     return removed;
   }
 
-  /**
-   * Set default TTL
-   */
+  // Clear all cache
+  clear(): void {
+    this.cache.clear();
+  }
+
+  // Set default TTL
   setDefaultTTL(ttl: number): void {
-    this.defaultTTL = ttl;
+    if (ttl > 0) {
+      this.defaultTTL = ttl;
+    }
   }
 }
 
@@ -177,7 +156,7 @@ class CacheManager {
  */
 export function generateCacheKey(
   endpoint: string,
-  params: Record<string, any>
+  params: Record<string, unknown>
 ): string {
   const sorted = Object.keys(params)
     .sort()

@@ -18,13 +18,14 @@ export async function GET(req: Request) {
     switch (action) {
       case "stats": {
         const stats = cache.getStats();
+        const sizeBytes = stats.totalSize || 0;
         return NextResponse.json(
           {
             ok: true,
             action: "stats",
             cache: stats,
-            size_bytes: cache.getSize(),
-            size_kb: Math.round(cache.getSize() / 1024 * 100) / 100,
+            size_bytes: sizeBytes,
+            size_kb: Math.round(sizeBytes / 1024 * 100) / 100,
           },
           {
             status: 200,
@@ -146,50 +147,36 @@ export async function POST(req: Request) {
   }
 }
 
-export function OPTIONS(req: Request) {
-  return NextResponse.json(
-    {
-      api: "Cache Manager",
-      description: "View and manage Trinity/ASI response cache",
-      endpoints: {
-        GET: {
-          "/api/cache/stats?action=stats": "View cache statistics (hit rate, size, entries)",
-          "/api/cache/stats?action=entries": "List all cached entries with details",
+export function OPTIONS(): Promise<NextResponse> {
+  const stats = cache.getStats();
+  const entries = cache.listEntries();
+
+  return Promise.resolve(
+    NextResponse.json(
+      {
+        api: "Cache Manager",
+        description: "View and manage Trinity/ASI response cache",
+        endpoints: {
+          GET: {
+            "/api/cache?action=stats": "View cache statistics (hit rate, size, entries)",
+            "/api/cache?action=entries": "List all cached entries with details",
+          },
+          POST: {
+            "/api/cache?action=clear": "Clear all cache",
+            "/api/cache?action=cleanup": "Remove expired entries",
+            "/api/cache?action=set_ttl": "Set default TTL (body: {ttl: ms})",
+          },
         },
-        POST: {
-          "/api/cache/stats?action=clear": "Clear all cache",
-          "/api/cache/stats?action=cleanup": "Remove expired entries",
-          "/api/cache/stats?action=set_ttl": "Set default TTL (body: {ttl: ms})",
+        current_stats: stats,
+        entries_count: entries.length,
+      },
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
         },
-      },
-      cache_stats: {
-        totalRequests: "Total number of cache lookups",
-        cacheHits: "Number of successful cache hits",
-        cacheMisses: "Number of cache misses",
-        hitRate: "Percentage of successful hits (0-100)",
-        entriesStored: "Number of entries in cache",
-        totalSize: "Total cache size in bytes",
-      },
-      example_response: {
-        ok: true,
-        action: "stats",
-        cache: {
-          totalRequests: 100,
-          cacheHits: 87,
-          cacheMisses: 13,
-          hitRate: 87.0,
-          entriesStored: 12,
-          totalSize: 45000,
-        },
-        size_kb: 43.95,
-      },
-    },
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600",
-      },
-    }
+      }
+    )
   );
 }

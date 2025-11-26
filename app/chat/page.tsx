@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ClearMemoryButton from "../components/ClearMemoryButton";
 
 export default function ChatRoom() {
   const [input, setInput] = useState("");
@@ -18,7 +19,13 @@ export default function ChatRoom() {
 
   return (
     <div className="p-8 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Trinity Chat Room</h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold">Trinity Chat Room</h1>
+        <ClearMemoryButton
+          sessionId="trinity-chat"
+          onCleared={() => setMessages([])}
+        />
+      </div>
       <div className="mb-4 space-y-2">
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>

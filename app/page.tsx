@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTypewriter } from "./hooks/useTypewriter";
 import { MemoryTimeline } from "./components/MemoryTimeline";
+import ClearMemoryButton from "./components/ClearMemoryButton";
 import type { PersonaKey } from "../lib/trinity/persona/personas";
 import { PERSONAS } from "../lib/trinity/persona/personas";
 
@@ -98,19 +99,25 @@ export default function HarmonicChat() {
 
         {/* Controls */}
         <div className="bg-white rounded-lg shadow p-4 mb-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <label className="text-sm font-medium text-gray-700">Persona:</label>
-            <select
-              value={persona}
-              onChange={(e) => setPersona(e.target.value as PersonaKey)}
-              className="px-3 py-2 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {Object.entries(PERSONAS).map(([key, p]) => (
-                <option key={key} value={key}>
-                  {p.emoji} {p.name}
-                </option>
-              ))}
-            </select>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <label className="text-sm font-medium text-gray-700">Persona:</label>
+              <select
+                value={persona}
+                onChange={(e) => setPersona(e.target.value as PersonaKey)}
+                className="px-3 py-2 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {Object.entries(PERSONAS).map(([key, p]) => (
+                  <option key={key} value={key}>
+                    {p.emoji} {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <ClearMemoryButton
+              sessionId="harmonic-trinity"
+              onCleared={() => setMessages([])}
+            />
           </div>
 
           <div className="flex gap-2">

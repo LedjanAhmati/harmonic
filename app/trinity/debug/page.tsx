@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ClearMemoryButton from "../../components/ClearMemoryButton";
 
 type MemoryEntry = {
   type: string;
@@ -70,6 +71,12 @@ export default function TrinityDebug() {
           >
             {loading ? "Loading..." : "Load Session"}
           </button>
+          {sessionId && (
+            <ClearMemoryButton
+              sessionId={sessionId}
+              onCleared={() => setMessages([])}
+            />
+          )}
         </div>
 
         {error && (
@@ -111,7 +118,7 @@ export default function TrinityDebug() {
             ) : (
               !loading && (
                 <div className="text-center py-10 text-gray-500">
-                  <p>No messages to display. Enter a Session ID and click "Load Session".</p>
+                  <p>No messages to display. Enter a Session ID and click &quot;Load Session&quot;.</p>
                 </div>
               )
             )}
