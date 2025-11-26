@@ -42,6 +42,7 @@ function extractJSON(text: string): any {
 /**
  * Call external API to get Puter.ai response
  * This replaces the client-side puter.ai.chat() call
+ * STRICT MODE: Only return real data, no fallbacks
  */
 async function callPuterAPI(
   messages: Array<{ role: string; content: string }>,
@@ -49,12 +50,19 @@ async function callPuterAPI(
   maxTokens: number = 450
 ): Promise<string> {
   try {
-    // Call Puter API (assumes Puter has a REST endpoint or we have PUTER_API_KEY)
-    const response = await fetch("https://api.puter.com/ai/chat", {
+    // Determine which API to use based on environment
+    const apiUrl = process.env.PUTER_API_URL || "https://api.puter.com/ai/chat";
+    const apiKey = process.env.PUTER_API_KEY;
+
+    if (!apiKey) {
+      throw new Error("PUTER_API_KEY not configured - cannot call real API");
+    }
+
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.PUTER_API_KEY || ""}`,
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         messages,
@@ -65,15 +73,15 @@ async function callPuterAPI(
     });
 
     if (!response.ok) {
-      throw new Error(`Puter API error: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`Puter API error ${response.status}: ${errorText}`);
     }
 
     const data = await response.json();
     return data.content || data.message || JSON.stringify(data);
   } catch (err) {
     console.error("Puter API call failed:", err);
-    // Fallback: return a structured default response
-    throw err;
+    throw err; // Re-throw - no fallback allowed
   }
 }
 
@@ -131,62 +139,31 @@ RESPONSE FORMAT (CRITICAL - NO MARKDOWN, NO EXTRA TEXT):
 
     // ⚡ SINGLE CALL instead of 5 separate calls
     let raw: string;
-    try {
-      raw = await callPuterAPI(messages, "gpt-5-nano", 450);
-    } catch (err) {
-      // Fallback if Puter API is unavailable
-      console.warn("Puter API unavailable, using fallback response");
-      raw = JSON.stringify({
-        creative:
-          "Creative perspective on the topic (fallback mode)",
-        analytical:
-          "Analytical breakdown of the subject (fallback mode)",
-        intuitive:
-          "Intuitive assessment and pattern recognition (fallback mode)",
-        practical:
-          "Practical wisdom and actionable insights (fallback mode)",
-        meta: "Meta-cognitive synthesis across all perspectives (fallback mode)",
-      });
-    }
+    raw = await callPuterAPI(messages, "gpt-5-nano", 450);
 
     const text = String(raw);
     const parsed = extractJSON(text);
 
     if (!parsed) {
-      console.warn(
-        "Failed to parse Trinity response:",
-        text.substring(0, 200)
+      throw new Error(
+        `Failed to parse Trinity JSON response: ${text.substring(0, 200)}`
       );
-      const fallback = {
-        creative: text,
-        analytical: "",
-        intuitive: "",
-        practical: "",
-        meta: "",
-      };
-      recordHarmonicInteraction(prompt, fallback, [
-        "creative",
-        "analytical",
-        "intuitive",
-        "practical",
-        "meta",
-      ]);
-      return wrapHarmonicResponse(fallback, [
-        "creative",
-        "analytical",
-        "intuitive",
-        "practical",
-        "meta",
-      ]);
+    }
+
+    // Validate all keys exist (use technical module names)
+    if (!parsed.creative || !parsed.analytical || !parsed.intuitive || !parsed.practical || !parsed.meta) {
+      throw new Error(
+        "Response missing required cognitive modules - must include: creative, analytical, intuitive, practical, meta"
+      );
     }
 
     // Ensure all keys exist (use technical module names)
     const result = {
-      creative: parsed.creative || "",
-      analytical: parsed.analytical || "",
-      intuitive: parsed.intuitive || "",
-      practical: parsed.practical || "",
-      meta: parsed.meta || "",
+      creative: parsed.creative,
+      analytical: parsed.analytical,
+      intuitive: parsed.intuitive,
+      practical: parsed.practical,
+      meta: parsed.meta,
     };
 
     // ⚡ CACHE the result
@@ -208,27 +185,7 @@ RESPONSE FORMAT (CRITICAL - NO MARKDOWN, NO EXTRA TEXT):
     );
   } catch (err) {
     console.error("Trinity orchestration error:", err);
-    const errorResponse = {
-      creative: "Error generating response.",
-      analytical: "",
-      intuitive: "",
-      practical: "",
-      meta: "",
-      cached: false,
-    };
-    recordHarmonicInteraction(prompt, errorResponse, [
-      "creative",
-      "analytical",
-      "intuitive",
-      "practical",
-      "meta",
-    ]);
-    return wrapHarmonicResponse(errorResponse, [
-      "creative",
-      "analytical",
-      "intuitive",
-      "practical",
-      "meta",
-    ]);
+    // No fallback - propagate the real error
+    throw err;
   }
 }
