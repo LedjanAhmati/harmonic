@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "livekit-react/dist/index.css";
 import Header from "./components/Header";
 
 const geistSans = Geist({
@@ -27,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Puter.com AI Library */}
-        <script src="https://js.puter.com/v2/"></script>
+        <script src="https://js.puter.com/v2/" async></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

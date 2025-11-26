@@ -397,7 +397,13 @@ export default function HarmonicChat() {
         )}
 
         {/* Footer links */}
-        <div className="flex gap-2 justify-center text-sm">
+        <div className="flex gap-2 justify-center text-sm flex-wrap">
+          <Link
+            href="/rooms"
+            className="px-3 py-1 rounded bg-purple-200 hover:bg-purple-300 font-medium"
+          >
+            🎥 Video Rooms
+          </Link>
           <Link
             href="/lab"
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
