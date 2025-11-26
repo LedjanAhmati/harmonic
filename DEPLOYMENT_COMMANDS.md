@@ -9,11 +9,13 @@ All commands are ready to copy-paste. Follow the exact sequence below.
 ## STEP 1️⃣: GITHUB SETUP (5 minutes)
 
 ### 1a. Go Online to GitHub
-```
-https://github.com/new
-```
+
+...
+https: //github.com/new
+...
 
 Create a new repository with these settings:
+
 - **Repository name**: `harmonic`
 - **Description**: `Multi-persona reasoning engine powered by ASI Fusion`
 - **Visibility**: PUBLIC ⭐ (critical for Product Hunt)
@@ -44,8 +46,9 @@ git remote add origin https://github.com/ledjanahmati/harmonic.git
 git push -u origin main
 ```
 
-### Expected Output:
-```
+### Expected Output
+
+...
 Enumerating objects: 1200, done.
 Counting objects: 100% (1200/1200), done.
 Delta compression using up to 12 threads
@@ -54,12 +57,14 @@ Writing objects: 100% (1200/1200), 285.32 MiB, done.
 Total 1200 (delta 450), reused 0 (delta 0), pack-reused 0
 
 remote: Create a pull request for 'main' on GitHub by visiting:
-remote:      https://github.com/ledjanahmati/harmonic/pull/new/main
+remote:      https: //github.com/ledjanahmati/harmonic/pull/new/main
 remote:
-To https://github.com/ledjanahmati/harmonic.git
- * [new branch]      main -> main
+To https: //github.com/ledjanahmati/harmonic.git
+
+ -* [new branch]      main -> main
+
 branch 'main' set up to track 'origin/main'.
-```
+...
 
 ✅ **SUCCESS!** Your code is now on GitHub.
 
@@ -68,6 +73,7 @@ branch 'main' set up to track 'origin/main'.
 Visit: `https://github.com/ledjanahmati/harmonic`
 
 You should see:
+
 - ✅ All your files
 - ✅ Green "main" branch badge
 - ✅ README.md displayed
@@ -77,15 +83,17 @@ You should see:
 
 ## STEP 2️⃣: VERCEL DEPLOYMENT (40 seconds)
 
-### 2a. Go to Vercel Dashboard
-```
-https://vercel.com/dashboard
-```
+-### 2a. Go to Vercel Dashboard
+...
+https: //vercel.com/dashboard
+...
 
 ### 2b. Click "New Project"
+
 Click the **"New Project"** button
 
 ### 2c. Import from GitHub
+
 1. Click **"Import from GitHub"**
 2. Search for: `harmonic`
 3. Select: **ledjanahmati/harmonic**
@@ -111,18 +119,20 @@ In Vercel → **Settings** → **Environment Variables**
 
 Add these 4 variables (use your actual Lemonsqueezy keys):
 
-```
+...
 LEMONSQUEEZY_STORE_ID=your_store_id_here
 LEMONSQUEEZY_PRODUCT_ID=your_product_id_here
 LEMONSQUEEZY_API_KEY=your_api_key_here
-NEXT_PUBLIC_SITE_URL=https://harmonic-ledjanahmati.vercel.app
-```
+NEXT_PUBLIC_SITE_URL=https: //harmonic-ledjanahmati.vercel.app
+...
 
 **Where to get these keys?**
-- Go to: https://app.lemonsqueezy.com/settings/api
+
+- Go to: https: //app.lemonsqueezy.com/settings/api
 - Copy your Store ID, Product ID, and API Key
 
 **For NEXT_PUBLIC_SITE_URL:**
+
 - After first deploy, Vercel will give you the domain
 - It will be something like: `https://harmonic-ledjanahmati.vercel.app`
 - You can update this later
@@ -135,19 +145,19 @@ Click the **"Deploy"** button
 
 ✅ **SUCCESS!** You'll see "Deployment Complete" ✅
 
-Your site is LIVE at: **https://harmonic-ledjanahmati.vercel.app**
+Your site is LIVE at: **https: //harmonic-ledjanahmati.vercel.app**
 
 ---
 
-## 🎉 YOU'RE NOW LIVE!
+## 🎉 YOU'RE NOW LIVE
 
 Test your deployment:
 
-```
-https://harmonic-ledjanahmati.vercel.app
-```
+https: //harmonic-ledjanahmati.vercel.app
+...
 
 You should see:
+
 - ✅ Landing page loads
 - ✅ ASI page works (/asi)
 - ✅ Chat interface works
@@ -160,6 +170,7 @@ You should see:
 See: **PRODUCT_HUNT_SUBMISSION.md** for complete instructions
 
 **Quick timeline:**
+
 - Tomorrow: Capture 5-6 screenshots
 - Day 2: Polish Product Hunt copy
 - Day 3: Submit at 8 AM PT
@@ -189,7 +200,8 @@ git log --oneline | head -5
 
 ## ⚠️ TROUBLESHOOTING
 
-### "fatal: remote origin already exists"
+-### "fatal: remote origin already exists"
+
 ```powershell
 git remote rm origin
 git remote add origin https://github.com/ledjanahmati/harmonic.git
@@ -197,16 +209,19 @@ git push -u origin main
 ```
 
 ### "Build failed on Vercel"
+
 - Check build logs in Vercel dashboard
 - Usually missing environment variables
 - Redeploy after adding env vars
 
 ### "Site shows 404"
+
 - Wait 30 seconds (DNS propagation)
 - Hard refresh (Ctrl+Shift+R)
 - Restart Vercel build with "Redeploy" button
 
 ### GitHub push is slow
+
 - Normal for large repo (280+ MB)
 - First push takes 2-5 minutes
 - Subsequent pushes are instant
@@ -230,16 +245,17 @@ git push -u origin main
 
 Once Vercel deployment is complete:
 
-1. **Test your site** at: https://harmonic-ledjanahmati.vercel.app
+1. **Test your site** at: https: //harmonic-ledjanahmati.vercel.app
 2. **Take 5-6 screenshots** of key pages
 3. **Read**: PRODUCT_HUNT_SUBMISSION.md
 4. **Prepare**: Product Hunt submission
 
 ---
 
-## 🚀 YOU'RE ALMOST THERE!
+## 🚀 YOU'RE ALMOST THERE
 
 Literally:
+
 - 5 commands to execute
 - 1 click to deploy
 - 40 seconds of waiting

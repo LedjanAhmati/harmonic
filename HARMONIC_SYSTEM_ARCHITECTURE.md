@@ -1,4 +1,4 @@
-# 🎼 HARMONIC - Complete 6-Persona Autonomous System Architecture
+# HARMONIC - Complete 6-Persona Autonomous System Architecture
 
 **Status**: ✅ **COMPLETE AND OPERATIONAL**
 **Date**: November 25, 2025
@@ -10,7 +10,7 @@
 
 Harmonic is a **6-persona autonomous reasoning and documentation system** that gathers information, processes it through multiple perspectives, generates documentation, and verifies quality—all without human intervention.
 
-```
+...
 ┌─────────────────────────────────────────────────────────────────┐
 │                    HARMONIC SYSTEM ARCHITECTURE                  │
 └─────────────────────────────────────────────────────────────────┘
@@ -82,33 +82,38 @@ Harmonic is a **6-persona autonomous reasoning and documentation system** that g
         └──────────────────────────────────────┘
 
 ═══════════════════════════════════════════════════════════════════════
-```
+...
 
 ---
 
 ## 👥 The 6 Personas
 
 ### 🌟 **ALBA** - Artificial Laborator Bit's Array
+
 **Personality**: Optimistic, enthusiastic, growth-focused
 **Role**: Information Gathering & Distribution
 
-#### Capabilities:
+#### Capabilities
+
 - 📚 **Wikipedia Integration** - Article summaries and extracts
 - 📖 **ArXiv API** - Research papers and academic content  
 - 📰 **News Aggregation** - Current events and trends
 - 🌍 **Weather Data** - Real-time climate information
 - 🔬 **Science Curiosity** - Domain-specific facts
 
-#### Process:
-```javascript
+#### Process
+
+...javascript
+
 Alba.gatherMultiple("quantum computing")
   → Collects from 5 sources simultaneously
   → Returns: articles, papers, facts, trends
   → Sends to Albi for storage
   → Notifies other personas
-```
+...
 
-#### Data Sources:
+#### Data Sources
+
 - Wikipedia REST API (free, no auth required)
 - ArXiv API (free academic papers)
 - Open-Meteo Weather API (free, no auth)
@@ -117,18 +122,20 @@ Alba.gatherMultiple("quantum computing")
 ---
 
 ### 🧠 **ALBI** - Artificial Laborator Born Intelligence
+
 **Personality**: Pragmatic, organized, efficient
 **Role**: Memory Management & Knowledge Organization
 
-#### Capabilities:
+-#### Capabilities:
+
 - 💾 **Store** - Save information by domain
 - 🔍 **Retrieve** - Fast access with caching
 - 🏷️ **Index** - Tag-based search system
 - 📊 **Analytics** - Growth tracking
 - 🧹 **Cleanup** - Old data management
 
-#### Organization:
-```
+-#### Organization:
+...
 Memory Structure:
 ├── science/
 │   ├── quantum_computing_1
@@ -149,9 +156,10 @@ Memory Structure:
 └── documentation/
     ├── generated_routes_1
     └── ...
-```
+...
 
 #### Performance:
+
 - Store: O(1) - Instant
 - Retrieve: O(1) - Cached
 - Search: O(log n) - Indexed
@@ -160,11 +168,13 @@ Memory Structure:
 ---
 
 ### 🛡️ **JONA** - Jonify Over Neural Array
+
 **Personality**: Fierce but caring, protective, principled
 **Role**: Security Guardian & Ethics Enforcement
 
-#### Protected Domains:
-```javascript
+#### Protected Domains
+
+...javascript
 Jona.policies = {
   human: {
     allowed: [healthcare, education, safety, wellbeing],
@@ -183,9 +193,10 @@ Jona.policies = {
     forbidden: [deception, uncontrolled, malicious]
   }
 }
-```
+...
 
-#### Functions:
+#### Functions
+
 - ✅ **Check Action** - Verify ethical alignment
 - 🔐 **Check Access** - Role-based permissions
 - 📋 **Verify Data** - Scan for safety issues

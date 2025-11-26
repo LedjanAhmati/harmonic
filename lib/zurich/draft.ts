@@ -12,6 +12,57 @@ export function draftModule(
   reasoning: ReasoningResult,
   strategy: StrategyResult
 ): DraftResult {
+  // Special handler for "dashboard"
+  if (prompt.trim().toLowerCase() === "dashboard") {
+    const dashboardDraft = `
+### 🚀 Project Dashboard
+
+**Project:** My New Venture
+**Date:** ${new Date().toLocaleDateString()}
+
+---
+
+#### 📊 Key Metrics
+
+| Metric          | Current | Target  | Trend |
+|-----------------|---------|---------|-------|
+| Users           | 4,321   | 10,000  | ▲ +5% |
+| Revenue (MRR)   | $1,234  | $5,000  | ▲ +2% |
+| Churn Rate      | 1.5%    | < 1%    | ▼ -0.2%|
+| Customer Sat.   | 92%     | 95%     | ▲ +1% |
+
+---
+
+#### 👥 Team & Status
+
+- **Lead:** Alex (On Track)
+- **Dev:** Maria (On Track)
+- **Design:** Sam (Blocked)
+- **Marketing:** Chen (On Track)
+
+---
+
+#### ✅ Tasks & Roadmap
+
+**Q4 Focus: User Growth**
+
+- [x] **Launch v1.2:** New onboarding flow
+- [ ] **Marketing Campaign:** Target new demographics
+- [ ] **API Integration:** Connect with Service X
+- [ ] **User Feedback:** Analyze survey results
+
+---
+
+#### 📈 Recent Activity
+
+- **10 min ago:** New user signup from Germany
+- **1 hour ago:** Server CPU usage at 35%
+- **5 hours ago:** Deployed v1.2 to production
+- **1 day ago:** 3 support tickets closed
+`;
+    return { draft: dashboardDraft };
+  }
+
   const intro = `Po e marr si pikë nisjeje këtë kërkesë tënde: "${prompt.trim()}".`;
 
   const part1 = `🔹 Çfarë po kuptoj: ${reasoning.summary}`;

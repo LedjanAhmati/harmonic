@@ -2,9 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { PuterAIProxy } from './src/puter-proxy.js';
 import { MemoryBank } from './src/memory-bank.js';
-import { LearningEngine } from './src/learning-engine.js';
 import { initializeDatabase } from './src/database.js';
-import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const PORT = 5000;

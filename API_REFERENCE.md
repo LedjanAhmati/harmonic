@@ -6,17 +6,19 @@ Complete endpoint documentation for the Harmonic SaaS backend.
 
 ### Create/Register User
 
-```
+...
 POST /api/users/create
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
+  "email": "<clisonix@gmail.com>",
+
   "displayName": "John Doe"
 }
-```
+...
 
 **Response (201):**
+
 ```json
 {
   "success": true,
@@ -31,6 +33,7 @@ Content-Type: application/json
 ```
 
 **Error (400):**
+
 ```json
 {
   "success": false,
@@ -47,6 +50,7 @@ GET /api/users/me?email=user@example.com
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -68,6 +72,7 @@ GET /api/users/me?email=user@example.com
 ```
 
 **Response (200) - No Subscription:**
+
 ```json
 {
   "success": true,
@@ -83,6 +88,7 @@ GET /api/users/me?email=user@example.com
 ```
 
 **Error (404):**
+
 ```json
 {
   "success": false,
@@ -96,16 +102,17 @@ GET /api/users/me?email=user@example.com
 
 ### Create Checkout Link
 
-```
+...
 POST /api/premium/checkout
 Content-Type: application/json
 
 {
-  "email": "user@example.com"
+  "email": "<clisonix@gmail.com>"
 }
-```
+...
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -115,6 +122,7 @@ Content-Type: application/json
 ```
 
 **Error (400):**
+
 ```json
 {
   "success": false,
@@ -126,9 +134,9 @@ Content-Type: application/json
 
 ### Webhook Handler
 
-```
+...
 POST /api/premium/webhook
-X-Signature: <LemonSqueezy webhook signature>
+X-Signature:<LemonSqueezy webhook signature>
 Content-Type: application/json
 
 {

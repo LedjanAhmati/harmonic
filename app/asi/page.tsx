@@ -33,9 +33,9 @@ interface FusionResult {
 }
 
 interface BrainStats {
-  apis?: { files: number; exists: boolean };
-  docs?: { files: number; exists: boolean };
-  concepts?: { files: number; exists: boolean };
+  apis: number;
+  docs: number;
+  concepts: number;
 }
 
 export default function ASIPage() {
@@ -135,7 +135,7 @@ export default function ASIPage() {
               <div className="text-3xl font-bold text-amber-400">📚</div>
               <div className="text-sm text-amber-200 mt-2">Brain</div>
               <div className="text-xs text-amber-300">
-                {(brainStats.apis?.files || 0) + (brainStats.docs?.files || 0) + (brainStats.concepts?.files || 0)} files
+                {(brainStats.apis || 0) + (brainStats.docs || 0) + (brainStats.concepts || 0)} files
               </div>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-md rounded-lg border border-pink-500/30 p-4 text-center">

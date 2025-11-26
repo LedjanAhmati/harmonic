@@ -116,6 +116,57 @@
             "localhost"
           ],
           "port": "5000",
-          "path": [
-            "v1",
-            "cycle",\n            \"run\"\n          ]\n        },\n        \"description\": \"Full Zürich cycle with all stages: intake, preprocess, tags, interpret, reason, strategy, draft, final\"\n      },\n      \"response\": []\n    },\n    {\n      \"name\": \"API Info\",\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"http://localhost:5000/v1/info\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"localhost\"\n          ],\n          \"port\": \"5000\",\n          \"path\": [\n            \"v1\",\n            \"info\"\n          ]\n        },\n        \"description\": \"Get API information and available endpoints\"\n      },\n      \"response\": []\n    },\n    {\n      \"name\": \"Health Check\",\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"http://localhost:5000/health\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"localhost\"\n          ],\n          \"port\": \"5000\",\n          \"path\": [\n            \"health\"\n          ]\n        },\n        \"description\": \"Server health check\"\n      },\n      \"response\": []\n    }\n  ]\n}
+              "path": [
+                "v1",
+                "cycle",
+                "run"
+              ]
+            },
+            "description": "Full Zürich cycle with all stages: intake, preprocess, tags, interpret, reason, strategy, draft, final"
+          },
+          "response": [ ]
+        },
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "header": [ ],
+            "url": {
+              "raw": "http://localhost:5000/v1/info",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "v1",
+                "info"
+              ]
+            },
+            "description": "Get API information and available endpoints"
+          },
+          "response": [ ]
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [ ],
+            "url": {
+              "raw": "http://localhost:5000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Server health check"
+          },
+          "response": [ ]
+        }
+      ]
+    }
+    

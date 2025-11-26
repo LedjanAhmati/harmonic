@@ -7,21 +7,21 @@
 import { orchestrate } from '../lib/trinity/orchestrator';
 
 interface BrainResult {
-  apis?: Array<any>;
-  docs?: Array<any>;
-  concepts?: Array<any>;
+  apis?: Array<unknown>;
+  docs?: Array<unknown>;
+  concepts?: Array<unknown>;
 }
 
 interface ZurichResult {
-  intake?: any;
-  preprocess?: any;
-  tagger?: any;
-  interpret?: any;
-  reason?: any;
-  strategy?: any;
-  draft?: any;
-  final?: any;
-  cycle?: any;
+  intake?: unknown;
+  preprocess?: unknown;
+  tagger?: unknown;
+  interpret?: unknown;
+  reason?: string;
+  strategy?: unknown;
+  draft?: string;
+  final?: string;
+  cycle?: unknown;
   error?: string;
   message?: string;
 }
@@ -58,7 +58,7 @@ interface ASIFusionResult {
 /**
  * Call Trinity (AI debate with 5 personas)
  */
-export async function callTrinity(query: string): Promise<any> {
+export async function callTrinity(query: string): Promise<unknown> {
   try {
     const result = await orchestrate(query);
     return result;
@@ -116,10 +116,18 @@ export async function callBrain(query: string): Promise<BrainResult> {
   }
 }
 
+interface BrainStats {
+  brain: {
+    apis: number;
+    docs: number;
+    concepts: number;
+  };
+}
+
 /**
  * Get Brain Stats
  */
-export async function getBrainStats(): Promise<any> {
+export async function getBrainStats(): Promise<BrainStats> {
   try {
     const response = await fetch('http://localhost:5000/api/brain/stats', {
       method: 'GET',

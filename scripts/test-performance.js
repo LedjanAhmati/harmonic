@@ -9,7 +9,7 @@
  * - Cache (hit rates)
  */
 
-const http = require("http");
+import http from "http";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
@@ -174,11 +174,11 @@ async function runTests() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   runTests().catch((err) => {
     console.error("Test suite failed:", err);
     process.exit(1);
   });
 }
 
-module.exports = { request, runTests };
+export { request, runTests };

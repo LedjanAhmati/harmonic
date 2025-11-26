@@ -45,27 +45,27 @@ export default function PuterDotLab() {
   const [format, setFormat] = useState<'dot' | 'json'>('dot');
 
   useEffect(() => {
+    async function fetchDiagram(type: string) {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/v1/dot?type=${type}&format=${format}`);
+        const data = await response.json();
+
+        if (format === 'json') {
+          setDotCode(data.dot);
+        } else {
+          setDotCode(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch diagram:', err);
+        setDotCode('Error loading diagram');
+      } finally {
+        setLoading(false);
+      }
+    }
+
     fetchDiagram(selected);
   }, [selected, format]);
-
-  async function fetchDiagram(type: string) {
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/v1/dot?type=${type}&format=${format}`);
-      const data = await response.json();
-
-      if (format === 'json') {
-        setDotCode(data.dot);
-      } else {
-        setDotCode(data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch diagram:', err);
-      setDotCode('Error loading diagram');
-    } finally {
-      setLoading(false);
-    }
-  }
 
   function copyToClipboard() {
     navigator.clipboard.writeText(dotCode);
@@ -191,11 +191,11 @@ export default function PuterDotLab() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-purple-100">
             <div>
               <h4 className="font-bold text-pink-400 mb-2">1. Copy DOT Code</h4>
-              <p className="text-sm">Click "Copy" button to copy the diagram code to clipboard</p>
+              <p className="text-sm">Click &quot;Copy&quot; button to copy the diagram code to clipboard</p>
             </div>
             <div>
               <h4 className="font-bold text-pink-400 mb-2">2. Download File</h4>
-              <p className="text-sm">Click "Download" to save as .dot file</p>
+              <p className="text-sm">Click &quot;Download&quot; to save as .dot file</p>
             </div>
             <div>
               <h4 className="font-bold text-pink-400 mb-2">3. Render</h4>

@@ -3,13 +3,13 @@
 import { useState, FormEvent } from "react";
 
 interface ZurichDebug {
-  intake?: any;
-  pre?: any;
-  tags?: any;
-  interpretation?: any;
-  reasoning?: any;
-  strategy?: any;
-  draft?: any;
+  intake?: string | object;
+  pre?: string | object;
+  tags?: string | object;
+  interpretation?: string | object;
+  reasoning?: string | object;
+  strategy?: string | object;
+  draft?: string | object;
 }
 
 interface ZurichResponse {

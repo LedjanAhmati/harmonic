@@ -25,6 +25,7 @@ curl -X POST http://localhost:5000/debate \
 ```
 
 **Request Body:**
+
 ```json
 {
   "topic": "string (required) - The debate topic"
@@ -32,6 +33,7 @@ curl -X POST http://localhost:5000/debate \
 ```
 
 **Response:**
+
 ```json
 {
   "debateId": "uuid",
@@ -53,6 +55,7 @@ curl -X POST http://localhost:5000/debate \
 ```
 
 **Personas:**
+
 - 🌸 **ALBA** - Creative, emotional, expressive
 - 💙 **ALBI** - Analytical, logical, structured
 - ⚡ **JONA** - Intuitive, fast, sharp
@@ -78,6 +81,7 @@ curl -X POST http://localhost:5000/persona \
 ```
 
 **Request Body:**
+
 ```json
 {
   "persona": "string (alba|albi|jona|blerina|asi)",
@@ -99,6 +103,7 @@ curl http://localhost:5000/stats
 ```
 
 **Response:**
+
 ```json
 {
   "memoryBank": {
@@ -129,6 +134,7 @@ curl http://localhost:5000/cache
 ```
 
 **Response:**
+
 ```json
 {
   "cacheSize": 50,
@@ -156,6 +162,7 @@ curl http://localhost:5000/api-stats
 ```
 
 **Response:**
+
 ```json
 {
   "totalEndpoints": 13508,
@@ -197,6 +204,7 @@ curl -X POST http://localhost:5000/generate-api \
 ```
 
 **Request Body:**
+
 ```json
 {
   "topics": ["string"],
@@ -218,6 +226,7 @@ curl http://localhost:5000/health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "ok",
@@ -235,6 +244,7 @@ curl http://localhost:5000/health
 Pattern: `/api/debate/{topic}/{perspective}/{question}`
 
 Examples:
+
 - `POST /api/debate/leadership/creative/101`
 - `POST /api/debate/innovation/analytical/205`
 - `POST /api/debate/ethics/philosophical/340`
@@ -244,6 +254,7 @@ Examples:
 Pattern: `/api/persona/{personaId}/{topic}`
 
 Examples:
+
 - `POST /api/persona/alba/leadership`
 - `POST /api/persona/albi/innovation`
 - `POST /api/persona/jona/ethics`
@@ -253,6 +264,7 @@ Examples:
 Pattern: `/api/analysis/{type}/{theme}`
 
 Examples:
+
 - `GET /api/analysis/comparative/debate-results`
 - `GET /api/analysis/insights/persona-patterns`
 - `POST /api/analysis/consensus/5-persona-debate`
@@ -262,6 +274,7 @@ Examples:
 ## Database Schema
 
 ### Cache Table
+
 ```sql
 CREATE TABLE cache (
   id INTEGER PRIMARY KEY,
@@ -276,6 +289,7 @@ CREATE TABLE cache (
 ```
 
 ### Debates Table
+
 ```sql
 CREATE TABLE debates (
   id INTEGER PRIMARY KEY,
@@ -288,6 +302,7 @@ CREATE TABLE debates (
 ```
 
 ### Persona Patterns Table
+
 ```sql
 CREATE TABLE persona_patterns (
   id INTEGER PRIMARY KEY,
@@ -300,6 +315,7 @@ CREATE TABLE persona_patterns (
 ```
 
 ### API Calls Table
+
 ```sql
 CREATE TABLE api_calls (
   id INTEGER PRIMARY KEY,
@@ -316,12 +332,14 @@ CREATE TABLE api_calls (
 ## Performance Optimization
 
 ### Caching Strategy
+
 - **L1 Cache:** In-memory response cache (fastest)
 - **L2 Cache:** SQLite persistent cache
 - **TTL:** 24 hours per response
 - **Hit Rate Target:** 80%+
 
 ### Response Times
+
 - **Cached Response:** ~50-100ms
 - **Fresh Generation:** ~1000-2000ms per persona
 - **5-Persona Debate:** ~5000-10000ms (parallel)
@@ -341,6 +359,7 @@ All errors return a JSON response:
 ```
 
 **Common Error Codes:**
+
 - `400` - Bad Request (missing parameters)
 - `404` - Not Found (invalid endpoint)
 - `500` - Server Error (processing failed)
@@ -350,6 +369,7 @@ All errors return a JSON response:
 ## Admin Endpoints
 
 ### Clear Cache
+
 **POST** `/admin/clear-cache`
 
 ```bash

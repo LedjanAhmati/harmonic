@@ -89,7 +89,7 @@ function zurichCycle(input) {
  * Process input through Zürich deterministic cycle
  */
 router.post('/process', async (req, res) => {
-  const { input, debug = false } = req.body;
+  const { input } = req.body;
 
   if (!input) {
     return res.status(400).json({ 
@@ -131,7 +131,7 @@ router.post('/process', async (req, res) => {
  * Process multiple inputs in batch
  */
 router.post('/batch', async (req, res) => {
-  const { inputs = [], debug = false } = req.body;
+  const { inputs = [] } = req.body;
 
   if (!Array.isArray(inputs) || inputs.length === 0) {
     return res.status(400).json({ 
