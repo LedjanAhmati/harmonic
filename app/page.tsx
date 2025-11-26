@@ -6,14 +6,22 @@ import { useTypewriter } from "./hooks/useTypewriter";
 import { MemoryTimeline } from "./components/MemoryTimeline";
 import ClearMemoryButton from "./components/ClearMemoryButton";
 import AddPeople, { ALL_PERSONAS } from "./components/AddPeople";
+import DebateDisplay from "./components/DebateDisplay";
 import type { PersonaKey } from "../lib/trinity/persona/personas";
 import { PERSONAS } from "../lib/trinity/persona/personas";
+import {
+  orchestrateMultiPersona,
+  buildPersonaMetadata,
+  type PersonaResponse,
+} from "@/lib/multi-persona-orchestrator";
 
 interface Message {
-  type: "user" | "ai";
+  type: "user" | "ai" | "debate";
   text: string;
-  rawData?: any;
+  rawData?: Record<string, unknown>;
   timestamp: number;
+  responses?: PersonaResponse[]; // For multi-persona debates
+  totalLatency?: number;
 }
 
 export default function HarmonicChat() {
@@ -24,7 +32,8 @@ export default function HarmonicChat() {
   const [lastAIText, setLastAIText] = useState("");
   const [showDebate, setShowDebate] = useState(false);
   const [showTimeline, setShowTimeline] = useState(true);
-  const [activeParticipants, setActiveParticipants] = useState<string[]>(["alba", "albi", "asi"]); // Default personas
+  const [activeParticipants, setActiveParticipants] = useState(["alba", "albi", "asi"]); // Default personas
+  const [debateMode, setDebateMode] = useState(false); // Toggle between single and multi-persona
 
   const typedAI = useTypewriter(lastAIText, 12); // Typing effect
 
@@ -45,7 +54,7 @@ export default function HarmonicChat() {
     setInput("");
     setLastAIText("");
 
-    // Shto user message
+    // Add user message
     setMessages((m) => [
       ...m,
       {
@@ -58,34 +67,65 @@ export default function HarmonicChat() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/think", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: userText,
-          persona,
-          threadId: "default",
-        }),
-      });
+      // Check if debate mode (multiple personas)
+      if (debateMode && activeParticipants.length > 1) {
+        // Multi-persona mode
+        const personaMetadata = buildPersonaMetadata(
+          activeParticipants,
+          ALL_PERSONAS
+        );
 
-      const data = await res.json();
+        const result = await orchestrateMultiPersona(
+          userText,
+          activeParticipants,
+          personaMetadata,
+          "default"
+        );
 
-      setLastAIText(data.text);
+        // Add debate message
+        setMessages((m) => [
+          ...m,
+          {
+            type: "debate",
+            text: userText,
+            responses: result.responses,
+            totalLatency: result.totalLatency,
+            timestamp: Date.now(),
+          },
+        ]);
+      } else {
+      // Single persona mode (legacy)
+        const res = await fetch("/api/think", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: userText,
+            persona,
+            threadId: "default",
+          }),
+        });
+
+        const data = await res.json();
+
+        setLastAIText(data.text);
+        setMessages((m) => [
+          ...m,
+          {
+            type: "ai",
+            text: data.text,
+            rawData: data,
+            timestamp: Date.now(),
+          },
+        ]);
+      }
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Unknown error";
       setMessages((m) => [
         ...m,
         {
           type: "ai",
-          text: data.text,
-          rawData: data,
-          timestamp: Date.now(),
-        },
-      ]);
-    } catch (err: any) {
-      setMessages((m) => [
-        ...m,
-        {
-          type: "ai",
-          text: `❌ Gabim: ${err.message}`,
+          text: `❌ Gabim: ${errorMessage}`,
           timestamp: Date.now(),
         },
       ]);
@@ -138,7 +178,22 @@ export default function HarmonicChat() {
           {/* Active Participants Display */}
           {activeParticipants.length > 0 && (
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4 border border-purple-200">
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">Active Participants ({activeParticipants.length})</h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-gray-700">Active Participants ({activeParticipants.length})</h3>
+                {activeParticipants.length > 1 && (
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={debateMode}
+                      onChange={(e) => setDebateMode(e.target.checked)}
+                      className="w-4 h-4 rounded"
+                    />
+                    <span className="font-medium text-purple-700">
+                      {debateMode ? "🎭 Debate Mode" : "💬 Single Mode"}
+                    </span>
+                  </label>
+                )}
+              </div>
               <div className="flex flex-wrap gap-2">
                 {activeParticipants.map((id) => {
                   const p = ALL_PERSONAS.find((x) => x.id === id);
@@ -161,7 +216,9 @@ export default function HarmonicChat() {
                 })}
               </div>
               <p className="text-xs text-gray-600 mt-2">
-                💡 Tip: These {activeParticipants.length} personas will participate in debates and multi-perspective analysis
+                {debateMode
+                  ? "🎭 All personas will respond simultaneously to your questions"
+                  : "💡 Selected personas available. Toggle Debate Mode to activate multi-persona responses"}
               </p>
             </div>
           )}
@@ -196,7 +253,7 @@ export default function HarmonicChat() {
         </div>
 
         {/* Messages */}
-        <div className="bg-white rounded-lg shadow-lg h-96 overflow-y-auto p-4 space-y-4 mb-6">
+        <div className="bg-white rounded-lg shadow-lg max-h-96 overflow-y-auto p-4 space-y-4 mb-6">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full text-gray-500">
               <p className="text-center">
@@ -205,83 +262,113 @@ export default function HarmonicChat() {
               </p>
             </div>
           ) : (
-            messages.map((m, i) =>
-              m.type === "user" ? (
-                <div key={i} className="flex justify-end">
-                  <div className="bg-blue-600 text-white rounded-lg px-4 py-2 max-w-xs">
-                    <p className="text-sm">{m.text}</p>
-                  </div>
-                </div>
-              ) : (
-                <div key={i} className="flex justify-start">
-                  <div className="bg-gray-100 rounded-lg px-4 py-3 max-w-xs">
-                    {/* Persona info */}
-                    {m.rawData?.debugSnapshot && (
-                      <div className="text-xs text-gray-600 mb-1 flex items-center gap-1">
-                        <span>
-                          {m.rawData.debugSnapshot.persona.emoji}{" "}
-                          <strong>{m.rawData.debugSnapshot.persona.name}</strong>
-                        </span>
-                        {m.rawData.debugSnapshot.blended && (
-                          <span>
-                            + blended {m.rawData.debugSnapshot.blended.keys.join(" & ")}
-                          </span>
-                        )}
-                        {m.rawData.debugSnapshot.mood && (
-                          <span>
-                            | 🎭{" "}
-                            {m.rawData.debugSnapshot.mood.emotion || "calm"}
-                          </span>
-                        )}
+              messages.map((m, i) => {
+                if (m.type === "user") {
+                  return (
+                    <div key={i} className="flex justify-end">
+                      <div className="bg-blue-600 text-white rounded-lg px-4 py-2 max-w-xs">
+                        <p className="text-sm">{m.text}</p>
                       </div>
-                    )}
-
-                    {/* Main text (with typing effect for last message) */}
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">
-                      {i === messages.length - 1 && isShowingTyping
-                        ? typedAI
-                        : m.text}
-                    </p>
-
-                    {/* Tools output */}
-                    {showDebate && m.rawData?.toolsUsed && m.rawData.toolsUsed.length > 0 && (
-                      <div className="mt-2 pt-2 border-t border-gray-300 text-xs text-gray-700">
-                        <p className="font-medium">🔧 Tools used:</p>
-                        {m.rawData.toolsUsed.map((t: any, j: number) => (
-                          <div key={j} className="ml-2 py-1">
-                            <span className="font-mono text-gray-600">
-                              {t.name}: {t.output}
+                    </div>
+                  );
+                } else if (m.type === "debate") {
+                  // Multi-persona debate display
+                  return (
+                    <div key={i} className="w-full">
+                      <DebateDisplay
+                        userMessage={m.text}
+                        responses={m.responses || []}
+                        isLoading={loading && i === messages.length - 1}
+                        totalLatency={m.totalLatency}
+                      />
+                    </div>
+                  );
+                } else {
+                  // Single persona response
+                  return (
+                    <div key={i} className="flex justify-start">
+                      <div className="bg-gray-100 rounded-lg px-4 py-3 max-w-xs">
+                        {/* Persona info */}
+                        {m.rawData && typeof m.rawData === "object" && "debugSnapshot" in m.rawData && (
+                          <div className="text-xs text-gray-600 mb-1 flex items-center gap-1">
+                            <span>
+                              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                              {(m.rawData as any).debugSnapshot?.persona?.emoji || "🤖"}{" "}
+                              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                              <strong>{(m.rawData as any).debugSnapshot?.persona?.name || "unknown"}</strong>
                             </span>
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {(m.rawData as any).debugSnapshot?.blended && (
+                              <span>
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                + blended {((m.rawData as any).debugSnapshot?.blended?.keys as string[])?.join(" & ") || ""}
+                              </span>
+                            )}
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {(m.rawData as any).debugSnapshot?.mood && (
+                              <span>
+                                | 🎭{" "}
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                {(m.rawData as any).debugSnapshot?.mood?.emotion || "calm"}
+                              </span>
+                            )}
                           </div>
-                        ))}
-                      </div>
-                    )}
+                        )}
 
-                    {/* Debate info */}
-                    {showDebate && m.rawData?.debate?.enabled && (
-                      <div className="mt-2 pt-2 border-t border-gray-300 text-xs">
-                        <p className="font-medium text-gray-700">🎭 Debate:</p>
-                        {m.rawData.debate.turns?.map((t: any, j: number) => {
-                          const persona = t.persona as PersonaKey;
-                          return (
-                          <div key={j} className="ml-2 py-1">
-                            <p className="font-medium text-gray-700">
-                              {PERSONAS[persona]?.emoji} {persona} (⚖️ {t.weight?.toFixed(1) || '0'})
-                            </p>
-                            <p className="text-gray-600 italic">{t.text}</p>
+                        {/* Main text (with typing effect for last message) */}
+                        <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                          {i === messages.length - 1 && isShowingTyping
+                            ? typedAI
+                            : m.text}
+                        </p>
+
+                        {/* Tools output */}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {showDebate && m.rawData && typeof m.rawData === "object" && "toolsUsed" in m.rawData && Array.isArray((m.rawData as any).toolsUsed) && (m.rawData as any).toolsUsed.length > 0 && (
+                          <div className="mt-2 pt-2 border-t border-gray-300 text-xs text-gray-700">
+                            <p className="font-medium">🔧 Tools used:</p>
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {((m.rawData as any).toolsUsed as Array<Record<string, any>>).map((t, j) => (
+                              <div key={j} className="ml-2 py-1">
+                                <span className="font-mono text-gray-600">
+                                  {t.name}: {t.output}
+                                </span>
+                              </div>
+                            ))}
                           </div>
-                        )})}
-                        {m.rawData.debate.winner && (
-                          <p className="mt-1 font-medium text-green-700">
-                            ✅ Winner: {m.rawData.debate.winner}
-                          </p>
+                        )}
+
+                        {/* Debate info */}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {showDebate && m.rawData && typeof m.rawData === "object" && "debate" in m.rawData && (m.rawData as any).debate?.enabled && (
+                          <div className="mt-2 pt-2 border-t border-gray-300 text-xs">
+                            <p className="font-medium text-gray-700">🎭 Debate:</p>
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {((m.rawData as any).debate?.turns || []).map((t: any, j: number) => {
+                              const persona = t.persona as PersonaKey;
+                              return (
+                                <div key={j} className="ml-2 py-1">
+                                  <p className="font-medium text-gray-700">
+                                    {PERSONAS[persona]?.emoji} {persona} (⚖️ {t.weight?.toFixed(1) || '0'})
+                                  </p>
+                                  <p className="text-gray-600 italic">{t.text}</p>
+                                </div>
+                              );
+                            })}
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {(m.rawData as any).debate?.winner && (
+                              <p className="mt-1 font-medium text-green-700">
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                ✅ Winner: {(m.rawData as any).debate?.winner}
+                              </p>
+                            )}
+                          </div>
                         )}
                       </div>
-                    )}
-                  </div>
-                </div>
-              )
-            )
+                    </div>
+                  );
+                }
+              })
           )}
           {loading && (
             <div className="flex justify-start">
@@ -302,7 +389,8 @@ export default function HarmonicChat() {
 
             {showTimeline && (
               <div className="bg-white rounded-lg border border-gray-200 p-4">
-                <MemoryTimeline messages={messages} />
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <MemoryTimeline messages={messages.filter((m) => m.type !== "debate") as any} />
               </div>
             )}
           </div>
