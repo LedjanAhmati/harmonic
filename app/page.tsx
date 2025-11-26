@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTypewriter } from "./hooks/useTypewriter";
 import { MemoryTimeline } from "./components/MemoryTimeline";
 import ClearMemoryButton from "./components/ClearMemoryButton";
+import AddPeople, { ALL_PERSONAS } from "./components/AddPeople";
 import type { PersonaKey } from "../lib/trinity/persona/personas";
 import { PERSONAS } from "../lib/trinity/persona/personas";
 
@@ -23,8 +24,19 @@ export default function HarmonicChat() {
   const [lastAIText, setLastAIText] = useState("");
   const [showDebate, setShowDebate] = useState(false);
   const [showTimeline, setShowTimeline] = useState(true);
+  const [activeParticipants, setActiveParticipants] = useState<string[]>(["alba", "albi", "asi"]); // Default personas
 
   const typedAI = useTypewriter(lastAIText, 12); // Typing effect
+
+  function addParticipant(personaId: string) {
+    if (!activeParticipants.includes(personaId)) {
+      setActiveParticipants([...activeParticipants, personaId]);
+    }
+  }
+
+  function removeParticipant(personaId: string) {
+    setActiveParticipants(activeParticipants.filter((p) => p !== personaId));
+  }
 
   async function send() {
     if (!input.trim() || loading) return;
@@ -119,6 +131,40 @@ export default function HarmonicChat() {
               onCleared={() => setMessages([])}
             />
           </div>
+
+          {/* Add People Component */}
+          <AddPeople onAdd={addParticipant} disabled={loading} />
+
+          {/* Active Participants Display */}
+          {activeParticipants.length > 0 && (
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4 border border-purple-200">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Active Participants ({activeParticipants.length})</h3>
+              <div className="flex flex-wrap gap-2">
+                {activeParticipants.map((id) => {
+                  const p = ALL_PERSONAS.find((x) => x.id === id);
+                  return (
+                    <div
+                      key={id}
+                      className="px-3 py-1 bg-white border border-purple-300 rounded-full text-sm font-medium text-gray-700 flex items-center gap-2 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <span>{p?.emoji}</span>
+                      <span>{p?.name}</span>
+                      <button
+                        onClick={() => removeParticipant(id)}
+                        className="text-gray-400 hover:text-red-500 transition-colors ml-1"
+                        title="Remove participant"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-gray-600 mt-2">
+                💡 Tip: These {activeParticipants.length} personas will participate in debates and multi-perspective analysis
+              </p>
+            </div>
+          )}
 
           <div className="flex gap-2">
             <input
