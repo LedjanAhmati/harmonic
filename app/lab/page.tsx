@@ -16,17 +16,23 @@ export default function Lab() {
   const [out, setOut] = useState("");
 
   async function run() {
-    // sigurohu që puter është ngarkuar
-    if (!window.puter || !window.puter.ai) {
-      setOut("Puter nuk është gati ende (ngarkim skripti)...");
-      return;
+    try {
+      // sigurohu që puter është ngarkuar
+      if (!window.puter || !window.puter.ai) {
+        setOut("Puter nuk është gati ende (ngarkim skripti)...");
+        return;
+      }
+
+      const r = await window.puter.ai.chat(input, {
+        model: "gpt-5-nano",
+      });
+
+      setOut(typeof r === "string" ? r : JSON.stringify(r, null, 2));
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      setOut(`❌ Gabim: ${errorMessage}`);
+      console.error("Puter error:", error);
     }
-
-    const r = await window.puter.ai.chat(input, {
-      model: "gpt-5-nano",
-    });
-
-    setOut(typeof r === "string" ? r : JSON.stringify(r, null, 2));
   }
 
   return (

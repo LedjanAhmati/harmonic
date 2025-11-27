@@ -422,7 +422,7 @@ export function checkIndexFresh(maxAgeMs = 3600000) {
   };
 }
 
-export default {
+const indexerExport = {
   getIndex,
   initializeIndex,
   searchIndexed,
@@ -430,3 +430,5 @@ export default {
   rebuildIndex,
   checkIndexFresh
 };
+
+export default indexerExport;

@@ -35,24 +35,21 @@ app.post('/v1/debate', (req, res) => {
 
 // ASI Fusion
 app.post('/v1/asi-fusion', (req, res) => {
-  const { prompt } = req.body || {};
-  res.json({ ok: true, prompt, result: "Combined reasoning" });
+  res.json({ ok: true, result: "Combined reasoning" });
 });
 
 // Cycle
 app.post('/v1/cycle/run', (req, res) => {
-  const { prompt } = req.body || {};
   res.json({ ok: true, stages: ['input', 'analysis', 'synthesis', 'output'] });
 });
 
 // Auth
 app.post('/v1/auth/signup', (req, res) => {
-  const { email, password } = req.body || {};
-  res.json({ ok: true, token: `tok_${Date.now()}`, email });
+  const body = req.body || {};
+  res.json({ ok: true, token: `tok_${Date.now()}`, email: body.email });
 });
 
 app.post('/v1/auth/login', (req, res) => {
-  const { email } = req.body || {};
   res.json({ ok: true, token: `tok_${Date.now()}` });
 });
 

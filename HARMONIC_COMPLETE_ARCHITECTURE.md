@@ -2,7 +2,7 @@
 
 ## 🏗️ Full Stack Architecture
 
-```
+...
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        FRONTEND (Next.js 16)                        │
 ├─────────────────────────────────────────────────────────────────────┤
@@ -75,11 +75,11 @@
 │  └─ External AI layer (unified prompt format)                     │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
-```
+...
 
 ## 🔄 Complete Query Flow
 
-```
+...
 USER: "What is harmonic reasoning?"
   ↓
 ┌─ FRONTEND (app/asi/page.tsx) ─────────────────────────┐
@@ -166,11 +166,11 @@ USER: "What is harmonic reasoning?"
      │ • Brain (knowledge)     │
      │                         │
      └─────────────────────────┘
-```
+...
 
 ## 📊 System Components Map
 
-```
+...
 HARMONIC ECOSYSTEM
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -207,10 +207,10 @@ HARMONIC ECOSYSTEM
         └─ ORCHESTRATION                        │
            • src/memory-bank.js (cache)         │
            • src/database.js (SQLite)           │
-           • src/learning-engine.js             │
-                                                 
+           • src/learning-engine.js
+           ...          │
         ↕
-        
+        ...
         ┌─────────────────────────────────┐
         │   Storage & Memory               │
         │                                  │
@@ -220,33 +220,36 @@ HARMONIC ECOSYSTEM
         │   • Puter.ai API (external AI)   │
         │                                  │
         └─────────────────────────────────┘
-```
+...
 
 ## 🚀 Quick Start Commands
 
 ### 1. Setup Brain (First Time)
+
 ```bash
 cd api-server
 powershell -ExecutionPolicy Bypass -File setup-brain.ps1
 ```
 
 ### 2. Start All Systems
+
 ```bash
 cd harmonic
 powershell -ExecutionPolicy Bypass -File start-all.ps1
 ```
 
 ### 3. Access Interfaces
-```
-Frontend:     http://localhost:3000
-ASI Fusion:   http://localhost:3000/asi
-Dashboard:    http://localhost:3000/lab/api-dashboard
-API Server:   http://localhost:5000
-```
+
+...
+Frontend:     http: //localhost:3000
+ASI Fusion:   http: //localhost:3000/asi
+Dashboard:    http: //localhost:3000/lab/api-dashboard
+API Server:   http: //localhost:5000
+...
 
 ## 📈 Performance Metrics
 
-```
+...
 System                Latency      Throughput     Resource
 ─────────────────────────────────────────────────────────────
 Trinity (5 personas)  2-5s         1 req/user     2-4GB RAM
@@ -254,11 +257,11 @@ Zürich (9 module)     50-150ms     100s/sec       <100MB
 Brain Search          <100ms       1000s/sec      500MB RAM idx
 ASI Fusion           2-6s          1 req/user     6-8GB RAM
 Cache Hit Rate       ~96%          N/A            1-2GB SQLite
-```
+...
 
 ## 🔐 Security Layers
 
-```
+...
 ┌─ CORS Enabled
 │  └─ Localhost only (development)
 │  └─ Configurable (production)
@@ -274,11 +277,11 @@ Cache Hit Rate       ~96%          N/A            1-2GB SQLite
 └─ Error Handling
    └─ Graceful fallbacks
    └─ No sensitive info in errors
-```
+...
 
 ## 📚 Documentation Structure
 
-```
+...
 Root Documentation:
 ├─ README.md (Main overview)
 ├─ SAAS_ARCHITECTURE.md (Complete system)
@@ -295,11 +298,11 @@ Code Comments:
 ├─ puter/asiFusion.ts (Architecture comments)
 ├─ api-server/src/indexer.js (Detailed comments)
 ├─ app/asi/page.tsx (UI documentation)
-```
+...
 
 ## ✅ Deployment Checklist
 
-```
+...
 Pre-Deployment:
 ☑ Build passes (npm run build)
 ☑ All tests pass
@@ -318,11 +321,12 @@ Post-Deployment:
 ☑ Test ASI Fusion query
 ☑ Monitor indexer stats
 ☑ Watch logs for errors
-```
+...
 
 ## 🎯 Success Metrics
 
 Current Status:
+
 - ✅ Trinity (5 personas): Working
 - ✅ Zürich (9 modules): Working  
 - ✅ Brain (8TB ready): Working
@@ -335,18 +339,21 @@ Current Status:
 ## 🔮 Future Roadmap
 
 Phase 2 (Next):
+
 - [ ] Semantic search (embeddings)
 - [ ] Auto-refresh indexer
 - [ ] Brain visualization dashboard
 - [ ] Concept linking UI
 
 Phase 3:
+
 - [ ] Distributed indexing
 - [ ] ML-based relevance
 - [ ] Knowledge graph
 - [ ] Real-time collaboration
 
 Phase 4:
+
 - [ ] Multi-user sessions
 - [ ] Persistent conversations
 - [ ] Export/Import tools

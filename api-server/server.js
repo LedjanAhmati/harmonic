@@ -7,12 +7,7 @@ import zurichRoutes from './src/zurich-routes.js';
 import brainSearchRoutes from './routes/brain-search.js';
 import reasoningRoutes from './routes/reasoning.js';
 import { initializeIndex } from './src/indexer.js';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { v4 as uuidv4 } from 'uuid';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 5000;
@@ -41,7 +36,7 @@ async function start() {
     try {
       const indexStats = initializeIndex();
       console.log(`✅ Brain Index: ${indexStats.indexed_files}/${indexStats.total_files} files, ${indexStats.unique_keywords} keywords\n`);
-    } catch (error) {
+    } catch {
       console.warn('⚠️  Brain Indexer: Skipping (no brain directory yet)\n');
     }
     
@@ -57,6 +52,49 @@ async function start() {
     process.exit(1);
   }
 }
+
+/**
+ * GET / - Root endpoint with API documentation
+ */
+app.get('/', (req, res) => {
+  res.json({
+    status: 'operational',
+    name: 'Harmonic SAAS API',
+    version: '1.0.0',
+    description: 'Multi-persona reasoning engine powered by ASI Fusion',
+    uptime: Math.round(process.uptime()) + 's',
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      health: {
+        method: 'GET',
+        url: '/health',
+        description: 'Server health check'
+      },
+      debate: {
+        method: 'POST',
+        url: '/debate',
+        description: 'Run a full debate with all personas',
+        body: { topic: 'string' }
+      },
+      stats: {
+        method: 'GET',
+        url: '/stats',
+        description: 'Memory bank and cache statistics'
+      },
+      cache: {
+        method: 'GET',
+        url: '/cache',
+        description: 'View cached responses'
+      },
+      zurich: {
+        method: 'POST',
+        url: '/api/zurich/cycle',
+        description: 'Run Zürich deterministic reasoning cycle',
+        body: { prompt: 'string' }
+      }
+    }
+  });
+});
 
 /**
  * Register Zürich Routes

@@ -79,6 +79,7 @@ function interpretationModule(normalized) {
 /**
  * REASON: Logic-based inference
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function reasoningModule(interpretation, tags) {
   const steps = [
     { order: 1, type: "define", content: "Definojmë problemin bazuar në inputin" },
@@ -119,6 +120,7 @@ function strategyModule(tags) {
 /**
  * DRAFT: Compose response
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function draftModule(normalized, interpretation, reasoning, strategy) {
   const draftText = `Përgjigja për "${normalized.substring(0, 50)}..."\n\n`;
   const parts = reasoning.steps.map(step => 

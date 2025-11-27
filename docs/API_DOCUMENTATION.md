@@ -449,6 +449,6 @@ ws.onmessage = (event) => console.log(event.data);
 
 For issues or feature requests, contact the development team.
 
-**API Server:** http://localhost:5000
-**Frontend:** http://localhost:3000
-**Dashboard:** http://localhost:3000/lab/api-dashboard
+**API Server:** http: //localhost:5000
+**Frontend:** http: //localhost:3000
+**Dashboard:** http: //localhost:3000/lab/api-dashboard

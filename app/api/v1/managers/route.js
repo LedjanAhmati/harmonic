@@ -347,7 +347,7 @@ export async function DELETE(request) {
   }
 }
 
-export async function OPTIONS(request) {
+export async function OPTIONS() {
   return Response.json({
     success: true,
     endpoint: "/api/v1/managers",

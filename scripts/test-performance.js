@@ -36,7 +36,7 @@ function request(method, path, body = null) {
             headers: res.headers,
             data: JSON.parse(data),
           });
-        } catch (e) {
+        } catch {
           resolve({
             status: res.statusCode,
             headers: res.headers,

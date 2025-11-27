@@ -1,13 +1,14 @@
 # 🧪 LIVE ENDPOINT TEST SCRIPT
 
-**Vercel Domain**: https://harmonic-ledjanahmati.vercel.app
+**Vercel Domain**: https: //harmonic-ledjanahmati.vercel.app
 
 ---
 
 ## **TEST 1: Health Check**
+
 ```bash
 curl https://harmonic-ledjanahmati.vercel.app/health
-```
+...
 **Expected**: `{"status":"ok"}`
 
 ---
@@ -17,7 +18,7 @@ curl https://harmonic-ledjanahmati.vercel.app/health
 curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/zurich \
   -H "Content-Type: application/json" \
   -d '{"prompt":"Cfare do te bejme?"}'
-```
+...
 **Expected**: Full reasoning with stages (input → analysis → synthesis → output)
 
 ---
@@ -27,7 +28,7 @@ curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/zurich \
 curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/debate \
   -H "Content-Type: application/json" \
   -d '{"topic":"Is AI good for society?"}'
-```
+...
 **Expected**: 5 persona responses (alba, albi, jona, blerina, asi)
 
 ---
@@ -37,7 +38,7 @@ curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/debate \
 curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/auth/signup \
   -H "Content-Type: application/json" \
   -d '{"email":"demo@test.com","password":"TestPass123"}'
-```
+...
 **Expected**: `{"token":"...", "userId":"...", "message":"User created"}`
 
 ---
@@ -47,7 +48,7 @@ curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/auth/signup \
 curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"demo@test.com","password":"TestPass123"}'
-```
+...
 **Expected**: `{"token":"...", "message":"Login successful"}`
 
 ---
@@ -56,7 +57,7 @@ curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/auth/login \
 ```bash
 curl https://harmonic-ledjanahmati.vercel.app/api/v1/user/me \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
-```
+...
 **Expected**: `{"userId":"...", "email":"demo@test.com", "createdAt":"..."}`
 
 ---
@@ -64,7 +65,7 @@ curl https://harmonic-ledjanahmati.vercel.app/api/v1/user/me \
 ## **TEST 7: API Info**
 ```bash
 curl https://harmonic-ledjanahmati.vercel.app/api/v1/info
-```
+...
 **Expected**: List of all 10 available endpoints
 
 ---

@@ -7,6 +7,7 @@
 ## 📌 What You Need to Know
 
 ### The Integration (In 30 seconds)
+
 - **APIKeyManager**: Generates secure API keys with bcrypt hashing
 - **UsageTracker**: Tracks requests and enforces monthly quotas  
 - **Both integrated into `/api/v1/data`**: Every request now requires optional API key and enforces quotas
@@ -15,6 +16,7 @@
 ### Quick Start
 
 #### 1️⃣ Generate API Key
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/keys \
   -H "Content-Type: application/json" \
@@ -24,6 +26,7 @@ curl -X POST http://localhost:3000/api/v1/keys \
 ```
 
 #### 2️⃣ Use with Data Endpoint
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -33,6 +36,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 #### 3️⃣ Check Usage
+
 ```bash
 curl "http://localhost:3000/api/v1/usage?action=current&userId=myuser&tier=pro"
 # Returns: {"quota": 10000, "used": 5, "remaining": 9995, ...}
@@ -43,6 +47,7 @@ curl "http://localhost:3000/api/v1/usage?action=current&userId=myuser&tier=pro"
 ## 🔑 API Key Management
 
 ### Generate Key
+
 ```javascript
 // POST /api/v1/keys
 {
@@ -53,6 +58,7 @@ curl "http://localhost:3000/api/v1/usage?action=current&userId=myuser&tier=pro"
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -68,18 +74,21 @@ curl "http://localhost:3000/api/v1/usage?action=current&userId=myuser&tier=pro"
 ```
 
 ### List Keys
+
 ```bash
 GET /api/v1/keys?userId=user123
 # Returns: Masked keys (preview only, no secrets exposed)
 ```
 
 ### Revoke Key
+
 ```bash
 DELETE /api/v1/keys/key-abc123
 # Immediate revocation - key stops working instantly
 ```
 
 ### Rotate Key
+
 ```bash
 POST /api/v1/keys/key-abc123/rotate
 # Creates new key + optionally revokes old one
@@ -90,11 +99,13 @@ POST /api/v1/keys/key-abc123/rotate
 ## 📊 Usage & Quotas
 
 ### Check Current Usage
+
 ```bash
 GET /api/v1/usage?action=current&userId=user123&tier=pro
 ```
 
 **Response**:
+
 ```json
 {
   "quota": 10000,
@@ -107,16 +118,19 @@ GET /api/v1/usage?action=current&userId=user123&tier=pro
 ```
 
 ### View Usage History
+
 ```bash
 GET /api/v1/usage?action=history&userId=user123&limit=50
 ```
 
 ### Get Analytics
+
 ```bash
 GET /api/v1/usage?action=analytics&userId=user123&days=7
 ```
 
 ### Source Breakdown
+
 ```bash
 GET /api/v1/usage?action=breakdown&userId=user123
 ```
@@ -125,7 +139,7 @@ GET /api/v1/usage?action=breakdown&userId=user123
 
 ## 🔒 How It Works
 
-```
+...
 Request → verifyAndTrackRequest()
            ├─ Extract API key from X-API-Key header
            ├─ If no key: Allow demo mode (Free quota)
@@ -141,7 +155,7 @@ Request → verifyAndTrackRequest()
 
 If valid → [Process request] → trackUsage()
 If invalid → Return 401 or 429
-```
+...
 
 ---
 
@@ -170,6 +184,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ## 📝 Response Headers
 
 Every POST response includes:
+
 - `X-RateLimit-Limit` - Total quota
 - `X-RateLimit-Used` - Used requests
 - `X-RateLimit-Remaining` - Remaining requests
@@ -210,6 +225,7 @@ Every POST response includes:
 ## 🔧 Configuration
 
 ### In `api-key-manager.js`
+
 ```javascript
 const PREFIX = 'hm_'; // API key prefix
 const BYTES_LENGTH = 32; // Random key length
@@ -218,6 +234,7 @@ const KEY_DISPLAY_LIMIT = 1; // Show once only
 ```
 
 ### In `usage-tracker.js`
+
 ```javascript
 const TIER_QUOTAS = {
   free: 1000,
@@ -229,6 +246,7 @@ const RESET_DAY = 25; // Monthly reset day
 ```
 
 ### In `/api/v1/data/route.js`
+
 ```javascript
 // Authentication is checked before data processing
 // Demo mode: allowed without API key
@@ -268,14 +286,17 @@ const RESET_DAY = 25; // Monthly reset day
 ## 📁 Files Modified/Created
 
 **New Files**:
+
 - `lib/managers/api-key-manager.js` (220 lines)
 - `lib/managers/usage-tracker.js` (320 lines)
 - `app/api/v1/keys/route.js` (240 lines)
 
 **Modified Files**:
+
 - `app/api/v1/data/route.js` (integrated auth + tracking)
 
 **Documentation**:
+
 - `PHASE_8_ADVANCED_FEATURES.md` (500+ lines)
 - `TEST_API_KEY_INTEGRATION.md` (200+ lines)
 - `PHASE_4_DEPLOYMENT_CHECKLIST.md` (100+ lines)
@@ -286,6 +307,7 @@ const RESET_DAY = 25; // Monthly reset day
 ## 🎯 Next Steps
 
 ### Phase 5: Database & Authentication
+
 1. PostgreSQL migration (2-3 days)
 2. User authentication system (2-3 days)
 3. Admin dashboard (2-3 days)
@@ -298,6 +320,7 @@ const RESET_DAY = 25; // Monthly reset day
 ## 💡 Common Tasks
 
 ### Task: Generate and Test API Key
+
 ```bash
 # 1. Generate
 KEY=$(curl -s -X POST http://localhost:3000/api/v1/keys \
@@ -314,17 +337,20 @@ curl "http://localhost:3000/api/v1/usage?action=current&userId=testuser"
 ```
 
 ### Task: Revoke a Key
+
 ```bash
 curl -X DELETE http://localhost:3000/api/v1/keys/key-id-here
 ```
 
 ### Task: Check if Quota Exceeded
+
 ```bash
 USAGE=$(curl -s "http://localhost:3000/api/v1/usage?action=current&userId=user123&tier=pro")
 echo $USAGE | jq .isExceeded
 ```
 
 ### Task: Reset User Quota (Admin)
+
 ```bash
 curl -X DELETE "http://localhost:3000/api/v1/usage/reset?userId=user123&adminKey=YOUR_ADMIN_KEY"
 ```
@@ -367,4 +393,4 @@ A: Only the bcrypt hash is stored. The plaintext key is shown once at creation.
 **Status**: ✅ Production Ready  
 **Build**: ✅ Passing  
 
-**Start testing now! 🚀**
+-**Start testing now! 🚀**

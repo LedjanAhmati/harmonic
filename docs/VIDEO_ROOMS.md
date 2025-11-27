@@ -25,38 +25,40 @@ Real-time video conferencing with AI agents/personas using LiveKit.
 ### API Routes
 
 #### 1. `/api/livekit-token` (POST)
+
 Generate tokens for users to join rooms
 
 **Request:**
-```json
+...json
 {
   "roomName": "support-room",
-  "identity": "alice@example.com",
+  "identity":alice@example.com",
   "metadata": { "role": "user" }
 }
-```
+...
 
 **Response:**
-```json
+...json
 {
   "token": "jwt_token_here",
   "serverUrl": "wss://livekit-server"
 }
-```
+...
 
 #### 2. `/api/spawn-agent` (POST)
+
 Create a token for an AI agent to join a room
 
 **Request:**
-```json
+...json
 {
   "roomName": "support-room",
   "agentId": "coach"
 }
-```
+...
 
 **Response:**
-```json
+...json
 {
   "ok": true,
   "token": "jwt_token_here",
@@ -67,7 +69,7 @@ Create a token for an AI agent to join a room
     "role": "coach"
   }
 }
-```
+...
 
 ## Setup
 
@@ -98,12 +100,12 @@ docker run --rm -it \
 ```
 
 Update `.env.local`:
-```env
+...env
 LIVEKIT_URL=ws://localhost:7880
 NEXT_PUBLIC_LIVEKIT_URL=ws://localhost:7880
 LIVEKIT_API_KEY=devkey
 LIVEKIT_API_SECRET=secret
-```
+...
 
 ### 3. Deploy
 
@@ -151,18 +153,18 @@ The bot worker will:
 
 Example structure:
 
-```
+...
 /workers/
   ├── agent-bot.ts          # Main bot process
   ├── transcription.ts      # STT handling
   ├── llm-handler.ts        # LLM calls
   ├── tts-handler.ts        # TTS handling
   └── queue-worker.ts       # Listen for spawn events
-```
+...
 
 ## File Structure
 
-```
+...
 app/
   ├── rooms/
   │   ├── page.tsx           # Lobby
@@ -176,7 +178,7 @@ app/
 lib/
   ├── livekit.ts             # Token generation
   └── agents.ts              # Agent configuration
-```
+...
 
 ## Usage
 

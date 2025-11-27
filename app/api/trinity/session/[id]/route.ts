@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 interface SessionContext {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 /**
@@ -38,8 +38,8 @@ interface SessionContext {
  *       404:
  *         description: Session not found.
  */
-export async function GET(req: Request, context: SessionContext) {
-  const { id } = context.params;
+export async function GET(req: NextRequest, context: SessionContext) {
+  const { id } = await context.params;
 
   // In a real implementation, you would fetch session data from a database
   // For now, we'll just return the ID as a mock response.

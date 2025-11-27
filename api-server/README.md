@@ -21,6 +21,7 @@ Server runs on `http://localhost:5000`
 ## Endpoints
 
 ### POST /debate
+
 Call all 5 personas with automatic caching
 
 ```bash
@@ -30,6 +31,7 @@ curl -X POST http://localhost:5000/debate \
 ```
 
 **Response:**
+
 ```json
 {
   "debateId": "uuid",
@@ -52,6 +54,7 @@ curl -X POST http://localhost:5000/debate \
 ```
 
 ### POST /persona
+
 Call single persona
 
 ```bash
@@ -65,6 +68,7 @@ curl -X POST http://localhost:5000/persona \
 ```
 
 ### GET /stats
+
 Memory bank statistics
 
 ```bash
@@ -72,6 +76,7 @@ curl http://localhost:5000/stats
 ```
 
 ### GET /cache
+
 View cached responses
 
 ```bash
@@ -79,6 +84,7 @@ curl http://localhost:5000/cache
 ```
 
 ### GET /health
+
 Health check
 
 ```bash
@@ -86,6 +92,7 @@ curl http://localhost:5000/health
 ```
 
 ### POST /admin/clear-cache
+
 Clear all cached responses
 
 ```bash
@@ -95,6 +102,7 @@ curl -X POST http://localhost:5000/admin/clear-cache
 ## Memory Bank
 
 Automatically stores:
+
 - **Cache table**: Puter.ai responses by topic/persona
 - **Debates table**: Full debate history for learning
 - **Persona patterns**: Learned response patterns

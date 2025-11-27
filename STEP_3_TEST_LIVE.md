@@ -1,6 +1,6 @@
 # 🧪 LIVE ENDPOINT TEST - STEP 3
 
-**Vercel Domain**: https://harmonic-ledjanahmati.vercel.app  
+**Vercel Domain**: https: //harmonic-ledjanahmati.vercel.app  
 **Status**: Ready to test ✅
 
 ---
@@ -8,9 +8,10 @@
 ## Test Sequence (Run in PowerShell)
 
 ### Test 1: Health Check
+
 ```powershell
 (Invoke-WebRequest -Uri "https://harmonic-ledjanahmati.vercel.app/health" -UseBasicParsing).Content
-```
+...
 **Expected**: `{"status":"ok","time":...}`
 
 ---
@@ -19,7 +20,7 @@
 ```powershell
 $body = @{prompt="Cfare do te bejme?"} | ConvertTo-Json
 (Invoke-WebRequest -Uri "https://harmonic-ledjanahmati.vercel.app/v1/zurich" -Method POST -Body $body -ContentType "application/json" -UseBasicParsing).Content | ConvertFrom-Json | Select-Object ok, prompt, stages
-```
+...
 **Expected**: Deterministic reasoning with 4 stages
 
 ---
@@ -28,7 +29,7 @@ $body = @{prompt="Cfare do te bejme?"} | ConvertTo-Json
 ```powershell
 $body = @{prompt="Is AI beneficial?"} | ConvertTo-Json
 (Invoke-WebRequest -Uri "https://harmonic-ledjanahmati.vercel.app/v1/debate" -Method POST -Body $body -ContentType "application/json" -UseBasicParsing).Content | ConvertFrom-Json | Select-Object ok, prompt, personas
-```
+...
 **Expected**: 5 persona responses (alba, albi, jona, blerina, asi)
 
 ---
@@ -36,7 +37,7 @@ $body = @{prompt="Is AI beneficial?"} | ConvertTo-Json
 ### Test 4: API Info
 ```powershell
 (Invoke-WebRequest -Uri "https://harmonic-ledjanahmati.vercel.app/v1/info" -UseBasicParsing).Content
-```
+...
 **Expected**: List of all endpoints
 
 ---

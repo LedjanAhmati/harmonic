@@ -45,9 +45,9 @@ Content-Type: application/json
 
 ### Get User Info
 
-```
-GET /api/users/me?email=user@example.com
-```
+...
+GET /api/users/me?email:user@example.com
+...
 
 **Response (200):**
 
@@ -136,7 +136,7 @@ Content-Type: application/json
 
 ...
 POST /api/premium/webhook
-X-Signature:<LemonSqueezy webhook signature>
+X-Signature:LemonSqueezy webhook signature
 Content-Type: application/json
 
 {
@@ -149,7 +149,7 @@ Content-Type: application/json
     "id": "order_123",
     "type": "orders",
     "attributes": {
-      "customer_email": "user@example.com",
+      "customer_email":user@example.com,
       "order_number": 12345,
       "total": "29.99",
       "currency": "USD",
@@ -157,9 +157,10 @@ Content-Type: application/json
     }
   }
 }
-```
+...
 
 **Response (200):**
+
 ```json
 {
   "ok": true,
@@ -171,6 +172,7 @@ Content-Type: application/json
 ```
 
 **Handled Events:**
+
 - `order:created` - New purchase (sets `isPremium = true`)
 - `order:refunded` - Refund received (sets `isPremium = false`)
 - `subscription:created` - Recurring subscription started
@@ -180,6 +182,7 @@ Content-Type: application/json
 - `subscription:expired` - Subscription expired (sets `isPremium = false`)
 
 **Error (401):**
+
 ```json
 {
   "ok": false,
@@ -326,6 +329,7 @@ interface Result {
 Currently: **No rate limiting** (implement as needed)
 
 Recommended for production:
+
 - 100 requests/minute per IP
 - 1000 requests/hour per user
 
@@ -376,6 +380,7 @@ const isValid = verifyWebhookSignature(body, signature);
 ```
 
 **Implementation (already done):**
+
 ```typescript
 import crypto from "crypto";
 

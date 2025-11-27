@@ -54,11 +54,11 @@ npm start
 
 # Build for production
 npm build
-```
+...
 
 ## 📁 File Structure
 
-```
+...
 harmonic/
 ├─ README_SAAS.md                    ← Complete guide
 ├─ ZURICH.md                         ← Doc generator
@@ -97,7 +97,7 @@ harmonic/
 
 ## 🔍 How to Find What You Need
 
-### I want to...
+### I want to
 
 **Start the system**
 → Read: `SAAS_QUICK_START.md`
@@ -128,21 +128,25 @@ harmonic/
 ## 🎓 Reading Order
 
 ### For Beginners
+
 1. SYSTEM_SUMMARY.txt (2 min) - See what you have
 2. SAAS_QUICK_START.md (5 min) - Get running
 3. README_SAAS.md (10 min) - Understand the system
 
 ### For Developers
+
 1. SAAS_ARCHITECTURE.md (15 min) - Design & structure
 2. docs/API_REFERENCE.md (10 min) - API details
 3. api-server/README.md (5 min) - Server specifics
 
 ### For API Integration
+
 1. docs/API_REFERENCE.md (10 min) - Endpoint details
 2. docs/postman-collection.json - Test in Postman
 3. docs/api.types.ts - Add to your project
 
 ### For DevOps
+
 1. SAAS_ARCHITECTURE.md - System design
 2. ZURICH.md - Documentation generation
 3. api-server/scripts/init-db.js - Database setup
@@ -170,15 +174,16 @@ A: Edit `zurich.js` and run `npm run docs`
 
 | Link | Purpose |
 |------|---------|
-| http://localhost:3000/harmonic | Frontend UI |
-| http://localhost:5000 | API Server |
-| http://localhost:5000/health | API Health Check |
-| http://localhost:5000/stats | Cache Statistics |
-| https://editor.swagger.io | OpenAPI Viewer |
+| http: //localhost:3000/harmonic | Frontend UI |
+| http: //localhost:5000 | API Server |
+| http: //localhost:5000/health | API Health Check |
+| http: //localhost:5000/stats | Cache Statistics |
+| https: //editor.swagger.io | OpenAPI Viewer |
 
 ## ✨ Summary
 
 You have a **complete SAAS system** with:
+
 - ✅ Production-ready code
 - ✅ Professional documentation
 - ✅ Automated doc generation

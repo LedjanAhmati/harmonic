@@ -55,7 +55,7 @@ export async function GET() {
         }
       }
     });
-  } catch (error) {
+  } catch {
     return Response.json(
       { error: 'Failed to get languages' },
       { status: 500 }

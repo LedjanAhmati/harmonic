@@ -6,41 +6,45 @@ The Brain Indexer is a RAM-based keyword index that enables instant search acros
 
 ## Architecture
 
-```
+...
 Brain Directory Structure
 ├── apis/
 │   └── *.json (API definitions)
 ├── docs/
-│   └── *.json (Documentation)
+│   └── .json (Documentation)
 └── concepts/
-    └── *.json (Conceptual knowledge)
+    └── .json (Conceptual knowledge)
 
 Indexer Process
 ├── Read file metadata
 ├── Extract keywords from all text fields
 ├── Build keyword → files mapping
 └── Serve instant lookups
-```
+...
 
 ## Key Features
 
 ### 1. **Keyword Extraction**
+
 - Removes common words (the, a, is, etc.)
 - Normalizes to lowercase
 - Extracts 2+ character words
 - Limits to 20 most relevant per record
 
 ### 2. **Multi-Keyword Search**
+
 - Supports multiple keywords from query
 - Returns intersection of matching files
 - Sorts by relevance (keyword match count)
 - Shows match percentage (matches / keywords)
 
 ### 3. **Search Methods**
+
 - **Indexed Search** (default): O(1) keyword lookup
 - **Full Search** (fallback): Complete file scan if index miss
 
 ### 4. **Auto-Refresh**
+
 - Monitors directory modification time
 - Detects new/modified files
 - Can manually rebuild index
@@ -57,6 +61,7 @@ powershell -ExecutionPolicy Bypass -File setup-brain.ps1
 ```
 
 This creates:
+
 - `api-server/data/brain/apis/apis.json`
 - `api-server/data/brain/docs/docs.json`
 - `api-server/data/brain/concepts/concepts.json`
@@ -70,10 +75,10 @@ node server.js
 ```
 
 You should see:
-```
+...
 🧠 Initializing Brain Indexer...
 ✅ Brain Index: 3/3 files, XXX unique keywords
-```
+...
 
 ### Test Endpoints
 
@@ -84,6 +89,7 @@ curl -X POST http://localhost:5000/api/brain/index/initialize
 ```
 
 Response:
+
 ```json
 {
   "ok": true,
@@ -104,6 +110,7 @@ curl -X GET http://localhost:5000/api/brain/index/stats
 ```
 
 Response:
+
 ```json
 {
   "ok": true,
@@ -144,6 +151,7 @@ curl -X POST http://localhost:5000/api/brain/search \
 ```
 
 Response (Indexed):
+
 ```json
 {
   "ok": true,
@@ -206,16 +214,19 @@ Combine with brain-reader for category-specific searches.
 ## Performance Characteristics
 
 ### Index Creation
+
 - **3 sample files**: ~45ms
 - **Scale**: Linear with file count and keyword density
 - **Memory**: ~1-2KB per unique keyword
 
 ### Search Performance
+
 - **Indexed lookup**: O(1) keyword → files
 - **Multi-keyword**: O(n) where n = number of keywords
 - **Sample query**: <10ms response time
 
 ### Scalability
+
 - **8TB memory**: ~1-50 million keywords (estimate)
 - **RAM usage**: 100-500MB for full 8TB index
 - **Search time**: <100ms even for complex queries
@@ -258,18 +269,21 @@ const brainResult = await callBrain(query);  // Uses indexed search by default
 ### Steps
 
 1. **Add files to brain directories**:
-   ```
+
+  ...
    api-server/data/brain/apis/my-api.json
    api-server/data/brain/docs/my-doc.json
    api-server/data/brain/concepts/my-concept.json
-   ```
+   ...
 
-2. **Rebuild index**:
+2.**Rebuild index**:
+
    ```bash
    curl -X POST http://localhost:5000/api/brain/index/rebuild
    ```
 
-3. **Verify with stats**:
+3.**Verify with stats**:
+
    ```bash
    curl -X GET http://localhost:5000/api/brain/index/stats
    ```
@@ -291,6 +305,7 @@ All files should be JSON arrays of objects:
 ```
 
 Supported fields (any combination):
+
 - Text fields: `name`, `title`, `description`, `summary`, `body`, `content`, `definition`, `examples`, `tags`, `keywords`, `group`, `domain`, `category`, `path`, `endpoint`
 
 ## Integration with Other Systems
@@ -324,9 +339,9 @@ const brainContext = await callBrain(query);
 
 ### Index Not Initializing
 
-```
+...
 ⚠️  Brain Indexer: Skipping (no brain directory yet)
-```
+...
 
 **Solution**: Run setup-brain.ps1 first
 
@@ -337,6 +352,7 @@ const brainContext = await callBrain(query);
 ```
 
 **Solution**: Server will auto-initialize on first search, or manually call:
+
 ```bash
 curl -X POST http://localhost:5000/api/brain/index/initialize
 ```
@@ -376,7 +392,7 @@ curl -X POST http://localhost:5000/api/brain/index/initialize
 
 ## Example: Complete Search Flow
 
-```
+...
 User Query: "How do I use the debate API?"
     ↓
 [Indexer] Extract keywords: ["debate", "api"]
@@ -390,7 +406,7 @@ User Query: "How do I use the debate API?"
 [Response] Return API documentation with Trinity debate details
     ↓
 [ASI] Synthesize with Zürich logic → User gets complete answer
-```
+...
 
 ## Monitoring
 

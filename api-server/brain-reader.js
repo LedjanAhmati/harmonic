@@ -6,7 +6,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // NDRYSHO KËTË SIPAS DISKUT TËND:
 const BASE_DIR = process.env.BRAIN_DIR || "E:\\harmonic-brain";

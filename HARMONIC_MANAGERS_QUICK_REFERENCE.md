@@ -7,7 +7,7 @@
 
 ## 🚀 Quick Start
 
-### System is fully operational with all 6 personas running autonomously:
+### System is fully operational with all 6 personas running autonomously
 
 ```bash
 # Check system status
@@ -38,6 +38,7 @@ curl http://localhost:3000/api/v1/managers?action=health
 ## 📡 API Quick Reference
 
 ### GET Endpoints
+
 ```bash
 # System Overview
 GET /api/v1/managers
@@ -61,6 +62,7 @@ GET /api/v1/managers?action=task&id=TASK_ID
 ```
 
 ### POST Endpoints
+
 ```bash
 # Orchestrate Task (Smart Routing)
 POST /api/v1/managers
@@ -121,12 +123,14 @@ POST /api/v1/managers
 ```
 
 ### DELETE Endpoints
+
 ```bash
 # Clear Task Queue (Admin)
 DELETE /api/v1/managers?action=clear-queue
 ```
 
 ### OPTIONS Endpoint
+
 ```bash
 # API Documentation
 OPTIONS /api/v1/managers
@@ -138,6 +142,7 @@ OPTIONS /api/v1/managers
 ## 🎯 Common Workflows
 
 ### 1️⃣ Research Pipeline
+
 ```javascript
 // Gather → Store → Verify Security → Generate Docs → Quality Check
 POST /api/v1/managers
@@ -157,6 +162,7 @@ POST /api/v1/managers
 ```
 
 ### 2️⃣ Medical Research
+
 ```javascript
 // Strict security checks required
 POST /api/v1/managers
@@ -174,6 +180,7 @@ POST /api/v1/managers
 ```
 
 ### 3️⃣ Documentation Generation
+
 ```javascript
 // Create comprehensive API documentation
 POST /api/v1/managers
@@ -190,6 +197,7 @@ POST /api/v1/managers
 ```
 
 ### 4️⃣ Quick Information Gather
+
 ```javascript
 // Just get information from multiple sources
 POST /api/v1/managers
@@ -203,8 +211,9 @@ POST /api/v1/managers
 
 ## 🔄 Intelligent Theme Routing
 
-### Automatic Agent Selection:
-```
+### Automatic Agent Selection
+
+...
 science          → Alba + Albi + ASI
 medicine         → Alba + Albi + Jona + ASI (HIGH SECURITY)
 nature           → Alba + Albi + ASI
@@ -214,19 +223,21 @@ documentation    → Blerina + Albi + ASI
 knowledge        → Albi + Alba
 quality          → ASI + Jona
 general          → Alba + Albi
-```
+...
 
 ---
 
 ## 📊 Data Sources
 
-### Free External APIs (No Auth Required):
+### Free External APIs (No Auth Required)
+
 - **Wikipedia API** - Article summaries, extracts, images
 - **ArXiv API** - 2.4M+ research papers
 - **Open-Meteo Weather API** - Global weather & climate data
 - **Internal Knowledge Base** - Pre-cached science facts
 
-### Data Categories:
+### Data Categories
+
 - 🔬 Science & Research
 - 🏥 Medical Information
 - 🌍 Climate & Nature
@@ -252,13 +263,15 @@ general          → Alba + Albi
 
 ## 🛡️ Security & Ethics
 
-### Jona Protects:
+### Jona Protects
+
 - 👥 **Humans** - Safety, health, privacy, education
 - 🦁 **Animals** - Welfare, habitat, protection
 - 🌍 **Planet** - Conservation, climate, restoration
 - 🤖 **AI** - Transparency, auditability, beneficial use
 
-### All actions must pass:
+### All actions must pass
+
 ✓ Human benefit check
 ✓ Animal protection check  
 ✓ Planet impact check
@@ -271,15 +284,16 @@ general          → Alba + Albi
 ## 📈 System Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:3000/api/v1/managers?action=health
-```
+...
 Returns system health percentage and status.
 
 ### Detailed Metrics
 ```bash
 curl http://localhost:3000/api/v1/managers?action=metrics
-```
+...
 Returns:
 - Uptime
 - Tasks queued/executed/succeeded/failed
@@ -289,7 +303,7 @@ Returns:
 ### Task Tracking
 ```bash
 curl "http://localhost:3000/api/v1/managers?action=task&id=TASK_ID"
-```
+...
 Returns task status and results.
 
 ---
@@ -369,6 +383,7 @@ print(f"Task ID: {result['taskId']}")
 ```
 
 ### JavaScript
+
 ```javascript
 // Check system health
 const health = await fetch("/api/v1/managers?action=health")
@@ -379,6 +394,7 @@ console.log(`Status: ${health.health.status}`);
 ```
 
 ### cURL
+
 ```bash
 # Get persona list
 curl http://localhost:3000/api/v1/managers?action=personas

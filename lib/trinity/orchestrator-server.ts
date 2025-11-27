@@ -12,7 +12,6 @@
 import { cache, generatePromptCacheKey } from "@/lib/cache/cache-manager";
 import {
   harmonicCoreSystemPrompt,
-  harmonicMemory,
   buildHarmonicPrompt,
   recordHarmonicInteraction,
   wrapHarmonicResponse,
@@ -21,11 +20,11 @@ import {
 /**
  * Extract JSON from response (handles markdown wrappers, etc)
  */
-function extractJSON(text: string): any {
+function extractJSON(text: string): Record<string, unknown> | null {
   try {
     // Try direct parse first
     return JSON.parse(text);
-  } catch (e) {
+  } catch {
     // Look for JSON block: { ... }
     const match = text.match(/\{[\s\S]*\}$/);
     if (match) {
@@ -138,8 +137,7 @@ RESPONSE FORMAT (CRITICAL - NO MARKDOWN, NO EXTRA TEXT):
     messages[0].content = trinitySystemPrompt;
 
     // ⚡ SINGLE CALL instead of 5 separate calls
-    let raw: string;
-    raw = await callPuterAPI(messages, "gpt-5-nano", 450);
+    const raw = await callPuterAPI(messages, "gpt-5-nano", 450);
 
     const text = String(raw);
     const parsed = extractJSON(text);

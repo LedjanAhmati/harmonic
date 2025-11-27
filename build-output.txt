@@ -1,0 +1,70 @@
+
+> harmonic@0.1.0 build
+> next build
+
+   Ôû▓ Next.js 16.0.3 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully in 3.2s
+   Running TypeScript ...
+   Collecting page data using 31 workers ...
+   Generating static pages using 31 workers (0/46) ...
+   Generating static pages using 31 workers (11/46) 
+   Generating static pages using 31 workers (22/46) 
+   Generating static pages using 31 workers (34/46) 
+ Ô£ô Generating static pages using 31 workers (46/46) in 443.3ms
+   Finalizing page optimization ...
+
+Route (app)
+Ôöî Ôùï /
+Ôö£ Ôùï /_not-found
+Ôö£ ãÆ /api/brainstorm
+Ôö£ ãÆ /api/cache
+Ôö£ ãÆ /api/chat
+Ôö£ ãÆ /api/health
+Ôö£ ãÆ /api/livekit-token
+Ôö£ ãÆ /api/memory/reset
+Ôö£ ãÆ /api/premium/checkout
+Ôö£ ãÆ /api/premium/webhook
+Ôö£ ãÆ /api/results/save
+Ôö£ ãÆ /api/spawn-agent
+Ôö£ ãÆ /api/think
+Ôö£ ãÆ /api/trinity/memory
+Ôö£ ãÆ /api/trinity/session/[id]
+Ôö£ ãÆ /api/users/create
+Ôö£ ãÆ /api/users/me
+Ôö£ ãÆ /api/v1/asi-fusion
+Ôö£ ãÆ /api/v1/auth/login
+Ôö£ ãÆ /api/v1/auth/signup
+Ôö£ ãÆ /api/v1/cycle/run
+Ôö£ ãÆ /api/v1/data
+Ôö£ ãÆ /api/v1/debate
+Ôö£ ãÆ /api/v1/detect-language
+Ôö£ ãÆ /api/v1/dot
+Ôö£ ãÆ /api/v1/info
+Ôö£ ãÆ /api/v1/keys
+Ôö£ ãÆ /api/v1/languages
+Ôö£ ãÆ /api/v1/managers
+Ôö£ ãÆ /api/v1/science
+Ôö£ ãÆ /api/v1/translate
+Ôö£ ãÆ /api/v1/usage
+Ôö£ ãÆ /api/v1/user/me
+Ôö£ ãÆ /api/v1/zurich
+Ôö£ ãÆ /api/zurich
+Ôö£ ãÆ /api/zurich-fast
+Ôö£ Ôùï /asi
+Ôö£ Ôùï /chat
+Ôö£ Ôùï /harmonic
+Ôö£ Ôùï /harmonic/dashboard
+Ôö£ Ôùï /lab
+Ôö£ Ôùï /lab/api-dashboard
+Ôö£ Ôùï /lab/zurich
+Ôö£ Ôùï /rooms
+Ôö£ ãÆ /rooms/[roomName]
+Ôöö Ôùï /trinity/debug
+
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

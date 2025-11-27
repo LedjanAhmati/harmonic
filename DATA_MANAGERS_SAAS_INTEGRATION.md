@@ -13,7 +13,7 @@ The **Data Managers Layer** is the foundation of HARMONIC's production SAAS syst
 
 ## 🎯 System Architecture
 
-```
+...
 ┌─────────────────────────────────────────────────────┐
 │         HARMONIC SAAS API Layer                     │
 │  /api/v1/data - Data Pipeline Endpoint              │
@@ -35,13 +35,14 @@ The **Data Managers Layer** is the foundation of HARMONIC's production SAAS syst
     │Wiki │   │ArXiv │ │News│ │OMeteo   │Internal│
     │API  │   │API   │ │Agg │ │API      │KB      │
     └─────┘   └──────┘ └────┘ └────┘    └────────┘
-```
+...
 
 ---
 
 ## 🔧 5 Data Managers
 
 ### 1. **WikiManager** 📖
+
 - **Source**: Wikipedia REST API (en.wikipedia.org/api/rest_v1/)
 - **Response Time**: <1 second
 - **Cache TTL**: 24 hours
@@ -52,6 +53,7 @@ The **Data Managers Layer** is the foundation of HARMONIC's production SAAS syst
   - Redirect handling
 
 **Example Usage**:
+
 ```javascript
 const result = await dataManagers.fetch('wiki', 'quantum computing');
 // Returns: { title, description, extract, thumbnail, url }
@@ -60,6 +62,7 @@ const result = await dataManagers.fetch('wiki', 'quantum computing');
 ---
 
 ### 2. **ArxivManager** 📚
+
 - **Source**: ArXiv API (export.arxiv.org/api/)
 - **Response Time**: <2 seconds
 - **Cache TTL**: 7 days
@@ -70,6 +73,7 @@ const result = await dataManagers.fetch('wiki', 'quantum computing');
   - Multiple result format support
 
 **Example Usage**:
+
 ```javascript
 const result = await dataManagers.fetch('arxiv', 'machine learning', { maxResults: 5 });
 // Returns: { papers: [{id, title, summary, authors, published, url}, ...] }
@@ -78,6 +82,7 @@ const result = await dataManagers.fetch('arxiv', 'machine learning', { maxResult
 ---
 
 ### 3. **NewsManager** 📰
+
 - **Source**: News Aggregator (gnews API compatible)
 - **Response Time**: <1 second
 - **Cache TTL**: 6 hours (updates frequently)
@@ -88,6 +93,7 @@ const result = await dataManagers.fetch('arxiv', 'machine learning', { maxResult
   - Publish time tracking
 
 **Example Usage**:
+
 ```javascript
 const result = await dataManagers.fetch('news', 'climate change', { maxResults: 5 });
 // Returns: { articles: [{title, description, url, source, publishedAt, category}, ...] }
@@ -96,6 +102,7 @@ const result = await dataManagers.fetch('news', 'climate change', { maxResults: 
 ---
 
 ### 4. **WeatherManager** 🌤️
+
 - **Source**: Open-Meteo API (api.open-meteo.com)
 - **Response Time**: <1 second
 - **Cache TTL**: 30 minutes
@@ -106,6 +113,7 @@ const result = await dataManagers.fetch('news', 'climate change', { maxResults: 
   - Automatic timezone detection
 
 **Example Usage**:
+
 ```javascript
 const result = await dataManagers.fetch('weather', 'New York');
 // Returns: { location, coordinates, current: {temp, humidity, weatherCode}, timezone }
@@ -114,6 +122,7 @@ const result = await dataManagers.fetch('weather', 'New York');
 ---
 
 ### 5. **CuriosityManager** 💡
+
 - **Source**: Internal Knowledge Base (pre-loaded)
 - **Response Time**: <100 milliseconds
 - **Cache TTL**: 24 hours
@@ -124,6 +133,7 @@ const result = await dataManagers.fetch('weather', 'New York');
   - Perfect for demonstrations
 
 **Example Usage**:
+
 ```javascript
 const result = await dataManagers.fetch('curiosity', 'biology');
 // Returns: { facts: ["fact 1", "fact 2", ...], description: "..." }
@@ -136,6 +146,7 @@ const result = await dataManagers.fetch('curiosity', 'biology');
 ### Base: `/api/v1/data`
 
 #### **GET /api/v1/data** - Status & Information
+
 ```bash
 # Get system status
 curl http://localhost:3000/api/v1/data
@@ -151,6 +162,7 @@ curl http://localhost:3000/api/v1/data?action=stats
 ```
 
 **Response** (status):
+
 ```json
 {
   "status": "operational",
@@ -170,6 +182,7 @@ curl http://localhost:3000/api/v1/data?action=stats
 #### **POST /api/v1/data** - Fetch Data
 
 **Single Source**:
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -181,6 +194,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Multiple Sources**:
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -192,6 +206,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Comprehensive Mode** (all sources):
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -202,6 +217,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Response** (comprehensive):
+
 ```json
 {
   "query": "quantum computing",
@@ -222,11 +238,13 @@ curl -X POST http://localhost:3000/api/v1/data \
 #### **DELETE /api/v1/data** - Cache Management
 
 **Clear all caches**:
+
 ```bash
 curl -X DELETE http://localhost:3000/api/v1/data?action=cache
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -263,9 +281,10 @@ Returns comprehensive API documentation (shown above).
 ## 💾 Caching Strategy
 
 ### Per-Source Caching
+
 Each manager maintains independent cache with appropriate TTL:
 
-```
+...
 ┌─────────────────────────┐
 │ Query: "AI"             │
 ├─────────────────────────┤
@@ -275,14 +294,15 @@ Each manager maintains independent cache with appropriate TTL:
 │ weather: 30m TTL        │ ← Re-fetch after 30 minutes
 │ curiosity: 24h TTL      │ ← Re-fetch after 24 hours
 └─────────────────────────┘
-```
+...
 
 ### HTTP Cache Headers
-```
+
+...
 Cache-Control: public, max-age=3600
 X-Cache-Hit: true
 X-Cache-Source: wikipedia
-```
+...
 
 ---
 
@@ -291,12 +311,14 @@ X-Cache-Source: wikipedia
 ### Deployment Tiers
 
 **Free Tier**:
+
 - 1,000 requests/month
 - 2 data sources (wiki, curiosity)
 - 1 hour cache expiry
 - 10 requests/minute
 
 **Pro Tier ($29/month)**:
+
 - 10,000 requests/month
 - 4 data sources (all except weather)
 - 2 hour cache expiry
@@ -304,6 +326,7 @@ X-Cache-Source: wikipedia
 - Advanced analytics
 
 **Enterprise** (custom):
+
 - Unlimited requests
 - All 5 data sources
 - 4 hour cache expiry
@@ -316,6 +339,7 @@ X-Cache-Source: wikipedia
 ## 🛡️ Security
 
 **Authentication**: API Key required for Pro/Enterprise
+
 ```javascript
 headers: {
   'X-API-Key': 'hm_' + generateRandomString(32)
@@ -323,13 +347,14 @@ headers: {
 ```
 
 **Rate Limiting**: Sliding window strategy
-```
+...
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 87
 X-RateLimit-Reset: 1700900460
-```
+...
 
 **CORS**: Enabled for approved origins
+
 - localhost:3000 (dev)
 - vercel.app (staging)
 - harmonic-ai.com (production)
@@ -339,11 +364,13 @@ X-RateLimit-Reset: 1700900460
 ## 📈 Monitoring & Analytics
 
 ### System Status
+
 ```bash
 curl http://localhost:3000/api/v1/data?action=stats
 ```
 
 Returns:
+
 - Total requests
 - Cache hits/misses
 - Success rate
@@ -351,11 +378,13 @@ Returns:
 - Source-specific metrics
 
 ### Health Check
+
 ```bash
 curl http://localhost:3000/api/v1/data?action=health
 ```
 
 Returns:
+
 - Manager operational status
 - Error rate per source
 - Response time tracking
@@ -366,6 +395,7 @@ Returns:
 ## 🔌 Integration Examples
 
 ### JavaScript/Node.js
+
 ```javascript
 const DataManagers = require('./lib/managers/data-managers');
 const managers = new DataManagers();
@@ -381,6 +411,7 @@ const comprehensive = await managers.fetchComprehensive('machine learning');
 ```
 
 ### cURL Examples
+
 ```bash
 # Get Wikipedia article
 curl -X POST http://localhost:3000/api/v1/data \
@@ -451,9 +482,10 @@ curl -X POST http://localhost:3000/api/v1/data \
 ## 📞 Support
 
 For issues or questions:
+
 - Check `/api/v1/data?action=health` for status
 - Review logs in `/logs/data-pipeline.log`
-- Contact: support@harmonic-ai.com
+- Contact:support@harmonic-ai.com
 
 ---
 

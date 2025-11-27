@@ -24,7 +24,7 @@ export interface TokenOptions {
  * @param opts - Token configuration
  * @returns JWT token for connecting to LiveKit room
  */
-export function createRoomToken(opts: TokenOptions): string {
+export async function createRoomToken(opts: TokenOptions): Promise<string> {
   const token = new AccessToken(apiKey, apiSecret, {
     identity: opts.identity,
     ttl: 60 * 60 * 4, // 4 hours
@@ -42,7 +42,7 @@ export function createRoomToken(opts: TokenOptions): string {
     token.metadata = JSON.stringify(opts.metadata);
   }
 
-  return token.toJwt();
+  return await token.toJwt();
 }
 
 export const LIVEKIT_URL = livekitUrl;

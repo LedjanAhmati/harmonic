@@ -9,7 +9,8 @@
     "lint": "eslint",
     "docs": "node zurich.js",
     "api": "cd api-server && npm run dev",
-    "both": "npm run docs && npm run api & npm run dev"
+    "both": "npm run docs && npm run api & npm run dev",
+    "generate-pdf": "node scripts/generate-api-pdf.js"
   },
   "dependencies": {
     "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
@@ -28,6 +29,7 @@
     "livekit-server-sdk": "^2.14.2",
     "next": "16.0.3",
     "openai": "^6.9.1",
+    "pdfkit": "^0.17.2",
     "react": "^19.2.0",
     "react-dom": "19.2.0",
     "undici": "^7.16.0",

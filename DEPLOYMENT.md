@@ -148,18 +148,17 @@ CREATE POLICY "Service role can all results" ON results FOR ALL USING (true);
 
 In Vercel project settings → **Environment Variables**
 
-Add all variables from `.env.local`:
-
-```
-SUPABASE_URL = https://your-project.supabase.co
+Add all variables from `.env.local`
+...
+SUPABASE_URL = https: //your-project.supabase.co
 SUPABASE_ANON_KEY = eyJhbGc...
 SUPABASE_SERVICE_ROLE_KEY = eyJhbGc...
 LEMONSQUEEZY_API_KEY = your_api_key
 LEMONSQUEEZY_STORE_ID = your_store_id
 LEMONSQUEEZY_PRODUCT_ID = your_product_id
 LEMONSQUEEZY_WEBHOOK_SECRET = your_webhook_secret
-NEXT_PUBLIC_APP_URL = https://harmonic.yourdomain.com
-```
+NEXT_PUBLIC_APP_URL = https: //harmonic.yourdomain.com
+...
 
 ### 3.3 Deploy
 
@@ -222,6 +221,7 @@ NEXT_PUBLIC_APP_URL = https://harmonic.yourdomain.com
 **Cause**: Webhook URL incorrect or secret mismatch
 
 **Fix**:
+
 1. Verify webhook URL in LemonSqueezy matches production domain
 2. Verify `LEMONSQUEEZY_WEBHOOK_SECRET` matches LemonSqueezy dashboard
 3. Check Vercel logs for errors
@@ -233,6 +233,7 @@ NEXT_PUBLIC_APP_URL = https://harmonic.yourdomain.com
 **Cause**: `SUPABASE_URL` or keys incorrect
 
 **Fix**:
+
 1. Verify credentials in LemonSqueezy Settings → API
 2. Test connection: `curl https://your-supabase-url/rest/v1/`
 3. Check Supabase is not paused (free tier suspends after 7 days inactivity)
@@ -244,6 +245,7 @@ NEXT_PUBLIC_APP_URL = https://harmonic.yourdomain.com
 **Cause**: RLS policies not configured correctly
 
 **Fix**:
+
 1. Go to Supabase → **Auth → Policies**
 2. Verify service role has INSERT/UPDATE permissions
 3. Re-run RLS SQL from Step 1.2
@@ -376,9 +378,9 @@ For schema changes:
 
 ## Getting Help
 
-- **Vercel Issues**: https://vercel.com/support
-- **Supabase Issues**: https://supabase.com/docs
-- **LemonSqueezy Issues**: https://lemonsqueezy.com/help
+- **Vercel Issues**: https: //vercel.com/support
+- **Supabase Issues**: https: //supabase.com/docs
+- **LemonSqueezy Issues**: https: //lemonsqueezy.com/help
 - **Code Issues**: Check `/ARCHITECTURE.md` and `/API_REFERENCE.md`
 
 ---
@@ -393,4 +395,4 @@ For schema changes:
 6. ✅ Setup CI/CD pipeline
 7. ✅ Implement feature flags
 
-**Congratulations! Your SaaS is now live in production! 🎉**
+-**Congratulations! Your SaaS is now live in production! 🎉**

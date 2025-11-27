@@ -259,6 +259,7 @@ npm run db:init
 ```
 
 ### "Slow responses"
+
 ```bash
 # Clear cache
 curl -X POST http://localhost:5000/admin/clear-cache
@@ -271,7 +272,7 @@ sqlite3 api-server/data/harmonic-memory.db "VACUUM;"
 
 ## 📁 PROJECT STRUCTURE
 
-```
+...
 harmonic/
 ├─ app/
 │  └─ harmonic/page.tsx              (Frontend UI)
@@ -297,13 +298,14 @@ harmonic/
 ├─ SAAS_QUICK_START.md              (Quick start)
 ├─ SAAS_ARCHITECTURE.md             (Architecture)
 └─ package.json
-```
+...
 
 ---
 
 ## 🎓 NEXT LEVEL (Optional Enhancements)
 
 ### Add to Your System
+
 1. **WebSocket Streaming** - Real-time persona responses
 2. **User Authentication** - Multi-user support
 3. **Analytics Dashboard** - Visual performance metrics
@@ -320,6 +322,7 @@ All possible with your current foundation!
 ## 📞 QUICK REFERENCE
 
 ### Commands
+
 ```bash
 npm run dev       # Frontend only
 npm run api       # API server only
@@ -329,20 +332,22 @@ npm run build     # Production build
 ```
 
 ### URLs
-```
-Frontend:     http://localhost:3000/harmonic
-API:          http://localhost:5000
-OpenAPI Docs: https://editor.swagger.io/ (import docs/openapi.json)
-```
+
+...
+Frontend:     http: //localhost:3000/harmonic
+API:          http: //localhost:5000
+OpenAPI Docs: https: //editor.swagger.io/ (import docs/openapi.json)
+...
 
 ### Documentation
-```
+
+...
 ZURICH.md              - Documentation generator
 SAAS_QUICK_START.md    - Quick start guide
 API_REFERENCE.md       - Complete API reference
 docs/openapi.json      - OpenAPI specification
 docs/postman-collection.json - Postman requests
-```
+...
 
 ---
 

@@ -5,6 +5,7 @@ Complete end-to-end testing workflow for payment + database integration.
 ## Prerequisites
 
 ✅ **Before starting, ensure:**
+
 - Supabase project created with all tables and RLS policies
 - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`
 - `LEMONSQUEEZY_API_KEY`, `LEMONSQUEEZY_WEBHOOK_SECRET` in `.env.local`
@@ -16,6 +17,7 @@ Complete end-to-end testing workflow for payment + database integration.
 ### Step 1: Create Test User
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:3000/api/users/create \
   -H "Content-Type: application/json" \
@@ -26,6 +28,7 @@ curl -X POST http://localhost:3000/api/users/create \
 ```
 
 **Expected Response (201):**
+
 ```json
 {
   "success": true,
@@ -40,6 +43,7 @@ curl -X POST http://localhost:3000/api/users/create \
 ```
 
 **Verify in Supabase:**
+
 - Check `users` table
 - New row with `isPremium = false`
 
@@ -48,11 +52,13 @@ curl -X POST http://localhost:3000/api/users/create \
 ### Step 2: Lookup User (Before Premium)
 
 **Request:**
+
 ```bash
 curl "http://localhost:3000/api/users/me?email=test@example.com"
 ```
 
 **Expected Response (200):**
+
 ```json
 {
   "success": true,
@@ -72,6 +78,7 @@ curl "http://localhost:3000/api/users/me?email=test@example.com"
 ### Step 3: Create Checkout Link
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:3000/api/premium/checkout \
   -H "Content-Type: application/json" \
@@ -81,6 +88,7 @@ curl -X POST http://localhost:3000/api/premium/checkout \
 ```
 
 **Expected Response (200):**
+
 ```json
 {
   "success": true,
@@ -96,11 +104,13 @@ curl -X POST http://localhost:3000/api/premium/checkout \
 ### Step 4: Complete Payment (LemonSqueezy Test Mode)
 
 **In LemonSqueezy Checkout:**
+
 1. Use **test card**: `4242 4242 4242 4242` (expires: any future date, CVC: any 3 digits)
 2. Fill in customer email: `test@example.com`
 3. Click "Complete Purchase"
 
 **Behind the scenes:**
+
 - LemonSqueezy creates order (webhook fires)
 - Server receives `POST /api/premium/webhook`
 - Webhook handler:
@@ -111,21 +121,23 @@ curl -X POST http://localhost:3000/api/premium/checkout \
   5. Creates subscription record
 
 **Server logs should show:**
-```
-✅ LemonSqueezy webhook: order:created { email: 'test@example.com', orderId: 'order_...' }
-✅ DB: Subscription created & premium activated for: test@example.com
-```
+...
+✅ LemonSqueezy webhook: order:created { email:test@example.com', orderId: 'order_...' }
+✅ DB: Subscription created & premium activated for:test@example.com
+...
 
 ---
 
 ### Step 5: Verify Premium Activated
 
 **Request:**
+
 ```bash
 curl "http://localhost:3000/api/users/me?email=test@example.com"
 ```
 
 **Expected Response (200) - Note `isPremium: true`:**
+
 ```json
 {
   "success": true,
@@ -147,6 +159,7 @@ curl "http://localhost:3000/api/users/me?email=test@example.com"
 ```
 
 **Verify in Supabase:**
+
 - Check `users` table: `isPremium = true`
 - Check `subscriptions` table: New row with `status = 'active'`
 
@@ -155,6 +168,7 @@ curl "http://localhost:3000/api/users/me?email=test@example.com"
 ### Step 6: Test Webhook Events (Manual)
 
 **Simulate order event:**
+
 ```bash
 curl -X POST http://localhost:3000/api/premium/webhook \
   -H "Content-Type: application/json" \
@@ -176,6 +190,7 @@ curl -X POST http://localhost:3000/api/premium/webhook \
 ```
 
 **Note:** Signature verification will fail in test mode. For development:
+
 - Option A: Comment out signature check temporarily
 - Option B: Use LemonSqueezy test mode (recommended)
 - Option C: Generate valid signature using lemonsqueezy.ts
@@ -196,32 +211,36 @@ curl -X POST http://localhost:3000/api/premium/webhook \
 
 **Cause:** Missing environment variables
 
-**Fix:** 
+**Fix:**
+
 ```bash
 # Check .env.local has:
 cat .env.local | grep SUPABASE
 ```
 
 Should show:
-```
-SUPABASE_URL=https://xxxx.supabase.co
+...
+SUPABASE_URL=https: //xxxx.supabase.co
 SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
-```
+...
 
 ---
 
 ### ❌ Webhook received but isPremium not updated
 
 **Cause 1:** Webhook signature verification failing
+
 - Check X-Signature header
 - Verify LEMONSQUEEZY_WEBHOOK_SECRET matches LemonSqueezy dashboard
 
 **Cause 2:** Database credentials wrong
+
 - Check SUPABASE_SERVICE_ROLE_KEY is set (not just ANON_KEY)
 - Webhook uses service role for admin access
 
 **Cause 3:** RLS policies blocking writes
+
 - Verify RLS policy allows service role writes
 - Should have: `granted_roles = "{authenticator,postgres,service_role}"`
 
@@ -232,6 +251,7 @@ SUPABASE_SERVICE_ROLE_KEY=...
 **Cause:** X-Signature header incorrect
 
 **Fix (Development Only):**
+
 ```typescript
 // In /api/premium/webhook/route.ts temporarily:
 if (signature !== "skip-verification") {

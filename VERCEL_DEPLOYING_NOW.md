@@ -19,17 +19,18 @@
    - Status: Building → Deployment URL ready
 
 3. **✓ Domain ready**
-   - Domain: https://harmonic-ledjanahmati.vercel.app
+   - Domain: https: //harmonic-ledjanahmati.vercel.app
    - Status: Should be live in 1-2 minutes
-   - Check: https://vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
+   - Check: https: //vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
 
 ---
 
 ## 📊 Vercel Dashboard Status
 
-Visit: https://vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
+Visit: https: //vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
 
 Look for:
+
 - ✅ "READY" next to latest deployment
 - 🔗 Live domain active
 - ⚡ Build time: ~60-90 seconds

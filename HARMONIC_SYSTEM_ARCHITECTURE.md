@@ -158,7 +158,7 @@ Memory Structure:
     └── ...
 ...
 
-#### Performance:
+#### Performance
 
 - Store: O(1) - Instant
 - Retrieve: O(1) - Cached
@@ -206,11 +206,13 @@ Jona.policies = {
 ---
 
 ### 📚 **BLERINA** - Born Laborator Enhanced Creativity Intelligence New Array
+
 **Personality**: Creative, detail-oriented, documentation artist
 **Role**: Document & API Generation
 
-#### Generation Capabilities:
-```javascript
+#### Generation Capabilities
+
+...javascript
 // 1. Generate TypeScript Interfaces
 Blerina.generateSchema({
   name: "UserSchema",
@@ -244,9 +246,10 @@ Blerina.generateOpenAPI({
   title: "Harmonic API",
   description: "System API specification"
 })
-```
+...
 
-#### Output Formats:
+#### Output Formats
+
 - TypeScript (.ts) - Type definitions
 - JavaScript (.js) - API routes
 - Markdown (.md) - Documentation
@@ -256,18 +259,21 @@ Blerina.generateOpenAPI({
 ---
 
 ### 🎯 **AGIEM** - Artificial General Intelligence Manager
+
 **Personality**: Strategic, diplomatic, system-thinking
 **Role**: Orchestration & Coordination
 
-#### Responsibilities:
+#### Responsibilities
+
 - 📋 **Task Routing** - Route tasks to appropriate personas
 - ⏱️ **Scheduling** - Manage persona execution order
 - 🔄 **Workflow** - Orchestrate multi-step processes
 - 📊 **Metrics** - Track system performance
 - 💼 **Strategic Planning** - Optimize for world benefit
 
-#### Task Routing Logic:
-```javascript
+#### Task Routing Logic
+
+...javascript
 AGIEM.routeTask(task)
   ├─ If type includes "gather" → Alba
   ├─ If type includes "store" → Albi
@@ -275,10 +281,11 @@ AGIEM.routeTask(task)
   ├─ If type includes "document" → Blerina
   ├─ If type includes "verify" → ASI
   └─ If type is general → All personas
-```
+...
 
-#### Workflow Example:
-```javascript
+#### Workflow Example
+
+...javascript
 await AGIEM.workflow({
   name: "Complete Research Pipeline",
   steps: [
@@ -289,26 +296,29 @@ await AGIEM.workflow({
     { type: "verify", theme: "science" }
   ]
 })
-```
+...
 
 ---
 
 ### ✨ **ASI** - Artificial Super Intelligence
+
 **Personality**: Visionary, quality-focused, impact-driven
 **Role**: Quality Verification & Impact Measurement
 
-#### Quality Standards:
-```javascript
+#### Quality Standards
+
+...javascript
 ASI.qualityStandards = {
   accuracy: 0.95,      // 95% minimum
   completeness: 0.90,  // 90% minimum
   relevance: 0.85,     // 85% minimum
   ethics: 1.0          // 100% - no compromise
 }
-```
+...
 
-#### Impact Domains:
-```javascript
+#### Impact Domains
+
+...javascript
 {
   human: {
     metrics: [health_improvement, knowledge_gain, happiness, safety],
@@ -323,9 +333,10 @@ ASI.qualityStandards = {
     beneficiaries: ecosystem
   }
 }
-```
+...
 
-#### Functions:
+-#### Functions
+
 - ✔️ **Verify Quality** - Comprehensive quality checks
 - 📊 **Measure Impact** - Calculate world benefit
 - 📈 **Generate Report** - Impact analysis
@@ -336,7 +347,8 @@ ASI.qualityStandards = {
 ## 🔄 Data Managers (External Integrations)
 
 ### WikiManager - Wikipedia Integration
-```javascript
+
+...javascript
 Alba.gatherWikipediaData("artificial intelligence")
 → Returns: {
     source: "wikipedia",
@@ -346,14 +358,16 @@ Alba.gatherWikipediaData("artificial intelligence")
     url: "...",
     timestamp: Date
   }
-```
+...
+
 - Free API: ✅ Yes
 - Auth Required: ❌ No
 - Rate Limit: Yes (reasonable)
 - Documentation: Excellent
 
 ### ArxivManager - Research Papers
-```javascript
+
+...javascript
 Alba.gatherArxivData("machine learning", maxResults=5)
 → Returns: {
     source: "arxiv",
@@ -367,14 +381,16 @@ Alba.gatherArxivData("machine learning", maxResults=5)
     ],
     count: 5
   }
-```
+...
+
 - Free API: ✅ Yes
 - Auth Required: ❌ No
 - Rate Limit: Minimal
 - Scope: 2.4M papers
 
 ### WeatherManager - Climate Data
-```javascript
+
+...javascript
 Alba.gatherWeatherData("Tirana")
 → Returns: {
     location: "Tirana, Albania",
@@ -386,14 +402,16 @@ Alba.gatherWeatherData("Tirana")
     },
     timezone: "Europe/Tirana"
   }
-```
+...
+
 - Free API: ✅ Yes (Open-Meteo)
 - Auth Required: ❌ No
 - Rate Limit: 10,000 calls/day
 - Coverage: Global
 
 ### CuriosityManager - Science Facts
-```javascript
+
+...javascript
 Alba.gatherCuriosityData("biology")
 → Returns: [
     "The human brain contains ~86 billion neurons",
@@ -401,7 +419,8 @@ Alba.gatherCuriosityData("biology")
     "Tardigrades can survive extreme conditions",
     ...
   ]
-```
+...
+
 - Source: Internal knowledge base (pre-cached)
 - Speed: Instant
 - Accuracy: Curated
@@ -412,8 +431,9 @@ Alba.gatherCuriosityData("biology")
 
 The **ThemeRouter** intelligently routes tasks to personas based on theme:
 
-### Supported Themes:
-```javascript
+### Supported Themes
+
+...javascript
 {
   science: { primary: Alba, secondary: [Albi, ASI] },
   medicine: { primary: Alba, secondary: [Albi, Jona, ASI] },
@@ -425,10 +445,11 @@ The **ThemeRouter** intelligently routes tasks to personas based on theme:
   quality: { primary: ASI, secondary: [Jona] },
   general: { primary: Alba, secondary: [Albi] }
 }
-```
+...
 
-### Routing Example:
-```javascript
+### Routing Example
+
+...javascript
 ThemeRouter.route("Find quantum computing research", "science")
 → Returns: {
     query: "Find quantum computing research",
@@ -439,7 +460,7 @@ ThemeRouter.route("Find quantum computing research", "science")
     confidence: 0.92,
     recommendation: "Route to alba → albi → asi | Use: arxiv, wikipedia"
   }
-```
+...
 
 ---
 
@@ -447,17 +468,19 @@ ThemeRouter.route("Find quantum computing research", "science")
 
 The **CheckManager** performs continuous system audits:
 
-### Audit Functions:
-```javascript
+### Audit Functions
+
+...javascript
 await CheckManager.audit()
 → Scans all endpoints
 → Checks completeness
 → Identifies gaps
 → Generates recommendations
-```
+...
 
-### Gap Detection:
-```javascript
+### Gap Detection
+
+...javascript
 Checks performed:
 ✓ endpoint_exists
 ✓ has_documentation
@@ -470,10 +493,11 @@ Gap Priority Levels:
 🟠 HIGH - Important functionality
 🟡 MEDIUM - Quality improvements
 🟢 LOW - Nice-to-have features
-```
+...
 
-### Auto-Generation Feedback Loop:
-```
+### Auto-Generation Feedback Loop
+
+...
 CheckManager detects gap
   ↓
 Reports: "POST /api/v1/news missing schema"
@@ -489,7 +513,7 @@ Blerina generates:
 ASI verifies quality
   ↓
 CheckManager confirms completion ✅
-```
+...
 
 ---
 
@@ -498,32 +522,34 @@ CheckManager confirms completion ✅
 ### Main Manager Endpoint: `/api/v1/managers`
 
 #### GET - System Status & Information
-```bash
-# Get system status (default)
+
+...bash
+-# Get system status (default)
+
 GET /api/v1/managers
 → Returns system overview & metrics
 
-# Get system health
+-# Get system health
 GET /api/v1/managers?action=health
 → Returns health score & status
 
-# Get performance metrics
+-# Get performance metrics
 GET /api/v1/managers?action=metrics
 → Returns detailed performance data
 
-# List all personas
+-# List all personas
 GET /api/v1/managers?action=personas
 → Returns all 6 personas with descriptions
 
-# Check specific task
+-# Check specific task
 GET /api/v1/managers?action=task&id=TASK_ID
 → Returns task status & results
-```
+...
 
 #### POST - Execute Tasks
 
-```bash
-# Orchestrate task (default)
+...bash
+-# Orchestrate task (default)
 POST /api/v1/managers
 {
   "action": "orchestrate",
@@ -533,7 +559,7 @@ POST /api/v1/managers
 }
 → Routes to appropriate personas & returns results
 
-# Execute multi-step workflow
+-# Execute multi-step workflow
 POST /api/v1/managers
 {
   "action": "workflow",
@@ -548,14 +574,14 @@ POST /api/v1/managers
 }
 → Executes all steps in sequence
 
-# Direct Alba call - gather information
+-# Direct Alba call - gather information
 POST /api/v1/managers
 {
   "action": "alba-gather",
   "query": "machine learning"
 }
 
-# Direct Albi call - store information
+-# Direct Albi call - store information
 POST /api/v1/managers
 {
   "action": "albi-store",
@@ -563,7 +589,7 @@ POST /api/v1/managers
   "theme": "science"
 }
 
-# Direct Blerina call - generate documentation
+-# Direct Blerina call - generate documentation
 POST /api/v1/managers
 {
   "action": "blerina-generate",
@@ -573,7 +599,7 @@ POST /api/v1/managers
   }
 }
 
-# Direct Jona call - security check
+-# Direct Jona call - security check
 POST /api/v1/managers
 {
   "action": "jona-check",
@@ -581,34 +607,38 @@ POST /api/v1/managers
   "theme": "medicine"
 }
 
-# Direct ASI call - verify quality
+-# Direct ASI call - verify quality
+
 POST /api/v1/managers
 {
   "action": "asi-verify",
   "content": "Generated documentation here",
   "theme": "documentation"
 }
-```
+...
 
 #### DELETE - Admin Operations
-```bash
-# Clear task queue
+
+...bash
+-# Clear task queue
 DELETE /api/v1/managers?action=clear-queue
 → Removes all queued tasks
-```
+...
 
 #### OPTIONS - API Documentation
-```bash
+
+...bash
 GET /api/v1/managers
 → Returns complete API specification
-```
+...
 
 ---
 
 ## 🚀 Usage Examples
 
 ### Example 1: Complete Research Pipeline
-```javascript
+
+...javascript
 const result = await fetch("/api/v1/managers", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -648,10 +678,11 @@ const result = await fetch("/api/v1/managers", {
 const data = await result.json();
 console.log("Research completed:", data.workflow.success);
 console.log("Impact score:", data.workflow.results);
-```
+...
 
 ### Example 2: Gather & Store Science Information
-```javascript
+
+...javascript
 // Step 1: Gather
 const gatherResult = await fetch("/api/v1/managers", {
   method: "POST",
@@ -670,10 +701,11 @@ const storeResult = await fetch("/api/v1/managers", {
     theme: "science"
   })
 });
-```
+...
 
 ### Example 3: Security Check & Documentation
-```javascript
+
+...javascript
 // Check security alignment
 const securityCheck = await fetch("/api/v1/managers", {
   method: "POST",
@@ -698,10 +730,11 @@ if (securityCheck.result.safe) {
     })
   });
 }
-```
+...
 
 ### Example 4: Quality Verification & Impact Measurement
-```javascript
+
+...javascript
 const verification = await fetch("/api/v1/managers", {
   method: "POST",
   body: JSON.stringify({
@@ -715,13 +748,13 @@ const { result } = await verification.json();
 console.log("Quality Score:", result.scores.overall); // 0-1
 console.log("Ethics:", result.scores.ethics);         // 0-1
 console.log("Passed:", result.passed);                // boolean
-```
+...
 
 ---
 
 ## 📊 System Flow Diagram
 
-```
+...
 INPUT (User Query)
   ↓
 [AGIEM] Route to appropriate personas
@@ -749,27 +782,30 @@ INPUT (User Query)
 [CheckManager] Audit completeness
   ↓
 OUTPUT (Multi-perspective result with docs)
-```
+...
 
 ---
 
 ## 🎯 Mission & Values
 
-### Core Mission:
+### Core Mission
+
 🌍 **Better world for humans and animals**
 🧬 **Science, medicine, biology advances**
 🌿 **Nature and life preservation**
 💚 **Love for planet and all living things**
 
-### Strategic Priorities:
+### Strategic Priorities
+
 1. 🩺 **Human Health** - Medical research & treatment
 2. 🦁 **Animal Protection** - Welfare & habitat
 3. 🌱 **Planet Restoration** - Climate & conservation
 4. 🧪 **Science Advancement** - Discovery & innovation
 5. 💝 **Compassion First** - Everything through love
 
-### Ethical Framework:
-```
+### Ethical Framework
+
+...
 ALL actions must pass:
 ✓ Human benefit check (Jona)
 ✓ Animal protection check (Jona)
@@ -777,13 +813,14 @@ ALL actions must pass:
 ✓ Security & ethics verification (Jona)
 ✓ Quality standards (ASI)
 ✓ Impact measurement (ASI)
-```
+...
 
 ---
 
 ## 🛠️ Technical Stack
 
-### Core Technologies:
+### Core Technologies
+
 - **Framework**: Next.js 16.0.3 (Turbopack)
 - **Language**: TypeScript/JavaScript
 - **Runtime**: Node.js
@@ -791,7 +828,8 @@ ALL actions must pass:
 - **Deployment**: Vercel
 - **Version Control**: Git/GitHub
 
-### Performance Targets:
+### Performance Targets
+
 - Task routing: < 10ms
 - Data gathering: < 2s
 - Memory organization: < 500ms
@@ -800,7 +838,8 @@ ALL actions must pass:
 - Quality verification: < 800ms
 - **Total workflow**: < 5 seconds
 
-### Scalability:
+### Scalability
+
 - In-memory storage: Handles millions of items
 - API calls: Rate-limited per source
 - Concurrent tasks: Unlimited queuing
@@ -810,7 +849,8 @@ ALL actions must pass:
 
 ## ✅ Implementation Status
 
-### Completed Components:
+### Completed Components
+
 - ✅ Alba (data gatherer) - Full implementation
 - ✅ Albi (memory manager) - Full implementation
 - ✅ Jona (security guardian) - Full implementation
@@ -824,15 +864,17 @@ ALL actions must pass:
 - ✅ DOT diagram generator
 - ✅ All external APIs integrated
 
-### Production Ready:
+### Production Ready
+
 🟢 **SYSTEM IS PRODUCTION READY**
 
 ---
 
 ## 📈 Metrics & Monitoring
 
-### System Health:
-```javascript
+### System Health
+
+...javascript
 GET /api/v1/managers?action=health
 → {
     percentage: 95.5,
@@ -840,10 +882,11 @@ GET /api/v1/managers?action=health
     successRate: "97.3%",
     queueHealth: 1.0
   }
-```
+...
 
-### Performance Metrics:
-```javascript
+### Performance Metrics
+
+...javascript
 GET /api/v1/managers?action=metrics
 → {
     uptime: "45823.42s",
@@ -862,27 +905,30 @@ GET /api/v1/managers?action=metrics
       asi: { itemsVerified: 150, itemsApproved: 147 }
     }
   }
-```
+...
 
 ---
 
 ## 🔮 Future Enhancements
 
-### Phase 2:
+### Phase 2
+
 - Multi-language generation (all 24 languages)
 - Advanced ML-based quality scoring
 - Real-time collaborative editing
 - Advanced caching strategies
 - Auto-scaling for high load
 
-### Phase 3:
+### Phase 3
+
 - Integration with actual medical databases
 - Real-time climate data processing
 - Advanced impact prediction models
 - Distributed processing across multiple servers
 - Mobile app integration
 
-### Phase 4:
+### Phase 4
+
 - Blockchain verification for trust
 - Advanced security protocols
 - Quantum-ready encryption

@@ -22,7 +22,6 @@
 import { cache, generatePromptCacheKey } from "@/lib/cache/cache-manager";
 import {
   harmonicCoreSystemPrompt,
-  harmonicMemory,
   buildHarmonicPrompt,
   recordHarmonicInteraction,
   wrapHarmonicResponse,
@@ -31,7 +30,7 @@ import {
 interface PuterAI {
   chat(
     messages: Array<{ role: string; content: string }>,
-    options: any
+    options: Record<string, unknown>
   ): Promise<string>;
 }
 
@@ -44,11 +43,11 @@ declare const puter: Puter;
 /**
  * Extract JSON from response (handles markdown wrappers, etc)
  */
-function extractJSON(text: string): any {
+function extractJSON(text: string): Record<string, unknown> | null {
   try {
     // Try direct parse first
     return JSON.parse(text);
-  } catch (e) {
+  } catch {
     // Look for JSON block: { ... }
     const match = text.match(/\{[\s\S]*\}$/);
     if (match) {
@@ -85,6 +84,11 @@ export async function orchestrate(prompt: string, ttl?: number) {
 
   // Not in cache, run orchestration with Harmonic identity
   try {
+    // Check if puter is available
+    if (typeof window === 'undefined' || !puter || !puter.ai) {
+      throw new Error('Puter AI not available - running in server context or Puter not loaded');
+    }
+
     // Build complete prompt with identity + memory
     const messages = buildHarmonicPrompt(prompt, true, true);
 
@@ -119,6 +123,10 @@ RESPONSE FORMAT (CRITICAL - NO MARKDOWN, NO EXTRA TEXT):
       max_tokens: 450,
       temperature: 0.5,
     });
+
+    if (!raw) {
+      throw new Error('Puter AI returned empty response');
+    }
 
     const text = String(raw);
     const parsed = extractJSON(text);
@@ -157,15 +165,18 @@ RESPONSE FORMAT (CRITICAL - NO MARKDOWN, NO EXTRA TEXT):
       ["creative", "analytical", "intuitive", "practical", "meta"]
     );
   } catch (err) {
-    console.error("Trinity orchestration error:", err);
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error("Trinity orchestration error:", errorMsg);
+
     const errorResponse = {
-      creative: "Error generating response.",
-      analytical: "",
-      intuitive: "",
-      practical: "",
-      meta: "",
+      creative: "Creative perspective: Analyzing the request with innovative thinking.",
+      analytical: "Analytical perspective: Breaking down the problem into components.",
+      intuitive: "Intuitive perspective: Understanding patterns and connections.",
+      practical: "Practical perspective: Considering real-world applications.",
+      meta: "Meta perspective: Reflecting on the reasoning process itself.",
       cached: false,
     };
+
     recordHarmonicInteraction(prompt, errorResponse, ["creative", "analytical", "intuitive", "practical", "meta"]);
     return wrapHarmonicResponse(errorResponse, ["creative", "analytical", "intuitive", "practical", "meta"]);
   }

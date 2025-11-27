@@ -6,7 +6,6 @@ import {
   LiveKitRoom,
   VideoConference,
 } from "@livekit/components-react";
-import "@livekit/components-react/styles.css";
 import { AGENTS } from "@/lib/agents";
 import Link from "next/link";
 

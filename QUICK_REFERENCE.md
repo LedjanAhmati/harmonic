@@ -15,11 +15,11 @@ git push -u origin main
 
 ## 🔗 YOUR DEPLOYMENT URLS
 
-```
-GitHub Repo:    https://github.com/ledjanahmati/harmonic
-Vercel Domain:  https://harmonic-ledjanahmati.vercel.app
-Product Hunt:   https://www.producthunt.com/posts/new
-```
+...
+GitHub Repo:    https: //github.com/ledjanahmati/harmonic
+Vercel Domain:  https: //harmonic-ledjanahmati.vercel.app
+Product Hunt:   https: //www.producthunt.com/posts/new
+...
 
 ---
 
@@ -46,11 +46,13 @@ Product Hunt:   https://www.producthunt.com/posts/new
 ## ✅ VERIFY THESE AFTER EACH STEP
 
 **After GitHub:**
+
 - Repo exists at: github.com/ledjanahmati/harmonic ✅
 - All files visible ✅
 - Green "main" branch ✅
 
 **After Vercel:**
+
 - "Deployment Complete" ✅
 - Domain working ✅
 - Site loads ✅

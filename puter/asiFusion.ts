@@ -12,6 +12,18 @@ interface BrainResult {
   concepts?: Array<unknown>;
 }
 
+interface TrinityResult {
+  creative?: string;
+  analytical?: string;
+  intuitive?: string;
+  practical?: string;
+  meta?: string;
+  alba?: string;
+  albi?: string;
+  jona?: string;
+  blerina?: string;
+}
+
 interface ZurichResult {
   intake?: unknown;
   preprocess?: unknown;
@@ -58,13 +70,13 @@ interface ASIFusionResult {
 /**
  * Call Trinity (AI debate with 5 personas)
  */
-export async function callTrinity(query: string): Promise<unknown> {
+export async function callTrinity(query: string): Promise<TrinityResult> {
   try {
     const result = await orchestrate(query);
-    return result;
+    return result as TrinityResult;
   } catch (error) {
     console.error('Trinity call failed:', error);
-    return { error: 'trinity_failed', message: String(error) };
+    return { error: 'trinity_failed', message: String(error) } as unknown as TrinityResult;
   }
 }
 
@@ -73,10 +85,10 @@ export async function callTrinity(query: string): Promise<unknown> {
  */
 export async function callZurich(query: string): Promise<ZurichResult> {
   try {
-    const response = await fetch('http://localhost:5000/api/zurich/process', {
+    const response = await fetch('/api/v1/zurich', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ input: query })
+      body: JSON.stringify({ prompt: query })
     });
     
     if (!response.ok) {
@@ -95,12 +107,12 @@ export async function callZurich(query: string): Promise<ZurichResult> {
  */
 export async function callBrain(query: string): Promise<BrainResult> {
   try {
-    const response = await fetch('http://localhost:5000/api/brain/search', {
+    const response = await fetch('/api/v1/data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query,
-        limits: { apis: 15, docs: 15, concepts: 15 }
+        mode: 'comprehensive'
       })
     });
     
@@ -109,7 +121,7 @@ export async function callBrain(query: string): Promise<BrainResult> {
     }
     
     const data = await response.json();
-    return data.results || { apis: [], docs: [], concepts: [] };
+    return data.sources || { apis: [], docs: [], concepts: [] };
   } catch (error) {
     console.error('Brain call failed:', error);
     return { apis: [], docs: [], concepts: [] };
@@ -129,7 +141,7 @@ interface BrainStats {
  */
 export async function getBrainStats(): Promise<BrainStats> {
   try {
-    const response = await fetch('http://localhost:5000/api/brain/stats', {
+    const response = await fetch('/api/v1/data?action=stats', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -160,10 +172,10 @@ export async function asiFusion(query: string): Promise<ASIFusionResult> {
 
     // Extract key information from each layer
     const trinityPerspectives = {
-      alba: trinityResult.alba || '',
-      albi: trinityResult.albi || '',
-      jona: trinityResult.jona || '',
-      blerina: trinityResult.blerina || ''
+      alba: (trinityResult as TrinityResult).alba || (trinityResult as TrinityResult).creative || '',
+      albi: (trinityResult as TrinityResult).albi || (trinityResult as TrinityResult).analytical || '',
+      jona: (trinityResult as TrinityResult).jona || (trinityResult as TrinityResult).intuitive || '',
+      blerina: (trinityResult as TrinityResult).blerina || (trinityResult as TrinityResult).practical || ''
     };
 
     const zurichReasoning = {

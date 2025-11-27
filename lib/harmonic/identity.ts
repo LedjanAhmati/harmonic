@@ -367,13 +367,13 @@ export function buildHarmonicPrompt(
  * JSON format for internal processing only
  */
 export function wrapHarmonicResponse(
-  response: any,
+  response: Record<string, unknown>,
     modules: string[] = ['creative', 'analytical', 'intuitive', 'practical', 'meta']
 ): {
   system: string;
   identifiedAs: string;
         modules: string[];
-        response: any;
+    response: Record<string, unknown>;
   organization: string;
 } {
   return {
@@ -392,7 +392,7 @@ export function wrapHarmonicResponse(
  */
 export function recordHarmonicInteraction(
   question: string,
-  response: any,
+  response: Record<string, unknown>,
     modules: string[] = []
 ): void {
   // Record user question
@@ -413,8 +413,8 @@ export function recordHarmonicInteraction(
     modules.forEach((module) => {
         if (response[module]) {
       harmonicMemory.addEntry({
-          role: module as any,
-          content: response[module],
+        role: module as MemoryEntry['role'],
+        content: response[module] as string,
           context: `module_${module}`,
       });
     }

@@ -1,31 +1,37 @@
 # 🧪 Puter Lab - DOT Generator Reference
 
 ## Overview
+
 Ultra-fast Graphviz DOT diagram generation for Harmonic architecture. **1000% faster** than alternatives with in-memory caching and HTTP cache headers.
 
 ## Available Diagrams
 
 ### 1. 🎼 Harmonic Architecture
+
 - **Endpoint**: `/api/v1/dot?type=harmonic`
 - **Shows**: Full system architecture with API layers, services, data layer
 - **Use Case**: System documentation, deployment guides, architecture reviews
 
 ### 2. 🔄 Zürich Cycle
+
 - **Endpoint**: `/api/v1/dot?type=zurich`
 - **Shows**: 4-stage reasoning pipeline (Analysis → Interpretation → Reasoning → Synthesis)
 - **Use Case**: Understanding reasoning flow, process documentation
 
 ### 3. 🎭 Trinity Debate
+
 - **Endpoint**: `/api/v1/dot?type=trinity`
 - **Shows**: 5-persona debate structure (Alba, Albi, Jona, Blerina, ASI)
 - **Use Case**: Multi-perspective reasoning flow, decision processes
 
 ### 4. 🧠 Brain Indexer
+
 - **Endpoint**: `/api/v1/dot?type=brain`
 - **Shows**: 8TB memory indexing structure with cache layer
 - **Use Case**: Data storage architecture, indexing strategy
 
 ### 5. ⚡ Reasoning Flow
+
 - **Endpoint**: `/api/v1/dot?type=reasoning`
 - **Shows**: End-to-end reasoning: Input → Preprocess → Embed → Retrieve → Rank → Generate → Synthesize → Output
 - **Use Case**: Complete reasoning process documentation
@@ -33,15 +39,17 @@ Ultra-fast Graphviz DOT diagram generation for Harmonic architecture. **1000% fa
 ## API Endpoints
 
 ### GET /api/v1/dot
+
 Retrieve pre-built diagrams
 
 **Parameters:**
-```
+...
 type: 'harmonic' | 'zurich' | 'trinity' | 'brain' | 'reasoning' (default: 'harmonic')
 format: 'dot' | 'json' (default: 'dot')
-```
+...
 
 **Examples:**
+
 ```bash
 # Get Harmonic diagram as DOT
 curl http://localhost:3000/api/v1/dot?type=harmonic&format=dot
@@ -54,6 +62,7 @@ curl http://localhost:3000/api/v1/dot?type=zurich
 ```
 
 **Response (format=json):**
+
 ```json
 {
   "ok": true,
@@ -69,9 +78,11 @@ curl http://localhost:3000/api/v1/dot?type=zurich
 ```
 
 ### POST /api/v1/dot
+
 Generate custom diagrams
 
 **Body:**
+
 ```json
 {
   "name": "MyDiagram",
@@ -91,13 +102,16 @@ Generate custom diagrams
 ```
 
 ### OPTIONS /api/v1/dot
+
 Get API documentation
 
 ## Interactive Lab
 
 Access the interactive Puter Lab at your application:
-- **URL**: http://localhost:3000/puter/dot-lab
+-**URL**http: //localhost:3000/puter/dot-lab
+
 - **Features**:
+
   - Live diagram selector
   - Copy to clipboard
   - Download as .dot file
@@ -107,6 +121,7 @@ Access the interactive Puter Lab at your application:
 ## Usage Examples
 
 ### 1. Download and Render as PNG
+
 ```bash
 # Download diagram
 curl http://localhost:3000/api/v1/dot?type=harmonic -o diagram.dot
@@ -127,6 +142,7 @@ dot -Tpdf diagram.dot -o diagram.pdf
 ```
 
 ### 2. Direct Integration
+
 ```javascript
 // Fetch diagram as JSON
 const response = await fetch('/api/v1/dot?type=trinity&format=json');
@@ -135,6 +151,7 @@ console.log(data.dot); // Use in visualization library
 ```
 
 ### 3. Custom Diagram Generation
+
 ```javascript
 const response = await fetch('/api/v1/dot', {
   method: 'POST',
@@ -165,6 +182,7 @@ const response = await fetch('/api/v1/dot', {
 ## Color Scheme
 
 All diagrams use consistent Harmonic colors:
+
 - **Primary**: `#1a1a2e` (Dark background)
 - **Secondary**: `#16213e` (Nodes)
 - **Accent**: `#0f3460` (Edges)
@@ -172,20 +190,23 @@ All diagrams use consistent Harmonic colors:
 
 ## Graphviz Resources
 
-- **Official**: https://graphviz.org/
-- **DOT Language**: https://graphviz.org/doc/info/lang.html
-- **Attributes**: https://graphviz.org/doc/info/attrs.html
-- **Online Viewer**: https://dreampuf.github.io/GraphvizOnline/
+- **Official**: https: //graphviz.org/
+- **DOT Language**: https: //graphviz.org/doc/info/lang.html
+- **Attributes**: https: //graphviz.org/doc/info/attrs.html
+- **Online Viewer**: https: //dreampuf.github.io/GraphvizOnline/
 
 ## Integration Examples
 
 ### Static Documentation
-```bash
-# Generate PNG for README
+
+...bash
+-# Generate PNG for README
+
 dot -Tpng diagram-harmonic.dot -o docs/architecture.png
-```
+...
 
 ### CI/CD Pipeline
+
 ```bash
 # Auto-generate diagrams on commit
 curl http://localhost:3000/api/v1/dot?type=harmonic -o docs/diagram.dot
@@ -195,6 +216,7 @@ git commit -m "Update architecture diagram"
 ```
 
 ### Web Visualization
+
 ```javascript
 // Convert DOT to SVG and embed in webpage
 const fetch = require('node-fetch');

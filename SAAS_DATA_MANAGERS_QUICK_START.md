@@ -24,21 +24,24 @@ HARMONIC's **Data Managers Layer** provides unified access to **5 free data sour
 ## 🔌 API Endpoints
 
 ### Base URL
-```
-http://localhost:3000/api/v1/data
-https://harmonic-ai.vercel.app/api/v1/data  (Production)
-```
+
+...
+http: //localhost:3000/api/v1/data
+https: //harmonic-ai.vercel.app/api/v1/data  (Production)
+...
 
 ---
 
 ## 📍 GET Endpoints
 
 ### 1. Status Check
+
 ```bash
 curl http://localhost:3000/api/v1/data
 ```
 
 **Response**:
+
 ```json
 {
   "status": "operational",
@@ -50,11 +53,13 @@ curl http://localhost:3000/api/v1/data
 ---
 
 ### 2. Get Available Sources
+
 ```bash
 curl http://localhost:3000/api/v1/data?action=sources
 ```
 
 **Response**:
+
 ```json
 {
   "sources": [
@@ -91,11 +96,13 @@ curl http://localhost:3000/api/v1/data?action=sources
 ---
 
 ### 3. Health Check
+
 ```bash
 curl http://localhost:3000/api/v1/data?action=health
 ```
 
 **Response**:
+
 ```json
 {
   "timestamp": "2025-11-25T10:30:00Z",
@@ -115,11 +122,13 @@ curl http://localhost:3000/api/v1/data?action=health
 ---
 
 ### 4. System Statistics
+
 ```bash
 curl http://localhost:3000/api/v1/data?action=stats
 ```
 
 **Response**:
+
 ```json
 {
   "name": "DataManagers",
@@ -155,6 +164,7 @@ curl http://localhost:3000/api/v1/data?action=stats
 ## 📝 POST Endpoints - Fetch Data
 
 ### Single Source
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -165,6 +175,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -184,6 +195,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ---
 
 ### Multiple Sources
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -194,6 +206,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Response**:
+
 ```json
 {
   "query": "machine learning",
@@ -211,6 +224,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ---
 
 ### Comprehensive Mode (All Sources)
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -221,6 +235,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 **Response**:
+
 ```json
 {
   "query": "quantum computing",
@@ -241,6 +256,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ### Source-Specific Examples
 
 #### Wikipedia
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -248,6 +264,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 #### ArXiv (Research Papers)
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -255,6 +272,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 #### Weather
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -262,6 +280,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ```
 
 #### Curiosity (Internal Facts)
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/data \
   -H "Content-Type: application/json" \
@@ -273,11 +292,13 @@ curl -X POST http://localhost:3000/api/v1/data \
 ## 🗑️ DELETE - Cache Management
 
 ### Clear All Caches
+
 ```bash
 curl -X DELETE http://localhost:3000/api/v1/data?action=cache
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -301,6 +322,7 @@ Returns complete API documentation in JSON format.
 ## 🚀 Local Testing
 
 ### 1. Start Development Server
+
 ```bash
 npm run dev
 ```
@@ -310,6 +332,7 @@ Server runs at `http://localhost:3000`
 ---
 
 ### 2. Test Endpoints
+
 ```bash
 # Test status
 curl http://localhost:3000/api/v1/data
@@ -328,6 +351,7 @@ curl -X POST http://localhost:3000/api/v1/data \
 ---
 
 ### 3. Build Production
+
 ```bash
 npm run build
 npm run start
@@ -337,7 +361,7 @@ npm run start
 
 ## 📦 File Structure
 
-```
+...
 lib/
 ├── managers/
 │   ├── data-managers.js       (Main orchestrator - 719 lines)
@@ -364,13 +388,14 @@ app/
         ├── zurich/
         ├── languages/
         └── [other routes]
-```
+...
 
 ---
 
 ## 💾 Performance Metrics
 
 **Average Response Times**:
+
 - Wikipedia: 0.8s
 - ArXiv: 1.5s
 - News: 0.9s
@@ -387,16 +412,19 @@ app/
 ## 🔐 SAAS Tiers
 
 ### Free
+
 - 1,000 req/month
 - 2 sources (wiki, curiosity)
 - $0/month
 
 ### Pro ($29/month)
+
 - 10,000 req/month
 - 4 sources (all except weather)
 - Advanced analytics
 
 ### Enterprise (Custom)
+
 - Unlimited requests
 - All 5 sources
 - Dedicated support
@@ -407,6 +435,7 @@ app/
 ## 🎯 Integration Points
 
 ### With Alba (Data Gatherer)
+
 Alba uses DataManagers to fetch from all 5 sources:
 
 ```javascript
@@ -416,6 +445,7 @@ const arxivData = await managers.fetch('arxiv', query);
 ```
 
 ### With Albi (Memory Manager)
+
 Stores results in domain-based memory:
 
 ```javascript
@@ -424,6 +454,7 @@ await albi.store(result.sources, 'research');
 ```
 
 ### With AGIEM (Orchestrator)
+
 Coordinates multi-source gathering workflows
 
 ---
@@ -431,6 +462,7 @@ Coordinates multi-source gathering workflows
 ## 📊 Monitoring
 
 ### Via Dashboard
+
 ```bash
 # Get real-time stats
 curl http://localhost:3000/api/v1/data?action=stats
@@ -440,6 +472,7 @@ curl http://localhost:3000/api/v1/data?action=health
 ```
 
 ### Via Logs
+
 ```bash
 # Check server logs
 tail -f ~/.harmonic/logs/data-pipeline.log
@@ -450,22 +483,26 @@ tail -f ~/.harmonic/logs/data-pipeline.log
 ## ⚡ Deployment to Vercel
 
 ### 1. Connect Repository
+
 ```bash
 vercel link
 ```
 
 ### 2. Configure Environment
+
 ```bash
 vercel env add API_KEY
 vercel env add DATABASE_URL
 ```
 
 ### 3. Deploy
+
 ```bash
 vercel deploy
 ```
 
 ### 4. Test Production
+
 ```bash
 curl https://harmonic-ai.vercel.app/api/v1/data
 ```

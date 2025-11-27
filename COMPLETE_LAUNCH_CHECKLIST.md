@@ -30,9 +30,9 @@
 
 ## ⏳ PHASE 3: VERCEL DEPLOYMENT (IN PROGRESS - ~2 min)
 
-- [ ] Check Vercel build: https://vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
+- [ ] Check Vercel build: https: //vercel.com/ledjan-ahmatis-projects-111461ad/harmonic
 - [ ] Wait for "READY" status (1-2 minutes)
-- [ ] Verify domain active: https://harmonic-ledjanahmati.vercel.app
+- [ ] Verify domain active: https: //harmonic-ledjanahmati.vercel.app
 - [ ] Test live /health endpoint
 - [ ] Test live /v1/zurich endpoint
 - [ ] Test live /v1/debate endpoint
@@ -43,6 +43,7 @@
 ## ⏳ PHASE 4: PRODUCT HUNT LAUNCH (READY TO START)
 
 ### 4a: Prepare Screenshots (5 needed)
+
 - [ ] Screenshot 1: Terminal showing API requests
 - [ ] Screenshot 2: Postman collection with endpoints
 - [ ] Screenshot 3: OpenAPI documentation
@@ -50,17 +51,19 @@
 - [ ] Screenshot 5: Vercel deployment dashboard
 
 ### 4b: Create Product Hunt Account
-- [ ] Go to https://www.producthunt.com
+
+- [ ] Go to https: //www.producthunt.com
 - [ ] Click "Sign Up"
-- [ ] Verify email (amati.bau@gmail.com)
+- [ ] Verify email:amati.bau@gmail.com
 - [ ] Complete profile
 
 ### 4c: Submit on Product Hunt
+
 - [ ] Click "Launch"
 - [ ] Fill category: **Artificial Intelligence**
 - [ ] Enter tagline: *"Deterministic AI Reasoning Engine with Multi-Persona Debate"*
-- [ ] Add website: https://harmonic-ledjanahmati.vercel.app
-- [ ] Add GitHub: https://github.com/LedjanAhmati/harmonic
+- [ ] Add website: https: //harmonic-ledjanahmati.vercel.app
+- [ ] Add GitHub: https: //github.com/LedjanAhmati/harmonic
 - [ ] Upload 5 screenshots
 - [ ] Write product description (see STEP_4_PRODUCT_HUNT.md)
 - [ ] Paste hunter's first comment (see STEP_4_PRODUCT_HUNT.md)
@@ -68,6 +71,7 @@
 - [ ] Click SUBMIT
 
 ### 4d: Post-Launch Actions
+
 - [ ] Monitor upvotes (first 24 hours critical)
 - [ ] Respond to comments & questions
 - [ ] Share on Twitter/LinkedIn (see templates in STEP_4_PRODUCT_HUNT.md)
@@ -91,11 +95,13 @@
 ## 🎯 NEXT IMMEDIATE ACTIONS
 
 **Right Now**:
+
 1. Check Vercel dashboard (1 min)
 2. Wait for "READY" status (1-2 min)
 3. Test live endpoints (2 min)
 
 **When Vercel Ready**:
+
 1. Take 5 screenshots (5 min)
 2. Create Product Hunt account (3 min)
 3. Submit product (5 min)
@@ -143,11 +149,13 @@
 ## 💡 CONTINGENCY PLANS
 
 **If Vercel build fails**:
+
 - Use local server screenshots instead
 - Build still auto-builds on GitHub push
 - Manual redeploy available in Vercel dashboard
 
 **If PH submission rejected**:
+
 - Resubmit with different category
 - Try alternative platforms (Indie Hackers, Show HN)
 - GitHub stars will drive visibility anyway
@@ -156,8 +164,8 @@
 
 **YOU'RE READY!** 🎼
 
-All systems are "GO" for launch. Vercel building now. Once it's ready, you have 
-everything needed to go live on Product Hunt and start your journey to becoming 
-the go-to deterministic reasoning engine for developers. 
+All systems are "GO" for launch. Vercel building now. Once it's ready, you have
+everything needed to go live on Product Hunt and start your journey to becoming
+the go-to deterministic reasoning engine for developers
 
 Let's do this! 🚀

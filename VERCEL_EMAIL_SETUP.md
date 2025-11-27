@@ -2,11 +2,11 @@
 
 ## 👤 YOUR VERCEL ACCOUNT DETAILS
 
-```
-Email: amati.bau@gmail.com
+...
+Email:amati.bau@gmail.com
 GitHub: LedjanAhmati
 Repository: harmonic
-```
+...
 
 ---
 
@@ -14,11 +14,11 @@ Repository: harmonic
 
 ### 1️⃣ Go to Vercel with Your Email
 
-**URL**: https://vercel.com
+**URL**:https: //vercel.com
 
 - Click: **"Sign Up"** (if not logged in)
 - Choose: **"Continue with GitHub"**
-- Use email: **amati.bau@gmail.com**
+- Use email:amati.bau@gmail.com
 
 ### 2️⃣ Authorize GitHub Connection
 
@@ -29,6 +29,7 @@ Repository: harmonic
 ### 3️⃣ Create New Project
 
 On Vercel Dashboard:
+
 - Click: **"New Project"** (big button, top right)
 - Click: **"Import from GitHub"**
 
@@ -37,10 +38,10 @@ On Vercel Dashboard:
 Search for: **harmonic**
 
 You should see:
-```
+...
 LedjanAhmati / harmonic
 Multi-persona reasoning engine powered by ASI Fusion
-```
+...
 
 Click it to import.
 
@@ -48,16 +49,16 @@ Click it to import.
 
 **Framework Detection**: Next.js ✅ (auto-detected)
 
-**Root Directory**: 
-```
+**Root Directory**:
+...
 /
-```
+...
 (Leave as default)
 
 **Build Command**:
-```
+...
 npm run build
-```
+...
 (Auto-detected)
 
 Click: **"Continue"**
@@ -66,33 +67,34 @@ Click: **"Continue"**
 
 Before deploying, add these variables:
 
-**In Vercel → Project Settings → Environment Variables**
+-**In Vercel → Project Settings → Environment Variables**
 
 Add these 4 variables:
 
-```
+...
 LEMONSQUEEZY_STORE_ID = [your_store_id]
 LEMONSQUEEZY_PRODUCT_ID = [your_product_id]
 LEMONSQUEEZY_API_KEY = [your_api_key]
-NEXT_PUBLIC_SITE_URL = https://harmonic-ledjanahmati.vercel.app
-```
+NEXT_PUBLIC_SITE_URL = https: //harmonic-ledjanahmati.vercel.app
+...
 
 **Where to get Lemonsqueezy keys?**
-- Go to: https://app.lemonsqueezy.com/settings/api
+
+- Go to: https: //app.lemonsqueezy.com/settings/api
 - Copy your Store ID, Product ID, and API Key
 - Paste into Vercel environment variables
 
-### 7️⃣ Deploy!
+### 7️⃣ Deploy
 
 Click: **"Deploy"** button
 
 ⏳ **Wait 20-40 seconds...**
 
 You'll see:
-```
+...
 ✅ Deployment Complete
-🌐 https://harmonic-ledjanahmati.vercel.app
-```
+🌐 https: //harmonic-ledjanahmati.vercel.app
+...
 
 ---
 
@@ -100,9 +102,9 @@ You'll see:
 
 | Item | Link |
 |------|------|
-| Vercel Dashboard | https://vercel.com/dashboard |
-| Your Project | https://vercel.com/dashboard/projects |
-| Live Site (after deploy) | https://harmonic-ledjanahmati.vercel.app |
+| Vercel Dashboard | https: //vercel.com/dashboard |
+| Your Project | https: //vercel.com/dashboard/projects |
+| Live Site (after deploy) | https: //harmonic-ledjanahmati.vercel.app |
 
 ---
 
@@ -110,8 +112,8 @@ You'll see:
 
 After deployment, check:
 
-1. Go to: https://vercel.com/account/settings
-2. Verify email shows: **amati.bau@gmail.com**
+1. Go to: https: //vercel.com/account/settings
+2. Verify email shows:amati.bau@gmail.com
 3. If different, change it there
 
 ---
@@ -126,7 +128,7 @@ After deployment, check:
 
 ## 🎯 FINAL CHECKLIST
 
-- [ ] Vercel account created with amati.bau@gmail.com
+- [ ] Vercel account created with:amati.bau@gmail.com
 - [ ] GitHub connected to Vercel
 - [ ] Repository imported (LedjanAhmati/harmonic)
 - [ ] Framework set to Next.js
@@ -154,7 +156,7 @@ After deployment, check:
 
 Execute Vercel deployment now:
 
-1. ✅ Go to https://vercel.com/dashboard
+1. ✅ Go to https: //vercel.com/dashboard
 2. ✅ Import from GitHub (LedjanAhmati/harmonic)
 3. ✅ Add 4 environment variables
 4. ✅ Click Deploy
@@ -162,6 +164,6 @@ Execute Vercel deployment now:
 
 ---
 
-**Email confirmed: amati.bau@gmail.com** ✅
+**Email confirmed:amati.bau@gmail.com** ✅
 
 **Go deploy now!** 🚀

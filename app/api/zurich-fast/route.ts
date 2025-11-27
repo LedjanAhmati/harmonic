@@ -135,7 +135,7 @@ export async function POST(req: Request) {
   }
 }
 
-export function OPTIONS(req: Request) {
+export function OPTIONS() {
   return NextResponse.json(
     {
       api: "Zürich Fast Engine",

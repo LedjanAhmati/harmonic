@@ -113,7 +113,7 @@ app.post("/v1/debate", (req, res) => {
  * POST /v1/asi-fusion - Combined reasoning
  */
 app.post("/v1/asi-fusion", (req, res) => {
-  const { prompt, options = { includeZurich: true, includeDebate: true } } = req.body || {};
+  const { prompt } = req.body || {};
 
   if (!prompt) {
     return res.status(400).json({ ok: false, error: "missing_prompt" });
@@ -311,7 +311,7 @@ app.get("/v1/user/me", (req, res) => {
 
   // Find user by ID
   let user = null;
-  for (const [email, u] of users.entries()) {
+  for (const [, u] of users.entries()) {
     if (u.id === userId) {
       user = u;
       break;

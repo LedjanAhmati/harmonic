@@ -2,15 +2,16 @@
 
 **Launch Date**: November 25, 2025  
 **Category**: Artificial Intelligence  
-**Website**: https://harmonic-ledjanahmati.vercel.app  
-**GitHub**: https://github.com/LedjanAhmati/harmonic  
+**Website**: https: //harmonic-ledjanahmati.vercel.app  
+**GitHub**: https: //github.com/LedjanAhmati/harmonic  
 
 ---
 
 ## **TAGLINE** (60 chars max)
-```
+
+...
 Deterministic AI Reasoning API with Multi-Persona Debate
-```
+...
 
 ---
 
@@ -32,18 +33,18 @@ Deterministic AI Reasoning API with Multi-Persona Debate
 
 ## **HUNTER'S FIRST COMMENT** (300-500 words)
 
-```
-🎼 Hey Product Hunt! 
+...
+🎼 Hey Product Hunt!
 
-I'm thrilled to launch Harmonic, the world's first deterministic reasoning 
-engine built specifically for developers who need AI that reasons with 
+I'm thrilled to launch Harmonic, the world's first deterministic reasoning
+engine built specifically for developers who need AI that reasons with
 precision—not probabilistic guessing.
 
 ## The Problem We Solved
 
-Traditional AI models are black boxes. They generate plausible-sounding 
-responses through probability distributions, making them unreliable for 
-critical tasks. Developers need reasoning they can audit, understand, and 
+Traditional AI models are black boxes. They generate plausible-sounding
+responses through probability distributions, making them unreliable for
+critical tasks. Developers need reasoning they can audit, understand, and
 trust.
 
 ## The Harmonic Solution
@@ -51,7 +52,9 @@ trust.
 We created **three complementary reasoning engines**:
 
 ### 1️⃣ **Zürich Cycle** - Deterministic Logic
+
 Our core engine implements a 4-stage reasoning process:
+
 - **Input Stage**: Parse and understand the query
 - **Analysis Stage**: Break down into components
 - **Synthesis Stage**: Generate connections (deterministic rules, not neural nets)
@@ -60,7 +63,9 @@ Our core engine implements a 4-stage reasoning process:
 Every decision is traceable. No black boxes.
 
 ### 2️⃣ **Trinity Debate** - Multi-Persona Reasoning
+
 Five distinct perspectives reason through problems:
+
 - Alba (optimist)
 - Albi (pragmatist)
 - Jona (skeptic)
@@ -70,28 +75,33 @@ Five distinct perspectives reason through problems:
 Get diverse viewpoints, all deterministic.
 
 ### 3️⃣ **ASI Fusion** - Combined Intelligence
-Combines Zürich + Trinity + optional Brain knowledge indexing for 
+
+Combines Zürich + Trinity + optional Brain knowledge indexing for
 comprehensive reasoning.
 
 ## What's Included
 
 ✅ **10 REST API Endpoints**
+
 - 4 reasoning endpoints (Zürich, debate, fusion, cycles)
 - 4 SaaS auth endpoints (signup, login, user info, usage tracking)
 - 2 system endpoints (health, info)
 
 ✅ **Complete Documentation**
+
 - OpenAPI 3.0 specification
 - Postman collection (10 organized requests)
 - Full API reference
 
 ✅ **Production Ready**
+
 - Deployed on Vercel
 - Token-based authentication
 - Usage statistics tracking
 - Error handling & validation
 
 ✅ **Open Source**
+
 - GitHub: LedjanAhmati/harmonic
 - MIT License (coming soon)
 - Community contributions welcome
@@ -113,11 +123,11 @@ comprehensive reasoning.
 
 ## Live Demo
 
-Visit: https://harmonic-ledjanahmati.vercel.app
+Visit: https: //harmonic-ledjanahmati.vercel.app
 
 Quick test in your terminal:
 \`\`\`bash
-curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/zurich \
+curl -X POST https: //harmonic-ledjanahmati.vercel.app/api/v1/zurich \
   -H "Content-Type: application/json" \
   -d '{"prompt":"How do we solve climate change?"}'
 \`\`\`
@@ -129,57 +139,62 @@ curl -X POST https://harmonic-ledjanahmati.vercel.app/api/v1/zurich \
 - Next month: Brain indexing integration
 - Q2 2026: Enterprise tier with usage analytics
 
-We're building the reasoning layer the AI industry was missing. Your feedback 
+We're building the reasoning layer the AI industry was missing. Your feedback
 will shape where we go next.
 
 Let's reason differently. 🎼
 
 Questions? Drop them below! 👇
-```
+...
 
 ---
 
 ## **PRODUCT DESCRIPTION** (for Product Hunt listing)
 
-```
-Harmonic is the deterministic reasoning engine for developers who need AI 
+...
+Harmonic is the deterministic reasoning engine for developers who need AI
 that actually reasons instead of hallucinating.
 
-Traditional AI models are probabilistic black boxes. Harmonic offers 
+Traditional AI models are probabilistic black boxes. Harmonic offers
 transparent, auditable reasoning through three complementary engines:
 
 🧠 **Zürich Cycle** - Deterministic 4-stage logic engine
 🎭 **Trinity Debate** - 5-persona multi-perspective reasoning
 🔗 **ASI Fusion** - Combined reasoning with optional brain indexing
 
-Includes REST API, SaaS auth, usage tracking, and full documentation. 
+Includes REST API, SaaS auth, usage tracking, and full documentation.
 Deployed on Vercel. Open source on GitHub.
 
-Perfect for: Enterprise AI, autonomous systems, reasoning workflows, 
+Perfect for: Enterprise AI, autonomous systems, reasoning workflows,
 research, and any project where predictable AI matters.
-```
+...
 
 ---
 
 ## **GALLERY / MEDIA** (needed for submission)
 
 ### Screenshot 1: API Dashboard
+
 - Show Postman collection with all 10 endpoints
 - Caption: "Complete REST API with organized endpoints"
 
 ### Screenshot 2: Zürich Response
+
 - Show reasoning output with all 4 stages
 - Caption: "Deterministic 4-stage reasoning process"
 
 ### Screenshot 3: Trinity Debate
+
 - Show 5 personas with responses
 - Caption: "Multi-persona debate for comprehensive reasoning"
 
 ### Screenshot 4: Documentation
+
 - Show OpenAPI spec in Swagger UI
 - Caption: "Full OpenAPI 3.0 specification + Postman"
 
 ### Screenshot 5: Live Deployment
+
 - Show Vercel dashboard
 - Caption: "Production-ready, deployed on Vercel"
 
@@ -191,8 +206,8 @@ research, and any project where predictable AI matters.
 - [ ] Write hunter's first comment (use template above)
 - [ ] Set category: **Artificial Intelligence**
 - [ ] Set subcategory: **Developer Tools** or **API**
-- [ ] Add website: https://harmonic-ledjanahmati.vercel.app
-- [ ] Add GitHub link: https://github.com/LedjanAhmati/harmonic
+- [ ] Add website: https: //harmonic-ledjanahmati.vercel.app
+- [ ] Add GitHub link: https: //github.com/LedjanAhmati/harmonic
 - [ ] Choose tagline (recommend #1 or #4)
 - [ ] Write product description (use template)
 - [ ] Set thumbnail/logo
@@ -205,17 +220,20 @@ research, and any project where predictable AI matters.
 ## **POST-LAUNCH STRATEGY**
 
 **Day 1 (Launch)**:
+
 - Monitor upvotes & comments
 - Respond to all questions within 2 hours
 - Highlight technical achievements
 - Answer "vs traditional AI" questions
 
 **Day 2-3**:
+
 - Share in tech communities (HN, Reddit r/MachineLearning, etc.)
 - Email early users for testimonials
 - Create short demo video (1-2 min)
 
 **Day 4-7**:
+
 - Follow up on press mentions
 - Gather feedback for v1.1
 - Plan next feature (GUI dashboard, etc.)

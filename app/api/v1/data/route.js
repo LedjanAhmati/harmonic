@@ -345,7 +345,7 @@ async function handleDELETE(req) {
  * OPTIONS /api/v1/data
  * API documentation
  */
-function handleOPTIONS(req) {
+function handleOPTIONS() {
   return new Response(
     JSON.stringify({
       api: "HARMONIC Data Pipeline",

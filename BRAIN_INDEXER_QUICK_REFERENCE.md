@@ -2,7 +2,7 @@
 
 ## Files Created
 
-```
+...
 api-server/src/indexer.js              - Core indexer module (350+ lines)
 api-server/routes/brain-search.js      - API endpoints with indexer integration
 api-server/setup-brain.ps1             - Setup script for local testing
@@ -11,7 +11,7 @@ api-server/data/brain/                 - Sample brain directories
   ├── docs/docs.json                   - 3 documentation pages
   └── concepts/concepts.json           - 3 conceptual knowledge entries
 docs/BRAIN_INDEXER.md                  - Complete testing guide
-```
+...
 
 ## Indexer Module (indexer.js)
 
@@ -65,7 +65,7 @@ class BrainIndex {
 
 ### Search (with auto-indexing)
 
-```
+...
 POST /api/brain/search
 Body: {
   query: "trinity ai",
@@ -82,11 +82,11 @@ Response: {
     ...
   ]
 }
-```
+...
 
 ### Index Statistics
 
-```
+...
 GET /api/brain/index/stats
 
 Response: {
@@ -99,11 +99,11 @@ Response: {
     }
   }
 }
-```
+...
 
 ### Rebuild Index
 
-```
+...
 POST /api/brain/index/rebuild
 
 Response: {
@@ -115,21 +115,22 @@ Response: {
     elapsed_ms: number
   }
 }
-```
+...
 
 ### Initialize Index
 
-```
+...
 POST /api/brain/index/initialize
 
 Same response as rebuild
-```
+...
 
 ## Sample Data
 
 ### APIs Category (apis.json)
 
 4 entries for:
+
 - Harmonic Debate API (`/api/debate`)
 - Zürich Logic Processing (`/api/zurich/process`)
 - Brain Memory Search (`/api/brain/search`)
@@ -138,6 +139,7 @@ Same response as rebuild
 ### Docs Category (docs.json)
 
 3 documents:
+
 - Trinity System Architecture (multi-persona debate)
 - Zürich Deterministic Engine (9-module logic)
 - Brain 8TB Memory System (indexed search)
@@ -145,6 +147,7 @@ Same response as rebuild
 ### Concepts Category (concepts.json)
 
 3 concepts:
+
 - Harmonic Reasoning (multi-layer approach)
 - ASI Meta-Fusion (system orchestration)
 - Keyword Indexing (O(1) search)
@@ -152,17 +155,20 @@ Same response as rebuild
 ## Test Commands
 
 ### Setup
+
 ```bash
 cd api-server
 powershell -ExecutionPolicy Bypass -File setup-brain.ps1
 ```
 
-### Initialize Index
+-### Initialize Index
+
 ```bash
 curl -X POST http://localhost:5000/api/brain/index/initialize
 ```
 
 ### Search
+
 ```bash
 curl -X POST http://localhost:5000/api/brain/search \
   -H "Content-Type: application/json" \
@@ -170,11 +176,13 @@ curl -X POST http://localhost:5000/api/brain/search \
 ```
 
 ### Get Stats
+
 ```bash
 curl -X GET http://localhost:5000/api/brain/index/stats
 ```
 
 ### Rebuild
+
 ```bash
 curl -X POST http://localhost:5000/api/brain/index/rebuild
 ```
@@ -201,6 +209,7 @@ curl -X POST http://localhost:5000/api/brain/index/rebuild
 ## Integration with Systems
 
 ### Trinity + Indexer
+
 ```javascript
 const query = "multi-persona debate";
 const indexed = searchIndexed(query);
@@ -209,6 +218,7 @@ const trinity = await orchestrate(query);
 ```
 
 ### Zürich + Indexer
+
 ```javascript
 const logic = await callZurich(query);
 const knowledge = await callBrain(query);
@@ -216,6 +226,7 @@ const knowledge = await callBrain(query);
 ```
 
 ### ASI Fusion (Complete)
+
 ```javascript
 const result = await asiFusion(query);
 // Automatically uses:
@@ -239,6 +250,7 @@ export BRAIN_DIR=/custom/path/to/brain
 ### Auto-Detection
 
 Indexer automatically detects brain directory:
+
 1. Check `BRAIN_DIR` environment variable
 2. Check `E:\harmonic-brain` (Windows production)
 3. Fall back to `api-server/data/brain` (local testing)
@@ -255,11 +267,12 @@ Indexer automatically detects brain directory:
 ## Adding New Brain Files
 
 1. Create files in appropriate directory:
-   ```
+   ...
    api-server/data/brain/apis/my-api.json
-   ```
+   ...
 
 2. Format as JSON array:
+
    ```json
    [
      {
@@ -272,18 +285,20 @@ Indexer automatically detects brain directory:
    ```
 
 3. Rebuild index:
+
    ```bash
    curl -X POST http://localhost:5000/api/brain/index/rebuild
    ```
 
 4. Verify:
+
    ```bash
    curl -X GET http://localhost:5000/api/brain/index/stats
    ```
 
 ## Architecture Summary
 
-```
+...
 Harmonic Reasoning Stack
 ├── Trinity (AI perspectives)
 │   └── 5 personas with echo-cleaning
@@ -294,7 +309,7 @@ Harmonic Reasoning Stack
 │   └── RAM Index (instant O(1) search)
 └── ASI (Meta-fusion)
     └── Combines all 3 in parallel
-```
+...
 
 ## Status
 

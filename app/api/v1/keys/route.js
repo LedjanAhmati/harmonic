@@ -173,7 +173,7 @@ export async function DELETE(req) {
  * OPTIONS /api/v1/keys
  * API documentation
  */
-export function OPTIONS(req) {
+export function OPTIONS() {
   return new Response(
     JSON.stringify({
       api: 'HARMONIC API Key Management',

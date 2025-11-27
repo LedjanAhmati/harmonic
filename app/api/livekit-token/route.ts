@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = createRoomToken({
+    const token = await createRoomToken({
       roomName,
       identity,
       metadata,
